@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Search for books, save, read, share.">
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/script.js" defer></script>
     <title>BookWyrms</title>
 </head>
 <body>
@@ -13,49 +14,12 @@
         <label for="search">Search For Books</label>
         <input type="search" id="search">
     </div>
-    <div class="book-cards">
+    <div class="book-cards" book-card-container></div>
+    <template book-card-template>
         <div class="card">
-            <div class="cover-image">An image will go here</div>
-            <h2 class="book-title">Brilliant Books For All</h2>
-            <p class="book-desc">Books are not boring, especially not this one.</p>
-
+            <h2 class="book-title" book-title></h2>
+            <p class="book-desc" book-desc></p>
         </div>
-        <div class="card">
-            <div class="cover-image">An image will go here</div>
-            <h2 class="book-title">Brilliant Books For All</h2>
-            <p class="book-desc">Books are not boring, especially not this one.</p>
-
-        </div>
-        <div class="card">
-            <div class="cover-image">An image will go here</div>
-            <h2 class="book-title">Brilliant Books For All</h2>
-            <p class="book-desc">Books are not boring, especially not this one.</p>
-
-        </div>
-        <div class="card">
-            <div class="cover-image">An image will go here</div>
-            <h2 class="book-title">Brilliant Books For All</h2>
-            <p class="book-desc">Books are not boring, especially not this one.</p>
-
-        </div>
-        <div class="card">
-            <div class="cover-image">An image will go here</div>
-            <h2 class="book-title">Brilliant Books For All</h2>
-            <p class="book-desc">Books are not boring, especially not this one.</p>
-
-        </div>
-        <div class="card">
-            <div class="cover-image">An image will go here</div>
-            <h2 class="book-title">Brilliant Books For All</h2>
-            <p class="book-desc">Books are not boring, especially not this one.</p>
-
-        </div>
-    </div>
-
-
-
-
-
-    <script href="assets/js/script.js"></script>
+    </template>
 </body>
 </html>
