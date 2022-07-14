@@ -25,8 +25,12 @@ input {
 }
 
 .card > .image {
-    width: 100%;
-    margin-bottom: .25rem;
+    background-image: url('http://books.google.com/books/content?id=eq9XvgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api');
+    background-size: no-repeat center cover;
+    height: 200px;
+    width: 200px;
+    margin-bottom: auto;
+    padding: auto;
 }
 
 .card > .book-title {

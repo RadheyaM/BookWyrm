@@ -20,16 +20,22 @@
     console.log("Your fetch request returned:")
     console.log(data);
 
+    
+    
+    let imageUrls = [];
+    for (let i = 0; i < data.items.length; i++) {
+      imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
+    }
     //generate populated cards to display below search bar.
     for (let i = 0; i < data.items.length; i++) {
       const dataVolumeInfo = data.items[i].volumeInfo;
       const card = bookCardTemplate.content.cloneNode(true).children[0];
       const bookCover = card.querySelector("[book-cover]");
-      const bookCoverImg = dataVolumeInfo.imageLinks.thumbnail;
       const bookTitle = card.querySelector("[book-title]");
       const bookSubtitle = card.querySelector("[book-desc]");
       
-      bookCover.style.backgroundImage = `url(${bookCoverImg})`;
+      bookCover.style.background = `url(${imageUrls[i]}) no-repeat center`;
+      console.log(imageUrls[i]);
       bookTitle.textContent = dataVolumeInfo.title;
       bookSubtitle.textContent = dataVolumeInfo.subtitle;
       bookCardContainer.append(card);
