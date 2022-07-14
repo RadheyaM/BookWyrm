@@ -7,12 +7,12 @@
 
   const userInput = document.getElementById("search");
   const button = document.getElementById("search-button");
+  let responseData = {};
 
-  //query the google books api and return result
+  //query the google books api and return results based on user input
   async function getBooks (searchInput) {
-    // const search = "harry+potter"
 
-    if (!searchInput) {
+    if (searchInput === '') {
       alert('Please enter a book title') 
       return;
     }
@@ -22,7 +22,7 @@
     const response = await fetch(endpoint);
     const data = await response.json();
     console.log(data);
-    return data
+    responseData = data;
 
   }
 
