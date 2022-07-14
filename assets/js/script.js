@@ -17,17 +17,21 @@
 
     const response = await fetch(endpoint);
     const data = await response.json();
-    console.log("Your fetch request returned: ----------- ")
+    console.log("Your fetch request returned:")
     console.log(data);
 
     //generate populated cards to display below search bar.
     for (let i = 0; i < data.items.length; i++) {
-      console.log(data.items[i].volumeInfo.title)
+      const dataVolumeInfo = data.items[i].volumeInfo;
       const card = bookCardTemplate.content.cloneNode(true).children[0];
+      const bookCover = card.querySelector("[book-cover]");
+      const bookCoverImg = dataVolumeInfo.imageLinks.thumbnail;
       const bookTitle = card.querySelector("[book-title]");
-      const bookDesc = card.querySelector("[book-desc]");
-      bookTitle.textContent = data.items[i].volumeInfo.title;
-      bookDesc.textContent = data.items[i].volumeInfo.description;
+      const bookSubtitle = card.querySelector("[book-desc]");
+      
+      bookCover.style.backgroundImage = `url(${bookCoverImg})`;
+      bookTitle.textContent = dataVolumeInfo.title;
+      bookSubtitle.textContent = dataVolumeInfo.subtitle;
       bookCardContainer.append(card);
     }
 
