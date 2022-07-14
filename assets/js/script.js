@@ -12,7 +12,7 @@
       return;
     }
 
-    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}`);
+    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=15`);
     console.log(`You generated the following URL: ${endpoint}`);
 
     const response = await fetch(endpoint);
@@ -20,8 +20,8 @@
     console.log("Your fetch request returned:")
     console.log(data);
 
-    
-    
+
+
     let imageUrls = [];
     for (let i = 0; i < data.items.length; i++) {
       imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);

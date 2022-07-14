@@ -1,9 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+
+*, *::before, *::after {
+    font-family: font-family: 'montserrat', sans-serif;
+}
+
+body {
+    background: rgb(172, 169, 169);
+}
 
 .search-container {
     display: flex;
     flex-direction: column;
-    gap: .25rem;
+    width: 50%;
+    padding-top: 1rem;
+    margin: auto;
+    gap: 1rem;
+}
+
+#search-button {
+    width: 25%;
+    margin: auto;
 }
 
 input {
@@ -13,19 +29,20 @@ input {
 /* make the book cards responsive with an adaptive grid setup */
 #book-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: .25rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.3rem;
     margin-top: 1rem;
 }
 
 .card {
+    background: white;
     border: 1px solid black;
-    background-color: white;
-    padding: .5rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
 }
 
 .card > .image {
-    background-image: url('http://books.google.com/books/content?id=eq9XvgAACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api');
+    background-image: url('');
     background-size: no-repeat center cover;
     height: 200px;
     width: 200px;

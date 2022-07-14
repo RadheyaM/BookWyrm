@@ -10,16 +10,22 @@
 </head>
 <body>
     <div class="search-container">
-        <label for="search">Search For Books</label>
-        <input type="search" id="search" name="search">
+        <input 
+        type="search" 
+        id="search" 
+        name="search" 
+        placeholder="Search Book Title">
         <input type="button" id="search-button" value="Search">
     </div>
     <div id="book-cards-container"></div>
     <template id="book-card-template">
         <div class="card">
             <div class="image" book-cover> </div>
-            <h2 class="book-title" book-title></h2>
-            <p class="book-desc" book-desc></p>
+            <div class="card-body">
+                <h2 class="book-title" book-title></h2>
+                <p class="book-desc" book-desc></p>
+            </div>
+            <div class="card-footer"></div>
         </div>
     </template>
     <script src="assets/js/script.js"></script>
