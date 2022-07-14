@@ -11,7 +11,7 @@ input {
 }
 
 /* make the book cards responsive with an adaptive grid setup */
-.book-cards {
+.book-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: .25rem;
@@ -24,11 +24,11 @@ input {
     padding: .5rem;
 }
 
-card > .cover-image {
+.card > .cover-image {
     margin-bottom: .25rem;
 }
 
-card > .book-title {
+.card > .book-title {
     color: #777;
 }
 

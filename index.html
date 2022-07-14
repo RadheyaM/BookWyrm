@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Search for books, save, read, share.">
     <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/js/script.js" defer></script>
     <title>BookWyrms</title>
 </head>
 <body>
@@ -15,12 +14,13 @@
         <input type="search" id="search" name="search">
         <input type="button" id="search-button" value="Search">
     </div>
-    <div class="book-cards" book-card-container></div>
-    <template book-card-template>
+    <div id="book-cards-container"></div>
+    <template id="book-card-template">
         <div class="card">
             <h2 class="book-title" book-title></h2>
             <p class="book-desc" book-desc></p>
         </div>
     </template>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
