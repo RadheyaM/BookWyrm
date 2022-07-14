@@ -24,10 +24,10 @@
     for (let i = 0; i < data.items.length; i++) {
       console.log(data.items[i].volumeInfo.title)
       const card = bookCardTemplate.content.cloneNode(true).children[0];
-      const bookDesc = card.querySelector("[book-desc]");
       const bookTitle = card.querySelector("[book-title]");
-      bookDesc.textContent = data.items[i].volumeInfo.title;
-      bookTitle.textContent = data.items[i].volumeInfo.description;
+      const bookDesc = card.querySelector("[book-desc]");
+      bookTitle.textContent = data.items[i].volumeInfo.title;
+      bookDesc.textContent = data.items[i].volumeInfo.description;
       bookCardContainer.append(card);
     }
 
@@ -35,6 +35,6 @@
   }
 
 button.addEventListener("click", () => {
-  const responseData = getBooks("harry potter");
+  const responseData = getBooks(userInput.value);
   //renderDataToCards(responseData);
 })
