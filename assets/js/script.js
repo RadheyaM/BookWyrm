@@ -12,7 +12,7 @@
       return;
     }
 
-    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=15`);
+    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=40`);
     console.log(`You generated the following URL: ${endpoint}`);
 
     const response = await fetch(endpoint);
@@ -21,23 +21,24 @@
     console.log(data);
 
 
-
+    //generate a list of image source pathways
     let imageUrls = [];
     for (let i = 0; i < data.items.length; i++) {
       imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
     }
+
     //generate populated cards to display below search bar.
     for (let i = 0; i < data.items.length; i++) {
       const dataVolumeInfo = data.items[i].volumeInfo;
       const card = bookCardTemplate.content.cloneNode(true).children[0];
       const bookCover = card.querySelector("[book-cover]");
       const bookTitle = card.querySelector("[book-title]");
-      const bookSubtitle = card.querySelector("[book-desc]");
+      const bookAuthor = card.querySelector("[book-auth]");
       
       bookCover.style.background = `url(${imageUrls[i]}) no-repeat center`;
       console.log(imageUrls[i]);
       bookTitle.textContent = dataVolumeInfo.title;
-      bookSubtitle.textContent = dataVolumeInfo.subtitle;
+      bookAuthor.textContent = dataVolumeInfo.authors;
       bookCardContainer.append(card);
     }
 
@@ -45,6 +46,6 @@
   }
 
 button.addEventListener("click", () => {
-  const responseData = getBooks(userInput.value);
+  getBooks(userInput.value);
   //renderDataToCards(responseData);
 })

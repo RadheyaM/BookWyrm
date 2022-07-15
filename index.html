@@ -10,20 +10,17 @@
 </head>
 <body>
     <div class="search-container">
-        <input 
-        type="search" 
-        id="search" 
-        name="search" 
-        placeholder="Search Book Title">
+        <input type="search" id="search" name="search" placeholder="Search Title">
+        <input type="search" id="search-author" class="hide" name="search-author" placeholder="Search Author">
         <input type="button" id="search-button" value="Search">
     </div>
     <div id="book-cards-container"></div>
     <template id="book-card-template">
-        <div class="card">
+        <div class="card">  
             <div class="image" book-cover> </div>
             <div class="card-body">
-                <h2 class="book-title" book-title></h2>
-                <p class="book-desc" book-desc></p>
+                <p class="book-title" book-title></p>
+                <p class="book-auth" book-auth></p>
             </div>
             <div class="card-footer"></div>
         </div>
