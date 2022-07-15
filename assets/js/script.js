@@ -13,7 +13,7 @@
       return;
     }
 
-    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=10`);
+    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=40`);
     console.log(`You generated the following URL: ${endpoint}`);
 
     const response = await fetch(endpoint);
@@ -25,8 +25,17 @@
     //generate a list of image source pathways
     let imageUrls = [];
     for (let i = 0; i < data.items.length; i++) {
-      imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
+      //prevent uncaught type-error due to missing image link
+      if (data.items[i].volumeInfo.imageLinks !== undefined) {
+        imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
+      }
+      else {
+        imageUrls.push("assets/images/bookcover-placeholder.jpg");
+      }
+
     }
+    console.log(imageUrls);
+
 
     //generate populated cards to display below search bar.
     for (let i = 0; i < data.items.length; i++) {
@@ -35,9 +44,7 @@
       const bookCover = card.querySelector("[book-cover]");
       const bookTitle = card.querySelector("[book-title]");
       const bookAuthor = card.querySelector("[book-auth]");
-      
       bookCover.style.background = `url(${imageUrls[i]}) no-repeat center`;
-      console.log(imageUrls[i]);
       bookTitle.textContent = dataVolumeInfo.title;
       bookAuthor.textContent = dataVolumeInfo.authors;
       bookCardContainer.append(card);
@@ -46,7 +53,7 @@
 
   }
 
-// Display/hide extra search input options on click. 
+// Display/hide extra search input options 
 searchFieldToggle.addEventListener("click", () => {
   var toggle = document.getElementById("toggle-hidden");
   
