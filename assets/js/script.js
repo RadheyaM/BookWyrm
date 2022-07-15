@@ -1,8 +1,9 @@
   const userInput = document.getElementById("search");
-  const button = document.getElementById("search-button");
+  const searchButton = document.getElementById("search-btn");
+  let searchFieldToggle = document.getElementById("toggle-btn");
   const bookCardTemplate = document.querySelector("#book-card-template");
   const bookCardContainer = document.querySelector("#book-cards-container");  
-  //let responseData = {};
+
 
   //query the google books api and return results based on user input
   async function getBooks (searchInput) {
@@ -12,7 +13,7 @@
       return;
     }
 
-    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=40`);
+    const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchInput}&maxResults=10`);
     console.log(`You generated the following URL: ${endpoint}`);
 
     const response = await fetch(endpoint);
@@ -45,7 +46,22 @@
 
   }
 
-button.addEventListener("click", () => {
+// Display/hide extra search input options on click. 
+searchFieldToggle.addEventListener("click", () => {
+  var toggle = document.getElementById("toggle-hidden");
+  
+  if (searchFieldToggle.value === "More Search Options") {
+    toggle.style.display = "block";
+    searchFieldToggle.value = "Less Search Options";
+  } 
+  
+  else {
+    toggle.style.display = "none";
+    searchFieldToggle.value = "More Search Options";
+  }
+})
+
+searchButton.addEventListener("click", () => {
   getBooks(userInput.value);
   //renderDataToCards(responseData);
 })

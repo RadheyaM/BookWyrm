@@ -18,14 +18,12 @@ body {
     gap: 1rem;
 }
 
-#search-button {
+.btn {
     width: 25%;
     margin: auto;
+    border-radius: 1rem;
 }
 
-input {
-    font-size: 1rem;
-}
 
 /* make the book cards responsive with an adaptive grid setup */
 #book-cards-container {
@@ -62,6 +60,6 @@ input {
     padding: .5rem;
 }
 
-.hide {
+#toggle-hidden {
     display: none;
 }
