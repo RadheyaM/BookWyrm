@@ -38,10 +38,23 @@
                   <label for="free-ebooks">Google Ebook</label>
                   </div>
             </fieldset> 
+            <button data-pop-up-target id="pop-up-open"></button>
         </div>
         <input type="button" id="search-btn" class="btn" value="Search">
         <input type="button" id="toggle-btn" class="btn" value="More Search Options"></input>
     </div>
+    <section id="pop-up-display">
+      <div class="pop-up" id="pop-ip">
+        <div class="pop-up-header">
+          <div class="title">POP UP!!!</div>
+          <button data-close-button class="close-btn"></button>
+        </div>
+        <div class="pop-up-body">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, blanditiis?
+        </div>
+      </div>
+      <div id="pop-up-bg-overlay"></div>
+    </section>
     <div id="book-cards-container"></div>
     <template id="book-card-template">
         <div class="card">  
