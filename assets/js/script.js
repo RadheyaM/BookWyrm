@@ -1,3 +1,4 @@
+//card variables
 const generalSearchInput = document.querySelector("#search");
 let generalInputValue = "";
 const searchButton = document.getElementById("search-btn");
@@ -10,7 +11,7 @@ const titleSearchInput = document.querySelector("#search-title").value;
 const authorSearchInput = document.querySelector("#search-author").value;
 const subjectSearchInput = document.querySelector("#search-subject").value;
 
-
+//input event listeners
 generalSearchInput.addEventListener("input", e => {
   const value = e.target.value;
   generalInputValue = value;
@@ -88,3 +89,37 @@ searchFieldToggle.addEventListener("click", () => {
 searchButton.addEventListener("click", () => {
   performApiQuery(generalInputValue);
 });
+
+//pop-up variables
+const openPopupButtons = document.querySelectorAll("[data-popup-target]");
+const closePopupButtons = document.querySelectorAll("[data-close-button]");
+const popupOverlay = document.getElementById('popup-bg');
+
+//popup functions
+
+function openPopUp (popup) {
+  if (popup == null) return
+  popup.classList.add("active");
+  popupOverlay.classList.add("active");
+}
+
+function closePopUp (popup) {
+  if (popup == null) return
+  popup.classList.remove("active");
+  popupOverlay.classList.remove("active");
+}
+
+//popup event listeners
+openPopupButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const popup = document.querySelector(button.dataset.popupTarget);
+    openPopUp(popup);
+  })
+})
+
+closePopupButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const popup = button.closest(".popup"); //checks for the closest parent of a button element with class pop-up
+    closePopUp(popup);
+  })
+})

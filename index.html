@@ -38,27 +38,28 @@
                   <label for="free-ebooks">Google Ebook</label>
                   </div>
             </fieldset> 
-            <button data-pop-up-target id="pop-up-open"></button>
+            <button data-popup-target="#popup" class="btn"></button>
         </div>
         <input type="button" id="search-btn" class="btn" value="Search">
         <input type="button" id="toggle-btn" class="btn" value="More Search Options"></input>
     </div>
+
     <!--Pop-up card to display more book info-->
-    <section id="pop-up-display">
-      <div class="pop-up" id="pop-up">
-        <div class="pop-up-header">
+    <section id="popup-display">
+      <div class="popup" id="popup">
+        <div class="popup-header">
           <div class="title">POP UP!!!</div>
           <button data-close-button class="close-btn">X</button>
         </div>
-        <div class="pop-up-body">
+        <div class="popup-body">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, blanditiis?
         </div>
       </div>
-      <div id="pop-up-bg-overlay"></div>
+      <div id="popup-bg"></div>
     </section>
-    <div id="book-cards-container"></div>
 
     <!-- Template to generate book cards-->
+    <div id="book-cards-container"></div>
     <template id="book-card-template">
         <div class="card">  
             <div class="image" book-cover> </div>
