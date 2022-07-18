@@ -1,15 +1,21 @@
-let userInput = document.querySelector("#search");
-let userInputValue = "";
+const generalSearchInput = document.querySelector("#search");
+let generalInputValue = "";
 const searchButton = document.getElementById("search-btn");
 const bookCardTemplate = document.querySelector("#book-card-template");
 const bookCardContainer = document.querySelector("#book-cards-container");  
 
 let searchFieldToggle = document.getElementById("toggle-btn");
 
-userInput.addEventListener("input", e => {
+const titleSearchInput = document.querySelector("#search-title").value;
+const authorSearchInput = document.querySelector("#search-author").value;
+const subjectSearchInput = document.querySelector("#search-subject").value;
+
+
+generalSearchInput.addEventListener("input", e => {
   const value = e.target.value;
-  userInputValue = value;
+  generalInputValue = value;
 })
+
 
 //query the google books api and return results based on user input
 async function performApiQuery(searchValue) {
@@ -20,7 +26,8 @@ async function performApiQuery(searchValue) {
   }
 
   const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}&maxResults=40&projection=lite`);
-  console.log(`You generated the following URL: ${endpoint}`);
+  console.log(endpoint);
+  //console.log(`You generated the following URL: ${endpoint}`);
 
   const response = await fetch(endpoint);
   const data = await response.json();
@@ -30,14 +37,15 @@ async function performApiQuery(searchValue) {
   generateHTMLCards(data, list);
 }
 
-//generate a list of image source pathways
+//generate a list of image source pathways from API response data
 function generateImageList(data) {
   let imageUrls = [];
   for (let i = 0; i < data.items.length; i++) {
-    //prevent uncaught type-error due to missing image link
+    //prevent uncaught type-error due to missing image url
     if (data.items[i].volumeInfo.imageLinks !== undefined) {
       imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
     }
+    //if the image url is missing then add placeholder image to the list
     else {
       imageUrls.push("assets/images/bookcover-placeholder.jpg");
     }
@@ -47,7 +55,7 @@ function generateImageList(data) {
 }
 
 
-  //generate populated cards to display below search bar.
+//generate populated cards to display results below search bar
 function generateHTMLCards(data, list) {
   for (let i = 0; i < data.items.length; i++) {
     const dataVolumeInfo = data.items[i].volumeInfo;
@@ -62,7 +70,7 @@ function generateHTMLCards(data, list) {
   }
 }
 
-// Display/hide extra search input options 
+// Display/hide extra search input options with a toggle button
 searchFieldToggle.addEventListener("click", () => {
   var toggle = document.getElementById("toggle-hidden");
   
@@ -78,5 +86,5 @@ searchFieldToggle.addEventListener("click", () => {
 })
 
 searchButton.addEventListener("click", () => {
-  performApiQuery(userInputValue);
+  performApiQuery(generalInputValue);
 });
