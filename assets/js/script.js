@@ -1,22 +1,18 @@
 //card variables
-const generalSearchInput = document.querySelector("#search");
+const generalSearchInput = document.getElementById("search");
 let generalInputValue = "";
 const searchButton = document.getElementById("search-btn");
 const bookCardTemplate = document.querySelector("#book-card-template");
 const bookCardContainer = document.querySelector("#book-cards-container");  
-
 let searchFieldToggle = document.getElementById("toggle-btn");
 
-const titleSearchInput = document.querySelector("#search-title").value;
-const authorSearchInput = document.querySelector("#search-author").value;
-const subjectSearchInput = document.querySelector("#search-subject").value;
+
 
 //input event listeners
 generalSearchInput.addEventListener("input", e => {
   const value = e.target.value;
   generalInputValue = value;
 })
-
 
 //query the google books api and return results based on user input
 async function performApiQuery(searchValue) {
@@ -26,9 +22,8 @@ async function performApiQuery(searchValue) {
     return;
   }
 
-  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}&maxResults=40&projection=lite`);
-  console.log(endpoint);
-  //console.log(`You generated the following URL: ${endpoint}`);
+  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}&maxResults=40&langRestrict=en`);
+  console.log(`You generated the following URL: ${endpoint}`);
 
   const response = await fetch(endpoint);
   const data = await response.json();
@@ -64,7 +59,8 @@ function generateHTMLCards(data, list) {
     const bookCover = card.querySelector("[book-cover]");
     const bookTitle = card.querySelector("[book-title]");
     const bookAuthor = card.querySelector("[book-auth]");
-    bookCover.style.background = `url(${list[i]}) no-repeat center`;
+  
+    bookCover.style.background = `url(${list[i]}) no-repeat center center`;
     bookTitle.textContent = dataVolumeInfo.title;
     bookAuthor.textContent = dataVolumeInfo.authors;
     bookCardContainer.append(card);
@@ -90,6 +86,7 @@ searchButton.addEventListener("click", () => {
   performApiQuery(generalInputValue);
 });
 
+
 //pop-up variables
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
@@ -102,7 +99,7 @@ function openPopUp (popup) {
   popup.classList.add("active");
   popupOverlay.classList.add("active");
 }
-
+ 
 function closePopUp (popup) {
   if (popup == null) return
   popup.classList.remove("active");

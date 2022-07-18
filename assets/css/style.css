@@ -45,7 +45,7 @@ body {
 
 .card > .image {
     background-image: url('');
-    background-size: no-repeat center cover;
+    background-size: no-repeat cover;
     height: 200px;
     width: 200px;
     margin-bottom: auto;
@@ -57,10 +57,13 @@ body {
     color: #777;
 }
 
+.card .book-title {
+    padding-top: 1rem;
+}
+
 .card p {
-    text-align: center;
-    margin: auto;
-    padding: .5rem;
+    /* margin: auto; */
+    padding: .25rem;
 }
 
 #toggle-hidden {
