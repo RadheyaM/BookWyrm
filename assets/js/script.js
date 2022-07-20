@@ -68,6 +68,14 @@ function generateHTMLCards(data, list) {
     bookTitle.textContent = dataVolumeInfo.title;
     bookAuthor.textContent = dataVolumeInfo.authors;
     bookCardContainer.append(card);
+    //needed to generate event listeners on each card button
+    cardButtons = card.querySelectorAll("[data-popup-target]");
+    cardButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        const target = document.querySelector(button.dataset.popupTarget);
+        openPopUp(target);
+      })
+    })
   }
 }
 
@@ -105,7 +113,6 @@ refresh.addEventListener("click", () => {
 //pop-up variables
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
-const popup = document.getElementById("popup");
 const popupOverlay = document.getElementById("popup-bg");
 
 //popup functions
