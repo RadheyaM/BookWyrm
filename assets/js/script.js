@@ -94,6 +94,7 @@ searchFieldToggle.addEventListener("click", () => {
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
   performApiQuery(generalSearchInput);
+  saveSearchHistory();
 });
 
 const refresh = document.getElementById("refresh");
@@ -134,3 +135,21 @@ closePopupButtons.forEach(button => {
     closePopUp(popup);
   })
 })
+
+//Keep a search history record using local storage
+function saveSearchHistory(){
+  const searchInput = document.getElementById("search").value;
+
+  //create an History item if none exists yet
+  if (localStorage.getItem("History") == null) {
+    localStorage.setItem("History", "[]");
+  }
+
+  //add the search input to local storage History item
+  const existingHistory = JSON.parse(localStorage.getItem("History"));
+  existingHistory.push(searchInput);
+
+  //commit all to back to local storage
+  localStorage.setItem("History", JSON.stringify(existingHistory));
+
+}
