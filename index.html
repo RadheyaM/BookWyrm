@@ -38,17 +38,19 @@
 
     <!-- Template to generate book cards-->
     <div id="book-cards-container"></div>
-    <template id="book-card-template">
+      <template id="book-card-template">
         <div class="card">  
             <div class="image" book-cover> </div>
             <div class="card-body">
               <hr>
                 <p class="book-title" book-title></p>
                 <p class="book-auth" book-auth></p>
+                <button data-popup-target="#popup" class="btn">popup!</button>
             </div>
             <div class="card-footer"></div>
         </div>
-    </template>
-    <script src="assets/js/script.js"></script>
+      </template>
+    </div>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>

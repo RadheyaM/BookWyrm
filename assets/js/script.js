@@ -1,8 +1,5 @@
 //card variables
 const searchButton = document.getElementById("search-btn");
-let endpoint = advancedSearch();
-const bookCardTemplate = document.querySelector("#book-card-template");
-const bookCardContainer = document.querySelector("#book-cards-container");  
 let searchFieldToggle = document.getElementById("toggle-btn");
 
 //set params of the search URL
@@ -25,7 +22,7 @@ function advancedSearch() {
 
 //query the google books api and return results based on user input
 async function performApiQuery() {
-  let endpoint = advancedSearch();
+  const endpoint = advancedSearch();
   console.log(endpoint);
 
   const response = await fetch(endpoint);
@@ -60,6 +57,8 @@ function generateImageList(data) {
 function generateHTMLCards(data, list) {
   for (let i = 0; i < data.items.length; i++) {
     const dataVolumeInfo = data.items[i].volumeInfo;
+    const bookCardTemplate = document.querySelector("#book-card-template");
+    const bookCardContainer = document.querySelector("#book-cards-container");  
     const card = bookCardTemplate.content.cloneNode(true).children[0];
     const bookCover = card.querySelector("[book-cover]");
     const bookTitle = card.querySelector("[book-title]");
@@ -106,17 +105,18 @@ refresh.addEventListener("click", () => {
 //pop-up variables
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
-const popupOverlay = document.getElementById('popup-bg');
+const popup = document.getElementById("popup");
+const popupOverlay = document.getElementById("popup-bg");
 
 //popup functions
-function openPopUp (popup) {
-  if (popup == null) return
+function openPopUp (target) {
+  if (target == null) return
   popup.classList.add("active");
   popupOverlay.classList.add("active");
 }
  
-function closePopUp (popup) {
-  if (popup == null) return
+function closePopUp (target) {
+  if (target == null) return
   popup.classList.remove("active");
   popupOverlay.classList.remove("active");
 }
@@ -124,15 +124,15 @@ function closePopUp (popup) {
 //popup event listeners
 openPopupButtons.forEach(button => {
   button.addEventListener("click", () => {
-    const popup = document.querySelector(button.dataset.popupTarget);
-    openPopUp(popup);
+    const target = document.querySelector(button.dataset.popupTarget);
+    openPopUp(target);
   })
 })
 
 closePopupButtons.forEach(button => {
   button.addEventListener("click", () => {
-    const popup = button.closest(".popup"); //checks for the closest parent of a button element with class pop-up
-    closePopUp(popup);
+    const target = button.closest(".popup"); //checks for the closest parent of a button element with class pop-up
+    closePopUp(target);
   })
 })
 
