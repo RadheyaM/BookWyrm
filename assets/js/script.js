@@ -16,7 +16,7 @@ function advancedSearch() {
   endpoint.searchParams.set("q", generalSearchInput);
   endpoint.searchParams.set("intitle", titleSearchInput);
   endpoint.searchParams.set("inauthor", authorSearchInput);
-  endpoint.searchParams.set("insubject", subjectSearchInput);
+  endpoint.searchParams.set("subject", subjectSearchInput);
   endpoint.searchParams.set("maxResults", 40);
   endpoint.searchParams.set("langRestrict", "en");
 
@@ -27,11 +27,14 @@ function advancedSearch() {
 async function performApiQuery() {
   let endpoint = advancedSearch();
   console.log(endpoint);
+
   const response = await fetch(endpoint);
   const data = await response.json();
   console.log(data);
+
   const list = generateImageList(data);
   //console.log(list);
+
   generateHTMLCards(data, list);
 }
 
@@ -87,10 +90,16 @@ searchFieldToggle.addEventListener("click", () => {
   }
 })
 
+//PERFORM THE SEARCH
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
   performApiQuery(generalSearchInput);
 });
+
+const refresh = document.getElementById("refresh");
+refresh.addEventListener("click", () => {
+  location.reload();
+})
 
 
 //pop-up variables
@@ -99,7 +108,6 @@ const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById('popup-bg');
 
 //popup functions
-
 function openPopUp (popup) {
   if (popup == null) return
   popup.classList.add("active");
