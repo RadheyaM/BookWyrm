@@ -10,35 +10,12 @@
 </head>
 <body>
     <div class="search-container">
-        <input input-listener type="search" id="search" name="search" placeholder="Enter Search Here">
+        <input id="search" placeholder="Enter Search Here">
         <div id="toggle-hidden">
-            <input input-listener type="search" id="search-title" name="intitle" placeholder="Search By Title">
-            <input input-listener type="search" id="search-author" name="inauthor" placeholder="Search By Author">
-            <input input-listener type="search" id="search-subject" name="subject" placeholder="Search By Subject">
-            <fieldset>
-              <legend>Optional Select Readability:</legend>
-              <div>
-                <input type="radio" id="partial" name="viewability" value="partial">
-                <label for="partial">Partial Text Viewable</label>
-              </div>
-              <div>
-                <input type="radio" id="full" name="viewability" value="full">
-                <label for="full">Whole Text Viewable</label>
-              </div>
-              <div>
-                <input type="radio" id="free-ebooks" name="viewability" value="free-ebooks">
-                <label for="free-ebooks">Free Ebook</label>
-              </div>
-              <div>
-                <input type="radio" id="paid-ebooks" name="viewability" value="paid-ebooks">
-                <label for="paid-ebooks">Paid Ebook</label>
-              </div>
-              <div>
-                <input type="radio" id="ebooks" name="viewability" value="ebooks">
-                <label for="free-ebooks">Google Ebook</label>
-              </div>
-            </fieldset> 
-            <button data-popup-target="#popup" class="btn"></button>
+            <input id="search-title" name="intitle" placeholder="Search By Title">
+            <input id="search-author" name="inauthor" placeholder="Search By Author">
+            <input id="search-subject" name="subject" placeholder="Search By Subject">
+            <button data-popup-target="#popup" class="btn">Popup!</button>
         </div>
         <input type="button" id="search-btn" class="btn" value="Search">
         <input type="button" id="toggle-btn" class="btn" value="More Search Options"></input>

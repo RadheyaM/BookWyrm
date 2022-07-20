@@ -1,30 +1,32 @@
 //card variables
-const generalSearchInput = document.getElementById("search");
-let generalInputValue = "";
 const searchButton = document.getElementById("search-btn");
+let endpoint = advancedSearch();
 const bookCardTemplate = document.querySelector("#book-card-template");
 const bookCardContainer = document.querySelector("#book-cards-container");  
 let searchFieldToggle = document.getElementById("toggle-btn");
 
+//set params of the search URL
+function advancedSearch() {
+  const generalSearchInput = document.getElementById("search").value;
+  const titleSearchInput = document.getElementById("search-title").value;
+  const authorSearchInput = document.getElementById("search-author").value;
+  const subjectSearchInput = document.getElementById("search-subject").value;
+  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?`);
 
+  endpoint.searchParams.set("q", generalSearchInput);
+  endpoint.searchParams.set("intitle", titleSearchInput);
+  endpoint.searchParams.set("inauthor", authorSearchInput);
+  endpoint.searchParams.set("insubject", subjectSearchInput);
+  endpoint.searchParams.set("maxResults", 40);
+  endpoint.searchParams.set("langRestrict", "en");
 
-//input event listeners
-generalSearchInput.addEventListener("input", e => {
-  const value = e.target.value;
-  generalInputValue = value;
-})
+  return endpoint
+}
 
 //query the google books api and return results based on user input
-async function performApiQuery(searchValue) {
-
-  if (searchValue === '') {
-    alert('Please enter a valid search term') 
-    return;
-  }
-
-  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${searchValue}&maxResults=40&langRestrict=en`);
-  console.log(`You generated the following URL: ${endpoint}`);
-
+async function performApiQuery() {
+  let endpoint = advancedSearch();
+  console.log(endpoint);
   const response = await fetch(endpoint);
   const data = await response.json();
   console.log(data);
@@ -69,21 +71,25 @@ function generateHTMLCards(data, list) {
 
 // Display/hide extra search input options with a toggle button
 searchFieldToggle.addEventListener("click", () => {
-  var toggle = document.getElementById("toggle-hidden");
+  let toggle = document.getElementById("toggle-hidden");
+  let search = document.getElementById("search");
   
   if (searchFieldToggle.value === "More Search Options") {
     toggle.style.display = "block";
+    search.style.display = "none";
     searchFieldToggle.value = "Less Search Options";
   } 
   
   else {
     toggle.style.display = "none";
+    search.style.display = "block";
     searchFieldToggle.value = "More Search Options";
   }
 })
 
 searchButton.addEventListener("click", () => {
-  performApiQuery(generalInputValue);
+  const generalSearchInput = document.getElementById("search").value;
+  performApiQuery(generalSearchInput);
 });
 
 
