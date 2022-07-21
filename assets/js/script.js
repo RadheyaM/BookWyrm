@@ -27,12 +27,10 @@ async function performApiQuery() {
 
   const response = await fetch(endpoint);
   const data = await response.json();
-  console.log(data);
-
-  const list = generateImageList(data);
-  //console.log(list);
-
-  generateHTMLCards(data, list);
+  // console.log(data);
+  localStorage.setItem("lastSearch", JSON.stringify(data));
+  console.log(localStorage.getItem("lastSearch"));
+  generateHTMLCards(data, generateImageList(data));
 }
 
 //generate a list of image source pathways from API response data
@@ -68,9 +66,7 @@ function generateHTMLCards(data, list) {
     bookAuthor.textContent = dataVolumeInfo.authors;
     bookCardContainer.append(card);
 
-    
-
-    //Generate event listeners on each card button
+    //Generate event listeners on each card
     let bookCards = document.querySelectorAll(".card");
     bookCards.forEach(card => {
       card.addEventListener("click", openPopUp);
@@ -169,3 +165,10 @@ function displayHistory() {
 
   historyContainer.innerHTML = lst;
   }
+
+  const searchBar = document.getElementById("search");
+  searchBar.addEventListener("keypress", e => {
+    if (e.key === "Enter") {
+      document.getElementById("search-btn").click();
+    }
+  });
