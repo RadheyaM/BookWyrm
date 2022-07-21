@@ -2,28 +2,11 @@
 const searchButton = document.getElementById("search-btn");
 let searchFieldToggle = document.getElementById("toggle-btn");
 
-//set params of the search URL
-function advancedSearch() {
-  const generalSearchInput = document.getElementById("search").value;
-  const titleSearchInput = document.getElementById("search-title").value;
-  const authorSearchInput = document.getElementById("search-author").value;
-  const subjectSearchInput = document.getElementById("search-subject").value;
-  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?`);
-
-  endpoint.searchParams.set("q", generalSearchInput);
-  endpoint.searchParams.set("intitle", titleSearchInput);
-  endpoint.searchParams.set("inauthor", authorSearchInput);
-  endpoint.searchParams.set("subject", subjectSearchInput);
-  endpoint.searchParams.set("maxResults", 40);
-  endpoint.searchParams.set("langRestrict", "en");
-
-  return endpoint
-}
-
 //query the google books api and return results based on user input
 async function performApiQuery() {
-  const endpoint = advancedSearch();
-  console.log(endpoint);
+  const generalSearchInput = document.getElementById("search").value;
+
+  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${generalSearchInput}&maxResults=40&langRestrict=en`);
 
   const response = await fetch(endpoint);
   const data = await response.json();
@@ -75,25 +58,6 @@ function generateHTMLCards(data, list) {
     })
   }
 }
-
-// Display/hide extra search input options with a toggle button
-searchFieldToggle.addEventListener("click", () => {
-  let toggle = document.getElementById("toggle-hidden");
-  let search = document.getElementById("search");
-  
-  if (searchFieldToggle.value === "More Search Options") {
-    toggle.style.display = "block";
-    search.style.display = "none";
-    searchFieldToggle.value = "Less Search Options";
-  } 
-  
-  else {
-    toggle.style.display = "none";
-    search.style.display = "block";
-    searchFieldToggle.value = "More Search Options";
-  }
-})
-
 //PERFORM THE SEARCH
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
