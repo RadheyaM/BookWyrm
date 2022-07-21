@@ -1,5 +1,6 @@
 //card variables
 const searchButton = document.getElementById("search-btn");
+const showHistory = document.getElementById("show-history");
 let searchFieldToggle = document.getElementById("toggle-btn");
 
 //query the google books api and return results based on user input
@@ -144,16 +145,7 @@ function saveSearchHistory(){
 
 //display history
 function displayHistory() {
-  const history = JSON.parse(localStorage.getItem("History"));
-  const historyContainer = document.querySelector("#history-container")
-  let lst = "<ul>";
-
-  for (let i = 0; i < history.length; i++) {
-    lst += "<li>" +history[i] + "</li>";
-  }
-  lst += "</ul>";
-
-  historyContainer.innerHTML = lst;
+  
   }
 
   // Perform search upon hitting enter in the input box
@@ -163,3 +155,18 @@ function displayHistory() {
       document.getElementById("search-btn").click();
     }
   });
+
+// reveal dropdown of search history
+showHistory.addEventListener("click", e => {
+  const history = JSON.parse(localStorage.getItem("History"));
+  const menuUl = document.getElementById("nav-bar").getElementsByTagName("ul")[0];
+  console.log(history.length);
+  console.log(menuUl);
+
+  for (let i = 0; i < history.length; i++) {
+    let newLi = document.createElement("li");
+    menuUl.appendChild(newLi);
+    menuUl.getElementsByTagName("li")[i].textContent = history[i];
+  }
+
+}, { once: true}); 
