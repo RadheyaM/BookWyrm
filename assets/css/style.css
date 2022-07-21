@@ -52,13 +52,11 @@ body {
     border-radius: 0.5rem;
 }
 
-.card > .image {
+.image {
     background-image: url('');
     background-size: no-repeat cover;
     height: 200px;
     width: 200px;
-    margin-bottom: auto;
-    padding: auto;
 }
 
 .card > .book-title {
@@ -93,8 +91,8 @@ body {
     border-radius: 1rem;
     z-index: 10;
     background-color: white;
-    width: 80%;
-    height: 80%;
+    width: 60%;
+    height: fit-content;
     max-width: 80%;
     transition: 300ms ease-in-out;
 }
@@ -118,6 +116,18 @@ body {
     background: none;
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+.popup-subheader {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.3rem;
+    margin-top: 1rem;
+}
+
+.popup-subheader > .image {
+    background-image: url('');
+    background-size: no-repeat cover;
 }
 
 #popup-bg {

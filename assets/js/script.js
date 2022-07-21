@@ -117,21 +117,31 @@ const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById("popup-bg");
 
 //popup functions
+//opens and populates the popup window
 function openPopUp (target) {
   if (target == null) return
 
   const content = JSON.parse(localStorage.getItem("lastSearch"));
-  console.log(target);
+  console.log(content);
+  const imageList = generateImageList(content);
   const path = target.path.reverse();
   const contentIndex = path[5].children[2].innerHTML;
-  // const contentIndex = target.path[1].children[2].innerHTML;
   const contentVolumeInfo = content.items[contentIndex].volumeInfo;
-  
-
   const popHeader = document.querySelector("[book-title]");
+  const popImage = document.querySelector("[book-cover]");
   const popDesc = document.querySelector("[book-desc]")
+  const popAuthor = document.querySelector("[author]")
+  const popPublishedDate = document.querySelector("[published]")
+  const popPublisher = document.querySelector("[publisher]")
+  const popCategory = document.querySelector("[categories]")
   popHeader.textContent = contentVolumeInfo.title;
   popDesc.textContent = contentVolumeInfo.description;
+  popImage.style.background = `url(${imageList[contentIndex]}) no-repeat center center`;
+  popAuthor.textContent = `Author: ${contentVolumeInfo.authors}`;
+  popPublishedDate.textContent = `Date Published: ${contentVolumeInfo.publishedDate}`;
+  popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
+  popCategory.textContent = `Genres: ${contentVolumeInfo.Categories}`;
+
 
   popup.classList.add("active");
   popupOverlay.classList.add("active");
