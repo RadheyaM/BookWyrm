@@ -140,33 +140,36 @@ function saveSearchHistory(){
 
   //commit all back to local storage
   localStorage.setItem("History", JSON.stringify(existingHistory));
-  displayHistory();
 }
 
-//display history
-function displayHistory() {
-  
+// Perform search upon hitting enter in the input box
+const searchBar = document.getElementById("search");
+searchBar.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    document.getElementById("search-btn").click();
   }
-
-  // Perform search upon hitting enter in the input box
-  const searchBar = document.getElementById("search");
-  searchBar.addEventListener("keypress", e => {
-    if (e.key === "Enter") {
-      document.getElementById("search-btn").click();
-    }
-  });
+});
 
 // reveal dropdown of search history
 showHistory.addEventListener("click", e => {
-  const history = JSON.parse(localStorage.getItem("History"));
+  //get history reversed so most recent search is displayed first
+  const history = JSON.parse(localStorage.getItem("History")).reverse();
   const menuUl = document.getElementById("nav-bar").getElementsByTagName("ul")[0];
-  console.log(history.length);
-  console.log(menuUl);
 
-  for (let i = 0; i < history.length; i++) {
+  for (let i = 0; i < history.length || i > 15; i++) {
     let newLi = document.createElement("li");
+    let searchBar = document.getElementById("search");
     menuUl.appendChild(newLi);
-    menuUl.getElementsByTagName("li")[i].textContent = history[i];
-  }
 
+    //add new li element to history ul
+    let newMenuLi = menuUl.getElementsByTagName("li")[i];
+    newMenuLi.textContent = history[i];
+
+    // when new li clicked a search is initiated
+    newMenuLi.addEventListener("click", e => {
+      searchBar.value = e.path[0].innerHTML;
+      searchButton.click()
+    });
+    
+  }
 }, { once: true}); 
