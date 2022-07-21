@@ -75,6 +75,10 @@ body {
     padding: .25rem;
 }
 
+/* .card > .card-footer {
+    display: none;
+} */
+
 #toggle-hidden {
     display: none;
 }

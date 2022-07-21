@@ -60,14 +60,16 @@ function generateHTMLCards(data, list) {
     const bookCover = card.querySelector("[book-cover]");
     const bookTitle = card.querySelector("[book-title]");
     const bookAuthor = card.querySelector("[book-auth]");
+    const dataIdentifier = card.querySelector("[data-identifier]");
   
     bookCover.style.background = `url(${list[i]}) no-repeat center center`;
     bookTitle.textContent = dataVolumeInfo.title;
     bookAuthor.textContent = dataVolumeInfo.authors;
+    dataIdentifier.textContent = i;
     bookCardContainer.append(card);
 
-    //Generate event listeners on each card
     let bookCards = document.querySelectorAll(".card");
+    //Generate event listeners on each card
     bookCards.forEach(card => {
       card.addEventListener("click", openPopUp);
     })
@@ -166,6 +168,7 @@ function displayHistory() {
   historyContainer.innerHTML = lst;
   }
 
+  // Perform search upon hitting enter in the input box
   const searchBar = document.getElementById("search");
   searchBar.addEventListener("keypress", e => {
     if (e.key === "Enter") {
