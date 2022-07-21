@@ -103,6 +103,7 @@ searchButton.addEventListener("click", () => {
   const refreshButton = document.getElementById("refresh")
   performApiQuery(generalSearchInput);
   saveSearchHistory();
+  //delay the appearance of the refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
   }, 1000);
@@ -155,3 +156,4 @@ function saveSearchHistory(){
   localStorage.setItem("History", JSON.stringify(existingHistory));
 
 }
+

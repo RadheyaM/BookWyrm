@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Search for books, save, read, share.">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <title>BookWyrms</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Search for books, save, read, share.">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <title>BookWyrms</title>
 </head>
 <body>
-    <div class="search-container">
-        <input id="search" class="input-text" placeholder="Enter Search Here">
-        <div id="toggle-hidden">
-            <input id="search-title" class="input-text name="intitle" placeholder="Search By Title">
-            <br>
-            <input id="search-author" class="input-text name="inauthor" placeholder="Search By Author">
-            <br>
-            <input id="search-subject" class="input-text name="subject" placeholder="Search By Subject">
-        </div>
-        <button id="search-btn" class="btn">Search</button>
-        <input type="button" id="toggle-btn" class="btn" value="More Search Options">
-        <button id="refresh" class="btn hidden">Clear Results</button>
+  <div class="search-container">
+    <input id="search" class="input-text" placeholder="Enter Search Here">
+    <div id="toggle-hidden">
+      <input id="search-title" class="input-text" name="intitle" placeholder="Search By Title">
+      <br>
+      <input id="search-author" class="input-text" name="inauthor" placeholder="Search By Author">
+      <br>
+      <input id="search-subject" class="input-text" name="subject" placeholder="Search By Subject">
     </div>
+    <button id="search-btn" class="btn">Search</button>
+    <input type="button" id="toggle-btn" class="btn" value="More Search Options">
+    <button id="refresh" class="btn hidden">Clear Results</button>
+  </div>
 
-    <!--Pop-up card to display more book info-->
-    <section id="popup-display">
-      <div class="popup" id="popup">
-        <div class="popup-header">
-          <div class="title">POP UP!!!</div>
-          <button data-close-button class="close-btn">&times;</button>
-        </div>
-        <div class="popup-body">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, blanditiis?
-        </div>
+  <!--Pop-up card to display more book info-->
+  <section id="popup-display">
+    <div class="popup" id="popup">
+      <div class="popup-header">
+        <div class="title">POP UP!!!</div>
+        <button data-close-button class="close-btn">&times;</button>
       </div>
-      <div id="popup-bg"></div>
-    </section>
-
-    <!-- Template to generate book cards-->
-    <div id="book-cards-container"></div>
-      <template id="book-card-template">
-        <div class="card">  
-            <div class="image" book-cover> </div>
-            <div class="card-body">
-              <hr>
-                <p class="book-title" book-title></p>
-                <p class="book-auth" book-auth></p>
-                <button data-popup-target="#popup" class="popup-open btn">popup!</button>
-            </div>
-            <div class="card-footer"></div>
-        </div>
-      </template>
+      <div class="popup-body">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet, blanditiis?
+      </div>
     </div>
+    <div id="popup-bg"></div>
+  </section>
+
+  <!-- Template to generate book cards-->
+  <div id="book-cards-container"></div>
+    <template id="book-card-template">
+      <div class="card">  
+          <div class="image" book-cover> </div>
+          <div class="card-body">
+            <hr>
+            <p class="book-title" book-title></p>
+            <p class="book-auth" book-auth></p>
+            <button data-popup-target="#popup" class="popup-open btn">popup!</button>
+          </div>
+          <div class="card-footer"></div>
+      </div>
+    </template>
+  </div>
   <script src="assets/js/script.js"></script>
 </body>
 </html>
