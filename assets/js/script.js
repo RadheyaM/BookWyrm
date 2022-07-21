@@ -29,7 +29,7 @@ async function performApiQuery() {
   const data = await response.json();
   // console.log(data);
   localStorage.setItem("lastSearch", JSON.stringify(data));
-  console.log(localStorage.getItem("lastSearch"));
+  //console.log(localStorage.getItem("lastSearch"));
   generateHTMLCards(data, generateImageList(data));
 }
 
@@ -46,7 +46,7 @@ function generateImageList(data) {
       imageUrls.push("assets/images/bookcover-placeholder.jpg");
     }
   }
-  console.log(`image urls: ${imageUrls}`);
+  //console.log(`image urls: ${imageUrls}`);
   return imageUrls;
 }
 
@@ -119,6 +119,20 @@ const popupOverlay = document.getElementById("popup-bg");
 //popup functions
 function openPopUp (target) {
   if (target == null) return
+
+  const content = JSON.parse(localStorage.getItem("lastSearch"));
+  console.log(target);
+  const path = target.path.reverse();
+  const contentIndex = path[5].children[2].innerHTML;
+  // const contentIndex = target.path[1].children[2].innerHTML;
+  const contentVolumeInfo = content.items[contentIndex].volumeInfo;
+  
+
+  const popHeader = document.querySelector("[book-title]");
+  const popDesc = document.querySelector("[book-desc]")
+  popHeader.textContent = contentVolumeInfo.title;
+  popDesc.textContent = contentVolumeInfo.description;
+
   popup.classList.add("active");
   popupOverlay.classList.add("active");
 }
