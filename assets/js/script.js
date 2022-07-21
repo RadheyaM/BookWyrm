@@ -68,13 +68,12 @@ function generateHTMLCards(data, list) {
     bookAuthor.textContent = dataVolumeInfo.authors;
     bookCardContainer.append(card);
 
+    
+
     //Generate event listeners on each card button
-    cardButtons = card.querySelectorAll("[data-popup-target]");
-    cardButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        const target = document.querySelector(button.dataset.popupTarget);
-        openPopUp(target);
-      })
+    let bookCards = document.querySelectorAll(".card");
+    bookCards.forEach(card => {
+      card.addEventListener("click", openPopUp);
     })
   }
 }
