@@ -132,3 +132,9 @@ body {
     opacity: 1;
     pointer-events: all;
 }
+
+/* History Section */
+
+#history-container {
+    display: block;
+}

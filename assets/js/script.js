@@ -154,6 +154,19 @@ function saveSearchHistory(){
 
   //commit all back to local storage
   localStorage.setItem("History", JSON.stringify(existingHistory));
-
+  displayHistory();
 }
 
+//display history
+function displayHistory() {
+  const history = JSON.parse(localStorage.getItem("History"));
+  const historyContainer = document.querySelector("#history-container")
+  let lst = "<ul>";
+
+  for (let i = 0; i < history.length; i++) {
+    lst += "<li>" +history[i] + "</li>";
+  }
+  lst += "</ul>";
+
+  historyContainer.innerHTML = lst;
+  }
