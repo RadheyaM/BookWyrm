@@ -15,16 +15,25 @@ body {
 .search-container {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    padding-top: 1rem;
+    padding-top: 10rem;
     margin: auto;
     gap: 1rem;
 }
 
+.input-text {
+    width: 50%;
+    margin: auto;
+    padding: .25rem;
+}
+
 .btn {
-    width: 25%;
+    width: 200px;
     margin: auto;
     border-radius: 1rem;
+}
+
+.btn.hidden {
+    display: none;
 }
 
 /* CARD SECTION */

@@ -52,7 +52,6 @@ function generateImageList(data) {
   return imageUrls;
 }
 
-
 //generate populated cards to display results below search bar
 function generateHTMLCards(data, list) {
   for (let i = 0; i < data.items.length; i++) {
@@ -68,7 +67,8 @@ function generateHTMLCards(data, list) {
     bookTitle.textContent = dataVolumeInfo.title;
     bookAuthor.textContent = dataVolumeInfo.authors;
     bookCardContainer.append(card);
-    //needed to generate event listeners on each card button
+
+    //Generate event listeners on each card button
     cardButtons = card.querySelectorAll("[data-popup-target]");
     cardButtons.forEach(button => {
       button.addEventListener("click", () => {
@@ -100,15 +100,18 @@ searchFieldToggle.addEventListener("click", () => {
 //PERFORM THE SEARCH
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
+  const refreshButton = document.getElementById("refresh")
   performApiQuery(generalSearchInput);
   saveSearchHistory();
+  setTimeout(() => {
+    refreshButton.classList.remove("hidden");
+  }, 1000);
 });
 
 const refresh = document.getElementById("refresh");
 refresh.addEventListener("click", () => {
   location.reload();
 })
-
 
 //pop-up variables
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
@@ -127,14 +130,6 @@ function closePopUp (target) {
   popup.classList.remove("active");
   popupOverlay.classList.remove("active");
 }
-
-//popup event listeners
-openPopupButtons.forEach(button => {
-  button.addEventListener("click", () => {
-    const target = document.querySelector(button.dataset.popupTarget);
-    openPopUp(target);
-  })
-})
 
 closePopupButtons.forEach(button => {
   button.addEventListener("click", () => {
@@ -156,7 +151,7 @@ function saveSearchHistory(){
   const existingHistory = JSON.parse(localStorage.getItem("History"));
   existingHistory.push(searchInput);
 
-  //commit all to back to local storage
+  //commit all back to local storage
   localStorage.setItem("History", JSON.stringify(existingHistory));
 
 }
