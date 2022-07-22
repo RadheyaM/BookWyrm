@@ -156,7 +156,7 @@ searchBar.addEventListener("keypress", e => {
 showHistory.addEventListener("click", e => {
   //get history reversed so most recent search is displayed first
   const history = JSON.parse(localStorage.getItem("History")).reverse();
-  const menuUl = document.getElementById("nav-bar").getElementsByTagName("ul")[0];
+  const menuUl = document.getElementById("nav-bar").getElementsByTagName("ul")[1];
 
   for (let i = 0; i < history.length || i > 15; i++) {
     let newLi = document.createElement("li");
@@ -172,7 +172,6 @@ showHistory.addEventListener("click", e => {
       searchBar.value = e.path[0].innerHTML;
       searchButton.click()
     });
-    
   }
 }, { once: true}); 
 
