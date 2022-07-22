@@ -6,29 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Search for books, save, read, share.">
   <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/script.js" defer></script>
+  <script src="https://kit.fontawesome.com/a8eff56f0b.js/" crossorigin="anonymous" defer></script>
   <title>BookWyrms</title>
 </head>
 <body>
   <header>
     <div class="logo">
-      <hi>BookWyrm</hi>
+      <hi><i class="fa-solid fa-book-open"></i> BookWyrm</hi>
     </div>
     <div id="nav-bar">
       <nav>
+        <ul id="toggle-color-scheme">Change Color Scheme</ul>
         <ul id="show-history">History</ul>
-
+        <ul id="booklist">Book List</ul>
       </nav>
     </div>
   </header>
   <!-- search bar section  -->
   <div class="search-container">
-    <input id="search" class="input-text" placeholder="Enter Search Here">
-    <button id="search-btn" class="btn">Search</button>
+    <input id="search" placeholder="Enter Search Here">
+    <button id="search-btn" class="btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     <button id="refresh" class="btn hidden">Clear Results</button>
   </div>
-
-  <!-- Display History -->
-  <section id="history-container"></section>
 
   <!--Pop-up card to display more book info-->
   <section id="popup-display">
@@ -62,9 +62,11 @@
   <!-- Template to generate book cards-->
   <div id="book-cards-container"></div>
     <template id="book-card-template">
-      <div class="card">  
+      <div class="card">
+        <div class="card-header">
           <div class="image" book-cover> </div>
-          <div class="card-body">
+        </div>
+        <div class="card-body">
             <hr>
             <p class="book-title" book-title></p>
             <p class="book-auth" book-auth></p>
@@ -73,6 +75,5 @@
       </div>
     </template>
   </div>
-  <script src="assets/js/script.js"></script>
 </body>
 </html>
