@@ -99,6 +99,7 @@ function openPopUp (target) {
   const popPublishedDate = document.querySelector("[published]")
   const popPublisher = document.querySelector("[publisher]")
   const popCategory = document.querySelector("[categories]")
+  const bookIdentifier = document.querySelector("[book-identifier]");
   popHeader.textContent = contentVolumeInfo.title;
   popDesc.textContent = contentVolumeInfo.description;
   popImage.style.background = `url(${imageList[contentIndex]}) no-repeat center center`;
@@ -106,6 +107,7 @@ function openPopUp (target) {
   popPublishedDate.textContent = `Date Published: ${contentVolumeInfo.publishedDate}`;
   popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
   popCategory.textContent = `Genres: ${contentVolumeInfo.Categories}`;
+  bookIdentifier.textContent = contentIndex;
 
 
   popup.classList.add("active");
@@ -173,3 +175,23 @@ showHistory.addEventListener("click", e => {
     
   }
 }, { once: true}); 
+
+//Allow the user to save a particular book to a list
+const saveBook = document.getElementById("save-to-booklist");
+saveBook.addEventListener("click", e => {
+  console.log(e.path);
+  const bookId = document.querySelector("[book-identifier]").innerHTML;
+  const bookObject = JSON.parse(localStorage.getItem("lastSearch")).items[bookId];
+
+  //create a book list item if none exists yet
+  if (localStorage.getItem("BookList") == null) {
+    localStorage.setItem("BookList", "[]");
+  }
+
+  //add the book corresponding to selected popup preview button
+  const existingBookList = JSON.parse(localStorage.getItem("BookList"));
+  existingBookList.push(bookObject);
+
+  //commit all back to local storage
+  localStorage.setItem("BookList", JSON.stringify(existingBookList));
+});
