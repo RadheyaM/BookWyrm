@@ -1,7 +1,19 @@
 //card variables
 const searchButton = document.getElementById("search-btn");
-const showHistory = document.getElementById("show-history");
-let searchFieldToggle = document.getElementById("toggle-btn");
+
+//PERFORM THE SEARCH
+searchButton.addEventListener("click", () => {
+  const generalSearchInput = document.getElementById("search").value;
+  const refreshButton = document.getElementById("refresh")
+  performApiQuery(generalSearchInput);
+  saveSearchHistory(generalSearchInput);
+  populateHistoryDropdown(generalSearchInput);
+  //delay the appearance of the refresh button
+  setTimeout(() => {
+    refreshButton.classList.remove("hidden");
+  }, 1000);
+});
+
 
 //query the google books api and return results based on user input
 async function performApiQuery() {
@@ -59,17 +71,6 @@ function generateHTMLCards(data, list) {
     })
   }
 }
-//PERFORM THE SEARCH
-searchButton.addEventListener("click", () => {
-  const generalSearchInput = document.getElementById("search").value;
-  const refreshButton = document.getElementById("refresh")
-  performApiQuery(generalSearchInput);
-  saveSearchHistory();
-  //delay the appearance of the refresh button
-  setTimeout(() => {
-    refreshButton.classList.remove("hidden");
-  }, 1000);
-});
 
 const refresh = document.getElementById("refresh");
 refresh.addEventListener("click", () => {
@@ -128,8 +129,7 @@ closePopupButtons.forEach(button => {
 })
 
 //Keep a search history record using local storage
-function saveSearchHistory(){
-  const searchInput = document.getElementById("search").value;
+function saveSearchHistory(searchInput){
 
   //create an History item if none exists yet
   if (localStorage.getItem("History") == null) {
@@ -152,28 +152,28 @@ searchBar.addEventListener("keypress", e => {
   }
 });
 
-// reveal dropdown of search history
-showHistory.addEventListener("click", e => {
-  //get history reversed so most recent search is displayed first
+
+function populateHistoryDropdown() {
+
   const history = JSON.parse(localStorage.getItem("History")).reverse();
-  const menuUl = document.getElementById("nav-bar").getElementsByTagName("ul")[1];
+  const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[0];
 
   for (let i = 0; i < history.length || i > 15; i++) {
-    let newLi = document.createElement("li");
+    let newA = document.createElement("a");
     let searchBar = document.getElementById("search");
-    menuUl.appendChild(newLi);
+    menuDropdown.appendChild(newA);
 
-    //add new li element to history ul
-    let newMenuLi = menuUl.getElementsByTagName("li")[i];
-    newMenuLi.textContent = history[i];
+    //add new item to the history dropdown menu
+    let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
+    newDropdownItem.textContent = history[i];
 
-    // when new li clicked a search is initiated
-    newMenuLi.addEventListener("click", e => {
+    // initiates search on term clicked in the history dropdown
+    newDropdownItem.addEventListener("click", e => {
       searchBar.value = e.path[0].innerHTML;
       searchButton.click()
     });
   }
-}, { once: true}); 
+}
 
 //Allow the user to save a particular book to a list
 const saveBook = document.getElementById("save-to-booklist");
@@ -194,3 +194,5 @@ saveBook.addEventListener("click", e => {
   //commit all back to local storage
   localStorage.setItem("BookList", JSON.stringify(existingBookList));
 });
+
+window.addEventListener("load", populateHistoryDropdown);
