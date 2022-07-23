@@ -15,9 +15,12 @@
   <header>
 
     <nav class="navbar">
-      <button class="booklistbtn" booklist> Booklist
-        <i class="fa fa-caret-down"></i>
-      </button>
+      <div class="dropdown">
+        <button class="dropbtn" booklist> Booklist
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content"></div>
+      </div>
       <div class="dropdown">
         <button class="dropbtn" show-history>History
           <i class="fa fa-caret-down"></i>
@@ -60,8 +63,8 @@
         <div class="popup-button">
           <ul>
             <li><button id="save-to-booklist">Save to Booklist</button></li>
+            <li><button id="preview">Save to New List</button></li>
             <li><a><button view-googlebooks>Google Books</button></a></li>
-            <li><button id="preview">Preview</button></li>
           </ul>
         </div>
       </div>

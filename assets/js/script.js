@@ -81,7 +81,6 @@ function openPopUp (target) {
   if (target == null) return
 
   const content = JSON.parse(localStorage.getItem("lastSearch"));
-  console.log(content);
   const imageList = generateImageList(content);
   const path = target.path.reverse();
   const contentIndex = path[5].children[2].innerHTML;
@@ -155,7 +154,7 @@ searchBar.addEventListener("keypress", e => {
 function populateHistoryDropdown() {
 
   const history = JSON.parse(localStorage.getItem("History")).reverse();
-  const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[0];
+  const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[1];
   const searchBar = document.getElementById("search");
 
   for (let i = 0; i < history.length; i++) {
@@ -195,12 +194,59 @@ saveBook.addEventListener("click", e => {
   const existingBookList = JSON.parse(localStorage.getItem("BookList"));
   existingBookList.push(bookObject);
   console.log(existingBookList);
-  let unique = [...new Set(existingBookList)];
-  console.log(unique);
   //commit all back to local storage
-  localStorage.setItem("BookList", JSON.stringify(unique));
+  localStorage.setItem("BookList", JSON.stringify(existingBookList));
 });
 
+function populateBooklistDropdown() {
+
+  const bookList = JSON.parse(localStorage.getItem("BookList"));
+  const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[0];
+
+  for (let i = 0; i < bookList.length; i++) {
+    let newA = document.createElement("a");
+    console.log(bookList);
+    newA.innerHTML = bookList[i].volumeInfo.title;
+    console.log(bookList[i].volumeInfo.title);
+    console.log(newA);
+    newA.setAttribute("data-id", i);
+    menuDropdown.appendChild(newA);
+
+
+    let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
+
+
+    // opens popup for selected title
+    newDropdownItem.addEventListener("click", e => {
+      const content = JSON.parse(localStorage.getItem("BookList"));
+      const contentIndex = e.path[0].getAttribute("data-id");
+      const contentVolumeInfo = content[contentIndex].volumeInfo;
+      const image = contentVolumeInfo.imageLinks.thumbnail;
+      const popHeader = document.querySelector("[book-title]");
+      const popImage = document.querySelector("[book-cover]");
+      const popDesc = document.querySelector("[book-desc]")
+      const popAuthor = document.querySelector("[author]")
+      const popPublishedDate = document.querySelector("[published]")
+      const popPublisher = document.querySelector("[publisher]")
+      const popCategory = document.querySelector("[categories]")
+      const bookIdentifier = document.querySelector("[book-identifier]");
+      popHeader.textContent = contentVolumeInfo.title;
+      popDesc.textContent = contentVolumeInfo.description;
+      popImage.style.background = `url(${image}) no-repeat center center`;
+      popAuthor.textContent = `Author: ${contentVolumeInfo.authors}`;
+      popPublishedDate.textContent = `Date Published: ${contentVolumeInfo.publishedDate}`;
+      popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
+      popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
+      bookIdentifier.textContent = contentIndex;
+
+      popup.classList.add("active");
+      popupOverlay.classList.add("active");
+
+    });
+  }
+}
+
+window.addEventListener("load", populateBooklistDropdown);
 
 function removeListDuplicates(list) {
   let unique = [...new Set(list)];
