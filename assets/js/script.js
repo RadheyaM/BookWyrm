@@ -156,15 +156,16 @@ function populateHistoryDropdown() {
 
   const history = JSON.parse(localStorage.getItem("History")).reverse();
   const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[0];
+  const searchBar = document.getElementById("search");
 
   for (let i = 0; i < history.length; i++) {
     let newA = document.createElement("a");
-    let searchBar = document.getElementById("search");
+    newA.innerHTML = history[i];
     menuDropdown.appendChild(newA);
 
-    //add new item to the history dropdown menu
+
     let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
-    newDropdownItem.textContent = history[i];
+
 
     // initiates search on term clicked in the history dropdown
     newDropdownItem.addEventListener("click", e => {

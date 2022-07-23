@@ -17,24 +17,13 @@ h1 {
     font-weight: 500;
 }
 
-/* NAV SECTION */
-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-nav {
-    grid-column: 3 / 4;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
+/* ------------------------------ NAV SECTION ---------------------------*/
 
 /* Navbar container */
 .navbar {
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    background-color: #333;
-    font-family: Arial;
   }
   
   /* Links inside the navbar */
@@ -54,7 +43,7 @@ nav {
   }
   
   /* Dropdown button */
-  .dropdown .dropbtn {
+  .dropdown .dropbtn, .booklistbtn {
     font-size: 16px;
     border: none;
     outline: none;
@@ -66,7 +55,7 @@ nav {
   }
   
   /* Add a red background color to navbar links on hover */
-  .navbar a:hover, .dropdown:hover .dropbtn {
+  .navbar a:hover, .dropdown:hover .dropbtn, .booklistbtn:hover {
     background-color: red;
   }
   
