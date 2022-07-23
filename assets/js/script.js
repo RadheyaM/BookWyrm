@@ -1,16 +1,23 @@
 const searchButton = document.getElementById("search-btn");
 
-//PERFORMING THE SEARCH ----------------------------------------------------------------
+//------------------------------------PERFORMING THE SEARCH -------------------------------------
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
   const refreshButton = document.getElementById("refresh")
   performApiQuery(generalSearchInput);
   saveSearchHistory(generalSearchInput);
-  populateHistoryDropdown(generalSearchInput);
   //delay the appearance of the refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
   }, 1000);
+});
+
+// Perform search upon hitting enter 
+const searchBar = document.getElementById("search");
+searchBar.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    document.getElementById("search-btn").click();
+  }
 });
 
 //query the google books api and return results based on user input
@@ -70,7 +77,8 @@ refresh.addEventListener("click", () => {
   location.reload();
 })
 
-//-----------------------------------THE POP-UP WINDOW-----------------------------
+//-------------------------------------------THE POP-UP WINDOW-------------------------------------------
+
 //pop-up variables
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
@@ -102,6 +110,7 @@ function openPopUp (target) {
   popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
   bookIdentifier.textContent = contentIndex;
 
+  //add appropriate link to googlebooks button
   const viewOnGoogle = document.querySelector("[view-googlebooks]").parentElement;
   viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
   viewOnGoogle.setAttribute("target", "_blank");
@@ -121,11 +130,10 @@ closePopupButtons.forEach(button => {
   button.addEventListener("click", () => {
     const target = button.closest(".popup"); //checks for the closest parent of a button element with class popup
     closePopUp(target);
-    populateBooklistDropdown();
   })
 })
 
-//HISTORY USING LOCAL STORAGE ---------------------------------------------------
+// ----------------------------------------HISTORY USING LOCAL STORAGE----------------------------------------
 
 //Keep a search history record using local storage
 function saveSearchHistory(searchInput){
@@ -143,14 +151,6 @@ function saveSearchHistory(searchInput){
   localStorage.setItem("History", JSON.stringify(newHistory));
 }
 
-// Perform search upon hitting enter in the input box
-const searchBar = document.getElementById("search");
-searchBar.addEventListener("keypress", e => {
-  if (e.key === "Enter") {
-    document.getElementById("search-btn").click();
-  }
-});
-
 //dropdown displaying search history
 function populateHistoryDropdown() {
 
@@ -163,10 +163,7 @@ function populateHistoryDropdown() {
     newA.innerHTML = history[i];
     menuDropdown.appendChild(newA);
 
-
     let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
-
-
     // initiates search on term clicked in the history dropdown
     newDropdownItem.addEventListener("click", e => {
       searchBar.value = e.path[0].innerHTML;
@@ -246,8 +243,10 @@ function populateBooklistDropdown() {
     });
   }
 }
-
+//populates booklist on page reload
 window.addEventListener("load", populateBooklistDropdown);
+
+//----------------------------------UTILITY FUNCTIONS----------------------------------------
 
 function removeListDuplicates(list) {
   let unique = [...new Set(list)];
