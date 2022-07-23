@@ -7,10 +7,11 @@
   <meta name="description" content="Search for books, save, read, share.">
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/script.js" defer></script>
-  <script src="https://kit.fontawesome.com/a8eff56f0b.js/" crossorigin="anonymous" defer></script>
+  <script src="https://kit.fontawesome.com/a8eff56f0b.js/" crossorigin="anonymous" async></script>
   <title>BookWyrms</title>
 </head>
 <body>
+  <!--logo and navigation bar-->
   <header>
     <div class="logo">
       <hi><i class="fa-solid fa-book-open"></i> BookWyrm</hi>
@@ -27,6 +28,7 @@
     </nav>
     </nav>
   </header>
+
   <!-- search bar section  -->
   <div class="search-container">
     <input id="search" placeholder="Enter Search Here">
@@ -34,7 +36,7 @@
     <button id="refresh" class="btn hidden">Clear Results</button>
   </div>
 
-  <!--Pop-up card to display more book info-->
+  <!--Pop-up card displaying book info-->
   <section id="popup-display">
     <div class="popup" id="popup">
       <div class="popup-header">

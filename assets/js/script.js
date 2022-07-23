@@ -1,7 +1,6 @@
-//card variables
 const searchButton = document.getElementById("search-btn");
 
-//PERFORM THE SEARCH
+//PERFORMING THE SEARCH ----------------------------------------------------------------
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
   const refreshButton = document.getElementById("refresh")
@@ -14,18 +13,13 @@ searchButton.addEventListener("click", () => {
   }, 1000);
 });
 
-
 //query the google books api and return results based on user input
 async function performApiQuery() {
   const generalSearchInput = document.getElementById("search").value;
-
   const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${generalSearchInput}&maxResults=40&langRestrict=en`);
-
   const response = await fetch(endpoint);
   const data = await response.json();
-  // console.log(data);
   localStorage.setItem("lastSearch", JSON.stringify(data));
-  //console.log(localStorage.getItem("lastSearch"));
   generateHTMLCards(data, generateImageList(data));
 }
 
@@ -37,12 +31,11 @@ function generateImageList(data) {
     if (data.items[i].volumeInfo.imageLinks !== undefined) {
       imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
     }
-    //if the image url is missing then add placeholder image to the list
+    //placeholder if link missing
     else {
       imageUrls.push("assets/images/bookcover-placeholder.jpg");
     }
   }
-  //console.log(`image urls: ${imageUrls}`);
   return imageUrls;
 }
 
@@ -71,18 +64,18 @@ function generateHTMLCards(data, list) {
     })
   }
 }
-
+//Clear Results button
 const refresh = document.getElementById("refresh");
 refresh.addEventListener("click", () => {
   location.reload();
 })
 
+//-----------------------------------THE POP-UP WINDOW-----------------------------
 //pop-up variables
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById("popup-bg");
 
-//popup functions
 //opens and populates the popup window
 function openPopUp (target) {
   if (target == null) return
@@ -110,11 +103,11 @@ function openPopUp (target) {
   popCategory.textContent = `Genres: ${contentVolumeInfo.Categories}`;
   bookIdentifier.textContent = contentIndex;
 
-
+  //make it visible
   popup.classList.add("active");
   popupOverlay.classList.add("active");
 }
- 
+ //make it be gone
 function closePopUp (target) {
   if (target == null) return
   popup.classList.remove("active");
@@ -123,10 +116,12 @@ function closePopUp (target) {
 
 closePopupButtons.forEach(button => {
   button.addEventListener("click", () => {
-    const target = button.closest(".popup"); //checks for the closest parent of a button element with class pop-up
+    const target = button.closest(".popup"); //checks for the closest parent of a button element with class popup
     closePopUp(target);
   })
 })
+
+//HISTORY USING LOCAL STORAGE ---------------------------------------------------
 
 //Keep a search history record using local storage
 function saveSearchHistory(searchInput){
@@ -152,7 +147,7 @@ searchBar.addEventListener("keypress", e => {
   }
 });
 
-
+//dropdown displaying search history
 function populateHistoryDropdown() {
 
   const history = JSON.parse(localStorage.getItem("History")).reverse();
@@ -175,6 +170,7 @@ function populateHistoryDropdown() {
   }
 }
 
+//USER BOOKLIST ------------------------------------------------------------------------
 //Allow the user to save a particular book to a list
 const saveBook = document.getElementById("save-to-booklist");
 saveBook.addEventListener("click", e => {
@@ -195,4 +191,5 @@ saveBook.addEventListener("click", e => {
   localStorage.setItem("BookList", JSON.stringify(existingBookList));
 });
 
+//populate the list when page is reloaded
 window.addEventListener("load", populateHistoryDropdown);
