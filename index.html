@@ -7,7 +7,7 @@
   <meta name="description" content="Search for books, save, read, share.">
   <link rel="stylesheet" href="assets/css/style.css">
   <script src="assets/js/script.js" defer></script>
-  <script src="https://kit.fontawesome.com/a8eff56f0b.js/" crossorigin="anonymous" async></script>
+  <script src="https://kit.fontawesome.com/a8eff56f0b.js/" crossorigin="anonymous"></script>
   <title>BookWyrms</title>
 </head>
 <body>
@@ -16,13 +16,17 @@
 
     <nav class="navbar">
       <div class="dropdown">
-        <button class="dropbtn" booklist> Booklist
+        <button class="dropbtn" booklist>
+          <i class="fa-solid fa-list"></i> 
+          Booklist
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content"></div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn" show-history>History
+        <button class="dropbtn" show-history>
+          <i class="fa-solid fa-clock-rotate-left"> </i>
+          History
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content"></div>
@@ -38,8 +42,8 @@
   <!-- search bar section  -->
   <div class="search-container">
     <input id="search" placeholder="Enter Search Here">
-    <button id="search-btn" class="btn">Search</button>
-    <button id="refresh" class="btn hidden">Clear Results</button>
+    <button id="search-btn" class="btn"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
+    <button id="refresh" class="btn hidden"> <i class="fa-solid fa-arrows-rotate"></i> Clear</button>
   </div>
 
   <!--Pop-up card displaying book info-->

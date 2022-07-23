@@ -6,7 +6,7 @@ searchButton.addEventListener("click", () => {
   const refreshButton = document.getElementById("refresh")
   performApiQuery(generalSearchInput);
   saveSearchHistory(generalSearchInput);
-  // populateHistoryDropdown(generalSearchInput);
+  populateHistoryDropdown(generalSearchInput);
   //delay the appearance of the refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
@@ -121,6 +121,7 @@ closePopupButtons.forEach(button => {
   button.addEventListener("click", () => {
     const target = button.closest(".popup"); //checks for the closest parent of a button element with class popup
     closePopUp(target);
+    populateBooklistDropdown();
   })
 })
 

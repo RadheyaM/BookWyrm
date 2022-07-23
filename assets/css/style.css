@@ -1,13 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
-*, *::before, *::after {
+body {
+    /* background: rgb(172, 169, 169); */
     box-sizing: border-box;
     font-family: 'montserrat', sans-serif;
     font-weight: 400;
-}
-
-body {
-    /* background: rgb(172, 169, 169); */
     background-color: #202124;
     color: #868b90;
 }
@@ -24,6 +21,7 @@ h1 {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    font-size: 1.5rem;
   }
   
   /* Links inside the navbar */
@@ -57,6 +55,7 @@ h1 {
   /* Add a red background color to navbar links on hover */
   .navbar a:hover, .dropdown:hover .dropbtn, .booklistbtn:hover {
     background-color: red;
+    cursor: pointer;
   }
   
   /* Dropdown content (hidden by default) */
@@ -64,7 +63,7 @@ h1 {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
@@ -92,28 +91,44 @@ h1 {
 /* SEARCH SECTION */
 
 .search-container {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    padding: 6rem;
+    flex-direction: row;
+    padding: 8rem;
     margin: auto;
-    gap: 1rem;
+    gap: .25rem;
 }
 
 #search {
     background-color: rgba(0, 0, 0, .5);
+    font-size: 1.25rem;
     color:whitesmoke;
     width: 50%;
-    margin: auto;
-    padding: .25rem;
+    padding: 1rem;
     border: none;
+    border-radius: 10px;
+    scale: 1;
+    transition: 300ms ease-in-out;
+
 }
 
 .btn {
     color: whitesmoke;
-    background-color: rgba(0, 0, 0, .9);
+    font-size: 1.25rem;
+    background-color: rgba(0, 0, 0, .5);
     width: 200px;
-    margin: auto;
-    border-radius: 1rem;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: 300ms ease-in-out;
+}
+
+.btn:hover {
+    background-color: white;
+    color: black;
+    transform: scale(1.1);
+    transition: 300ms ease-in-out;
     cursor: pointer;
 }
 
@@ -132,19 +147,21 @@ h1 {
 
 .card {
     background: whitesmoke;
-    background-color:rgba(0, 0, 0, .5);
+    background-color:rgba(0, 0, 0, .9);
     border: 1px solid whitesmoke;
     padding: 1rem;
     border-radius: 0.5rem;
-    transition: 300ms ease-in-out;
+    transition: 250ms ease-in-out;
 }
 
 .card:hover {
     transform: scale(1.1);
-    transition: 300ms ease-in-out;
+    transition: 250ms ease-in-out;
 }
 
 .card-header {
+    width: 100%;
+
     background-color: whitesmoke;
     border-radius: 1rem;
 }
@@ -154,9 +171,9 @@ h1 {
     background-color: whitesmoke;
     background-size: no-repeat cover;
     height: 200px;
-    width: 200px;
-    cursor: pointer;
     margin: auto;
+    align-items: center;
+    cursor: pointer;
     padding: auto;
 }
 
@@ -211,6 +228,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid black;
+    font-size: 1.75rem;
 }
 
 .popup-header .close-btn {
@@ -225,14 +243,17 @@ h1 {
 
 .popup-subheader {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr;
     gap: 0.3rem;
     margin-top: 1rem;
+    font-size: 1.5rem
 }
 
 .popup-subheader > .image {
     background-image: url('');
     background-size: no-repeat cover;
+    width: 200px;
+    cursor: default;
 }
 
 .popup-body {
