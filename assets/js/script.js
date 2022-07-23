@@ -100,8 +100,12 @@ function openPopUp (target) {
   popAuthor.textContent = `Author: ${contentVolumeInfo.authors}`;
   popPublishedDate.textContent = `Date Published: ${contentVolumeInfo.publishedDate}`;
   popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
-  popCategory.textContent = `Genres: ${contentVolumeInfo.Categories}`;
+  popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
   bookIdentifier.textContent = contentIndex;
+
+  const viewOnGoogle = document.querySelector("[view-googlebooks]").parentElement;
+  viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
+  viewOnGoogle.setAttribute("target", "_blank");
 
   //make it visible
   popup.classList.add("active");
@@ -153,7 +157,7 @@ function populateHistoryDropdown() {
   const history = JSON.parse(localStorage.getItem("History")).reverse();
   const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[0];
 
-  for (let i = 0; i < history.length || i > 15; i++) {
+  for (let i = 0; i < history.length; i++) {
     let newA = document.createElement("a");
     let searchBar = document.getElementById("search");
     menuDropdown.appendChild(newA);
@@ -169,6 +173,9 @@ function populateHistoryDropdown() {
     });
   }
 }
+
+//populate the list when page is reloaded
+window.addEventListener("load", populateHistoryDropdown);
 
 //USER BOOKLIST ------------------------------------------------------------------------
 //Allow the user to save a particular book to a list
@@ -191,5 +198,3 @@ saveBook.addEventListener("click", e => {
   localStorage.setItem("BookList", JSON.stringify(existingBookList));
 });
 
-//populate the list when page is reloaded
-window.addEventListener("load", populateHistoryDropdown);
