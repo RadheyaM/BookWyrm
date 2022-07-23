@@ -6,7 +6,7 @@ searchButton.addEventListener("click", () => {
   const refreshButton = document.getElementById("refresh")
   performApiQuery(generalSearchInput);
   saveSearchHistory(generalSearchInput);
-  populateHistoryDropdown(generalSearchInput);
+  // populateHistoryDropdown(generalSearchInput);
   //delay the appearance of the refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
@@ -138,9 +138,9 @@ function saveSearchHistory(searchInput){
   //add the search input to local storage History item
   const existingHistory = JSON.parse(localStorage.getItem("History"));
   existingHistory.push(searchInput);
-
+  let newHistory = removeListDuplicates(existingHistory);
   //commit all back to local storage
-  localStorage.setItem("History", JSON.stringify(existingHistory));
+  localStorage.setItem("History", JSON.stringify(newHistory));
 }
 
 // Perform search upon hitting enter in the input box
@@ -194,8 +194,15 @@ saveBook.addEventListener("click", e => {
   //add the book corresponding to selected popup preview button
   const existingBookList = JSON.parse(localStorage.getItem("BookList"));
   existingBookList.push(bookObject);
-
+  console.log(existingBookList);
+  let unique = [...new Set(existingBookList)];
+  console.log(unique);
   //commit all back to local storage
-  localStorage.setItem("BookList", JSON.stringify(existingBookList));
+  localStorage.setItem("BookList", JSON.stringify(unique));
 });
 
+
+function removeListDuplicates(list) {
+  let unique = [...new Set(list)];
+  return unique;
+}
