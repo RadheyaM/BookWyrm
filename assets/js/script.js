@@ -203,6 +203,19 @@ saveBook.addEventListener("click", e => {
   console.log(existingBookList);
   //commit all back to local storage
   localStorage.setItem("BookList", JSON.stringify(existingBookList));
+
+  //save a list of titles in the Booklist
+  const title = existingBookList[existingBookList.length - 1 || 0].volumeInfo.title
+  console.log(title);
+
+  if (localStorage.getItem("BookListTitles") == null) {
+    localStorage.setItem("BookListTitles", "[]");
+  }
+
+  const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
+  bookListTitles.push(title);
+  localStorage.setItem("BookListTitles", JSON.stringify(bookListTitles));
+  console.log(bookListTitles);
 });
 
 function populateBooklistDropdown() {
