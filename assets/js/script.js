@@ -185,7 +185,10 @@ window.addEventListener("load", populateHistoryDropdown);
 //Allow the user to save a particular book to a list
 const saveBook = document.getElementById("save-to-booklist");
 saveBook.addEventListener("click", e => {
-  console.log(e.path);
+  //change button style on click
+  e.path[0].style.backgroundColor = "green";
+  e.path[0].style.color = "white";
+  e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
   const bookId = document.querySelector("[book-identifier]").innerHTML;
   const bookObject = JSON.parse(localStorage.getItem("lastSearch")).items[bookId];
 
