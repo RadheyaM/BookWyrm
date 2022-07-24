@@ -9,11 +9,6 @@ body {
     color: #868b90;
 }
 
-h1 {
-    font-size: 2rem;
-    font-weight: 500;
-}
-
 /* ------------------------------ NAV SECTION ---------------------------*/
 /* Navbar container */
 .navbar {
@@ -91,14 +86,29 @@ h1 {
     display: block;
   }
 
+/* the logo */
+
+#logo {
+    display: flex;
+    height:300px;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    font-weight: 600;
+}
+
+#logo.on-search {
+    height: 150px;
+}
+
 /* SEARCH SECTION */
 
 .search-container {
     width: 100%;
     display: flex;
     flex-direction: row;
-    padding: 16rem;
-    margin: auto;
+    align-items: center;
+    justify-content: center;
     gap: .25rem;
 }
 

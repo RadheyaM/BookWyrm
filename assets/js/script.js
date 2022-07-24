@@ -5,11 +5,13 @@ searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
   const searchContainer = document.getElementsByClassName("search-container")[0];
   const navBar = document.getElementsByClassName("navbar")[0];
+  const logo = document.getElementById("logo");
   const refreshButton = document.getElementsByClassName("refresh")[0];
   performApiQuery(generalSearchInput);
   saveSearchHistory(generalSearchInput);
   navBar.classList.add("hidden");
   searchContainer.classList.add("hidden");
+  logo.classList.add("on-search");
   //delay the appearance of the refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
