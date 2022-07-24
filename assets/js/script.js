@@ -3,9 +3,13 @@ const searchButton = document.getElementById("search-btn");
 //------------------------------------PERFORMING THE SEARCH -------------------------------------
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
-  const refreshButton = document.getElementById("refresh")
+  const searchContainer = document.getElementsByClassName("search-container")[0];
+  const navBar = document.getElementsByClassName("navbar")[0];
+  const refreshButton = document.getElementsByClassName("refresh")[0];
   performApiQuery(generalSearchInput);
   saveSearchHistory(generalSearchInput);
+  navBar.classList.add("hidden");
+  searchContainer.classList.add("hidden");
   //delay the appearance of the refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
@@ -16,7 +20,7 @@ searchButton.addEventListener("click", () => {
 const searchBar = document.getElementById("search");
 searchBar.addEventListener("keypress", e => {
   if (e.key === "Enter") {
-    document.getElementById("search-btn").click();
+    searchButton.click();
   }
 });
 

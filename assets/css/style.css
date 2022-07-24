@@ -15,13 +15,16 @@ h1 {
 }
 
 /* ------------------------------ NAV SECTION ---------------------------*/
-
 /* Navbar container */
 .navbar {
     justify-content: center;
     align-items: center;
     overflow: hidden;
     font-size: 1.5rem;
+  }
+
+  .navbar.hidden {
+    display: none;
   }
   
   /* Links inside the navbar */
@@ -94,9 +97,29 @@ h1 {
     width: 100%;
     display: flex;
     flex-direction: row;
-    padding: 8rem;
+    padding: 16rem;
     margin: auto;
     gap: .25rem;
+}
+
+.search-container.hidden {
+    height: 0;
+    width: 0;
+    display: none;
+}
+
+.refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100%;
+}
+
+.refresh.hidden {
+    display: none;
+    height: 0;
+    width: 0;
 }
 
 #search {
@@ -130,10 +153,6 @@ h1 {
     transform: scale(1.1);
     transition: 300ms ease-in-out;
     cursor: pointer;
-}
-
-.btn.hidden {
-    display: none;
 }
 
 /* CARD SECTION */
