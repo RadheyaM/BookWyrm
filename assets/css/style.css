@@ -308,6 +308,10 @@ body {
     cursor: pointer;
 }
 
+.popup-button button a {
+    text-decoration: none;
+}
+
 .popup-body {
     padding: 1rem;
 }

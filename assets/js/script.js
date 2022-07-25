@@ -143,7 +143,7 @@ function openPopUp (target) {
 
 
   //add appropriate link to googlebooks button
-  const viewOnGoogle = document.querySelector("[view-googlebooks]").parentElement;
+  const viewOnGoogle = document.getElementById("google");
   viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
   viewOnGoogle.setAttribute("target", "_blank");
 
@@ -279,6 +279,11 @@ function populateBooklistDropdown() {
       popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
       popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
       bookIdentifier.textContent = contentIndex;
+
+      //add appropriate link to googlebooks button
+      const viewOnGoogle = document.getElementById("google");
+      viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
+      viewOnGoogle.setAttribute("target", "_blank");
 
       //make the to booklist button green if this title is already saved to it
       for (let i = 0; i < bookListTitles.length; i++) {
