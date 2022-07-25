@@ -234,10 +234,6 @@ body {
     border-radius: 1rem;
 }
 
-#pinned-cards-container > .card {
-    border: 2px solid green;
-}
-
 .pin-icon {
     font-size: 2rem;
     color: green;

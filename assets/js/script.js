@@ -1,4 +1,5 @@
-//create the required local storage arrays
+//---------------------------------EXECUTE UPON WINDOW LOAD----------------------------------------------------
+
 window.addEventListener("load", () => {
   const storageArrays = ["History", "BookList", "BookListTitles", "PinnedList", "PinnedListTitles"];
   for (let i = 0; i < storageArrays.length; i++) {
@@ -27,7 +28,8 @@ window.addEventListener("load", () => {
       bookCardContainer.append(card);
 
       let bookCards = document.querySelectorAll(".card");
-      //Generate event listeners on each card
+      
+      //Generate event listeners on each card and populate resulting popup
       bookCards.forEach(card => {
         card.addEventListener("click", e => {
           const content = JSON.parse(localStorage.getItem("PinnedList"));
@@ -47,6 +49,8 @@ window.addEventListener("load", () => {
           const popCategory = document.querySelector("[categories]")
           const bookIdentifier = document.querySelector("[book-identifier]");
           const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
+          const pinnedListTitles = JSON.parse(localStorage.getItem("PinnedListTitles"));
+          const pinnedButton = document.getElementById("pin");
           const toBookListButton = document.getElementById("save-to-booklist");
           popHeader.textContent = contentVolumeInfo.title;
           popDesc.textContent = contentVolumeInfo.description;
@@ -62,16 +66,23 @@ window.addEventListener("load", () => {
           viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
           viewOnGoogle.setAttribute("target", "_blank");
 
-          //make the to booklist button green if this title is already saved to it
+          //make the pin button green if this title is already saved to it
+          for (let i = 0; i < pinnedListTitles.length; i++) {
+            if (pinnedListTitles[i] === contentVolumeInfo.title) {
+              document.getElementById("pin").classList.add("saved");
+              pinnedButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
+            }
+          }
+          //make the booklist button green...
           for (let i = 0; i < bookListTitles.length; i++) {
             if (bookListTitles[i] === contentVolumeInfo.title) {
               document.getElementById("save-to-booklist").classList.add("saved");
               toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
-        }
-      }
-
-      popup.classList.add("active");
-      popupOverlay.classList.add("active");
+            }
+          }
+          //show the popup
+          popup.classList.add("active");
+          popupOverlay.classList.add("active");
 
         });
       })
@@ -80,6 +91,7 @@ window.addEventListener("load", () => {
 })
 
 //------------------------------------PERFORMING THE SEARCH -------------------------------------
+
 const searchButton = document.getElementById("search-btn");
 searchButton.addEventListener("click", () => {
   const generalSearchInput = document.getElementById("search").value;
@@ -88,6 +100,7 @@ searchButton.addEventListener("click", () => {
   const logo = document.getElementById("logo");
   const refreshButton = document.getElementsByClassName("refresh")[0];
 
+  //hide the pinned cards if they exist
   if (JSON.parse(localStorage.getItem("PinnedList")).length !== 0) {
     const pinnedCards = document.getElementById("pinned-cards-container");
     pinnedCards.classList.add("hidden");
@@ -95,12 +108,13 @@ searchButton.addEventListener("click", () => {
   
   performApiQuery(generalSearchInput);
   saveSearchHistory(generalSearchInput);
+  //hide the nav and search bar
   navBar.classList.add("hidden");
   searchContainer.classList.add("hidden");
   logo.classList.add("on-search");
   document.getElementById("save-to-booklist").classList.remove("saved");
   document.getElementById("save-to-booklist").innerHTML = "To Booklist";
-  //delay the appearance of the refresh button
+  //delayed appearance of a refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
   }, 1000);
@@ -113,32 +127,6 @@ searchBar.addEventListener("keypress", e => {
     searchButton.click();
   }
 });
-
-//query the google books api and return results based on user input
-async function performApiQuery() {
-  const generalSearchInput = document.getElementById("search").value;
-  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${generalSearchInput}&maxResults=40&langRestrict=en`);
-  const response = await fetch(endpoint);
-  const data = await response.json();
-  localStorage.setItem("lastSearch", JSON.stringify(data));
-  generateHTMLCards(data, generateImageList(data));
-}
-
-//generate a list of image source pathways from API response data
-function generateImageList(data) {
-  let imageUrls = [];
-  for (let i = 0; i < data.items.length; i++) {
-    //prevent uncaught type-error due to missing image url
-    if (data.items[i].volumeInfo.imageLinks !== undefined) {
-      imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
-    }
-    //placeholder if link missing
-    else {
-      imageUrls.push("assets/images/bookcover-placeholder.jpg");
-    }
-  }
-  return imageUrls;
-}
 
 //generate populated cards to display results below search bar
 function generateHTMLCards(data, list) {
@@ -165,7 +153,8 @@ function generateHTMLCards(data, list) {
     })
   }
 }
-//Clear Results button
+
+//Clear upon click
 const refresh = document.getElementById("refresh");
 refresh.addEventListener("click", () => {
   location.reload();
@@ -173,7 +162,7 @@ refresh.addEventListener("click", () => {
 
 //-------------------------------------------THE POP-UP WINDOW-------------------------------------------
 
-//pop-up variables
+//pop-up global variables
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById("popup-bg");
@@ -197,12 +186,14 @@ function openPopUp (target) {
   const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
   const toBookListButton = document.getElementById("save-to-booklist");
 
+  //make booklist button green 
   for (let i = 0; i < bookListTitles.length; i++) {
     if (bookListTitles[i] === contentVolumeInfo.title) {
       document.getElementById("save-to-booklist").classList.add("saved");
       toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
     }
   }
+
   popHeader.textContent = contentVolumeInfo.title;
   popDesc.textContent = contentVolumeInfo.description;
   popImage.style.background = `url(${imageList[contentIndex]}) no-repeat center center`;
@@ -219,11 +210,20 @@ function openPopUp (target) {
   viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
   viewOnGoogle.setAttribute("target", "_blank");
 
-  //enable pin button on popup to create a pinned list
+  //make pin button green
+  const pinnedList = JSON.parse(localStorage.getItem("PinnedList"));
+  const pinnedListTitles = JSON.parse(localStorage.getItem("PinnedListTitles"));
   const pin = document.getElementById("pin");
+  for (let i = 0; i < pinnedListTitles.length; i++) {
+    if (pinnedListTitles[i] === contentVolumeInfo.title) {
+      pin.classList.add("saved");
+      pin.innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
+    }
+  }
+
+  //enable pin button on popup to create a pinned list
   pin.addEventListener("click", e => {
-    const pinnedList = JSON.parse(localStorage.getItem("PinnedList"));
-    const pinnedListTitles = JSON.parse(localStorage.getItem("PinnedListTitles"));
+
 
     for (let i = 0; i < pinnedListTitles.length; i++) {
       if(pinnedListTitles[i] === contentVolumeInfo.title) return
@@ -252,13 +252,15 @@ function openPopUp (target) {
  //make it be gone
 function closePopUp (target) {
   if (target == null) return
-  const saveButton = document.getElementById("save-to-booklist")
+  const saveButton = document.getElementById("save-to-booklist");
+  const pinnedButton = document.getElementById("pin");
   popup.classList.remove("active");
   popupOverlay.classList.remove("active");
   //remove the green button
   saveButton.classList.remove("saved");
   saveButton.innerHTML = "To Booklist";
-
+  pinnedButton.classList.remove("saved");
+  pinnedButton.innerHTML = '<i class="fa-solid fa-thumbtack"></i> To Home';
 }
 
 closePopupButtons.forEach(button => {
@@ -406,4 +408,30 @@ window.addEventListener("load", populateBooklistDropdown);
 function removeListDuplicates(list) {
   let unique = [...new Set(list)]
   return unique
+}
+
+//query the google books api and return results based on user input
+async function performApiQuery() {
+  const generalSearchInput = document.getElementById("search").value;
+  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${generalSearchInput}&maxResults=40&langRestrict=en`);
+  const response = await fetch(endpoint);
+  const data = await response.json();
+  localStorage.setItem("lastSearch", JSON.stringify(data));
+  generateHTMLCards(data, generateImageList(data));
+}
+
+//generate a list of image source pathways from API response data
+function generateImageList(data) {
+  let imageUrls = [];
+  for (let i = 0; i < data.items.length; i++) {
+    //prevent uncaught type-error due to missing image url
+    if (data.items[i].volumeInfo.imageLinks !== undefined) {
+      imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
+    }
+    //placeholder if link missing
+    else {
+      imageUrls.push("assets/images/bookcover-placeholder.jpg");
+    }
+  }
+  return imageUrls;
 }
