@@ -45,7 +45,7 @@ searchButton.addEventListener("click", () => {
   const refreshButton = document.getElementsByClassName("refresh")[0];
 
   if (JSON.parse(localStorage.getItem("PinnedList")).length !== 0) {
-    const pinnedCards = document.getElementById("pinned-cards-contianer");
+    const pinnedCards = document.getElementById("pinned-cards-container");
     pinnedCards.classList.add("hidden");
   }
   

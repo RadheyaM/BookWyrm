@@ -203,17 +203,20 @@ body {
     margin-top: 1rem;
 }
 
-#pinned-cards-container .hidden {
+#pinned-cards-container {
+    padding: 6rem;
+    gap: 1rem;
+}
+
+#pinned-cards-container.hidden {
     display: none;
     height: 0;
     width: 0;
 }
 
-
 .card {
     background: var(--card-backup-bg);
     background-color:var(--card-bg);
-    border: 1px solid var(--card-border);
     padding: 1rem;
     border-radius: 0.5rem;
     transition: 250ms ease-in-out;
@@ -222,12 +225,24 @@ body {
 .card:hover {
     transform: scale(1.1);
     transition: 250ms ease-in-out;
+    border: 1px solid var(--card-border);
 }
 
 .card-header {
     width: 100%;
     background-color: var(--card-header-bg);
     border-radius: 1rem;
+}
+
+#pinned-cards-container > .card {
+    border: 2px solid green;
+}
+
+.pin-icon {
+    font-size: 2rem;
+    color: green;
+    text-align: right;
+    padding: .75rem;
 }
 
 .image {
