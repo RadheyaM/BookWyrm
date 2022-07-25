@@ -98,5 +98,21 @@
       </div>
     </template>
   </div>
+    <!-- Template to generate pinned list cards-->
+    <div id="pinned-cards-container"></div>
+    <template id="pinned-card-template">
+      <div class="card">
+        <div class="card-header">
+          <div class="image" book-cover> </div>
+        </div>
+        <div class="card-body">
+            <hr>
+            <p class="book-title" book-title></p>
+            <p class="book-auth" book-auth></p>
+          </div>
+          <div class="card-footer" data-identifier></div>
+      </div>
+    </template>
+  </div>
 </body>
 </html>

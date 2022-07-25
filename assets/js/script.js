@@ -7,29 +7,31 @@ window.addEventListener("load", () => {
     }
   }
   //generate the pinned list cards below the search bar
-  const pinnedList = JSON.parse(localStorage.getItem("PinnedList"));
-  for (let i = 0; i < pinnedList.length; i++) {
-    const dataVolumeInfo = pinnedList[i].volumeInfo;
-    const image = dataVolumeInfo.imageLinks.thumbnail;
-    const bookCardTemplate = document.querySelector("#book-card-template");
-    const bookCardContainer = document.querySelector("#book-cards-container");  
-    const card = bookCardTemplate.content.cloneNode(true).children[0];
-    const bookCover = card.querySelector("[book-cover]");
-    const bookTitle = card.querySelector("[book-title]");
-    const bookAuthor = card.querySelector("[book-auth]");
-    const dataIdentifier = card.querySelector("[data-identifier]");
-  
-    bookCover.style.background = `url(${image}) no-repeat center center`;
-    bookTitle.textContent = dataVolumeInfo.title;
-    bookAuthor.textContent = dataVolumeInfo.authors;
-    dataIdentifier.textContent = i;
-    bookCardContainer.append(card);
+  if (JSON.parse(localStorage.getItem("PinnedList")).length !== 0) {
+    const pinnedList = JSON.parse(localStorage.getItem("PinnedList"));
+    for (let i = 0; i < pinnedList.length; i++) {
+      const dataVolumeInfo = pinnedList[i].volumeInfo;
+      const image = dataVolumeInfo.imageLinks.thumbnail;
+      const bookCardTemplate = document.querySelector("#pinned-card-template");
+      const bookCardContainer = document.querySelector("#pinned-cards-container");  
+      const card = bookCardTemplate.content.cloneNode(true).children[0];
+      const bookCover = card.querySelector("[book-cover]");
+      const bookTitle = card.querySelector("[book-title]");
+      const bookAuthor = card.querySelector("[book-auth]");
+      const dataIdentifier = card.querySelector("[data-identifier]");
+    
+      bookCover.style.background = `url(${image}) no-repeat center center`;
+      bookTitle.textContent = dataVolumeInfo.title;
+      bookAuthor.textContent = dataVolumeInfo.authors;
+      dataIdentifier.textContent = i;
+      bookCardContainer.append(card);
 
-    let bookCards = document.querySelectorAll(".card");
-    //Generate event listeners on each card
-    bookCards.forEach(card => {
-      card.addEventListener("click", openPopUp);
-    })
+      let bookCards = document.querySelectorAll(".card");
+      //Generate event listeners on each card
+      bookCards.forEach(card => {
+        card.addEventListener("click", openPopUp);
+      })
+    }
   }
 })
 
@@ -41,6 +43,12 @@ searchButton.addEventListener("click", () => {
   const navBar = document.getElementsByClassName("navbar")[0];
   const logo = document.getElementById("logo");
   const refreshButton = document.getElementsByClassName("refresh")[0];
+
+  if (JSON.parse(localStorage.getItem("PinnedList")).length !== 0) {
+    const pinnedCards = document.getElementById("pinned-cards-contianer");
+    pinnedCards.classList.add("hidden");
+  }
+  
   performApiQuery(generalSearchInput);
   saveSearchHistory(generalSearchInput);
   navBar.classList.add("hidden");
@@ -189,7 +197,7 @@ function openPopUp (target) {
     console.log(title);
   
     pinnedListTitles.push(title);
-    localStorage.setItem("pinnedListTitles", JSON.stringify(pinnedListTitles));
+    localStorage.setItem("PinnedListTitles", JSON.stringify(pinnedListTitles));
     console.log(pinnedListTitles);
   })
 
