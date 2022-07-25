@@ -26,6 +26,8 @@ searchButton.addEventListener("click", () => {
   navBar.classList.add("hidden");
   searchContainer.classList.add("hidden");
   logo.classList.add("on-search");
+  document.getElementById("save-to-booklist").classList.remove("saved");
+  document.getElementById("save-to-booklist").innerHTML = "To Booklist";
   //delay the appearance of the refresh button
   setTimeout(() => {
     refreshButton.classList.remove("hidden");
@@ -132,6 +134,17 @@ function openPopUp (target) {
   popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
   bookIdentifier.textContent = contentIndex;
 
+  for (let i = 0; i < bookListTitles.length; i++) {
+    if (bookListTitles[i] === contentVolumeInfo.title) {
+      toBookListButton.classList.add("saved");
+      toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+    } else if (bookListTitles[i] !== contentVolumeInfo.title) {
+      toBookListButton.classList.remove("saved");
+      toBookListButton.innerHTML = "To Booklist";
+    }
+  }
+
+
   //add appropriate link to googlebooks button
   const viewOnGoogle = document.querySelector("[view-googlebooks]").parentElement;
   viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
@@ -144,9 +157,13 @@ function openPopUp (target) {
  //make it be gone
 function closePopUp (target) {
   if (target == null) return
+  const saveButton = document.getElementById("save-to-booklist")
   popup.classList.remove("active");
   popupOverlay.classList.remove("active");
-  const booklistButton = document.getElementById("save-to-booklist");
+  //remove the green button
+  saveButton.classList.remove("saved");
+  saveButton.innerHTML = "To Booklist";
+
 }
 
 closePopupButtons.forEach(button => {
@@ -198,11 +215,9 @@ window.addEventListener("load", populateHistoryDropdown);
 const saveBook = document.getElementById("save-to-booklist");
 saveBook.addEventListener("click", e => {
   //change button style on click
-  if (e.path[0].innerHTML !== '<i class="fa-solid fa-circle-check"></i> Booklist') {
-    e.path[0].style.backgroundColor = "green";
-    e.path[0].style.color = "white";
-    e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
-  }
+  e.path[0].classList.add("saved");
+  e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+
   const bookId = document.querySelector("[book-identifier]").innerHTML;
   const bookObject = JSON.parse(localStorage.getItem("lastSearch")).items[bookId];
 
@@ -210,10 +225,10 @@ saveBook.addEventListener("click", e => {
   const existingBookList = JSON.parse(localStorage.getItem("BookList"));
   const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
   
-  if (bookListTitles !== null) {
-    for (let i = 0; i < bookListTitles.length; i++) {
-      if(bookListTitles[i] === existingBookList[i].volumeInfo.title && bookListTitles.length !== 0) return
-    }
+  //prevent duplicates in the booklist
+
+  for (let i = 0; i < bookListTitles.length; i++) {
+    if(bookListTitles[i] === bookObject.volumeInfo.title) return
   }
 
   //add object to book list
@@ -233,61 +248,59 @@ saveBook.addEventListener("click", e => {
 });
 
 function populateBooklistDropdown() {
-  if (JSON.parse(localStorage.getItem("BookList")) !== null) {
-    const bookList = JSON.parse(localStorage.getItem("BookList"));
-    const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[0];
+  const bookList = JSON.parse(localStorage.getItem("BookList"));
+  const menuDropdown = document.getElementsByClassName("navbar")[0].getElementsByClassName("dropdown-content")[0];
 
-    for (let i = 0; i < bookList.length; i++) {
-      let newA = document.createElement("a");
-      console.log(bookList);
-      newA.innerHTML = bookList[i].volumeInfo.title;
-      console.log(bookList[i].volumeInfo.title);
-      console.log(newA);
-      newA.setAttribute("data-id", i);
-      menuDropdown.appendChild(newA);
+  for (let i = 0; i < bookList.length; i++) {
+    let newA = document.createElement("a");
+    newA.innerHTML = bookList[i].volumeInfo.title;
+    newA.setAttribute("data-id", i);
+    menuDropdown.appendChild(newA);
 
-      let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
-      // opens popup for selected title
-      newDropdownItem.addEventListener("click", e => {
-        const content = JSON.parse(localStorage.getItem("BookList"));
-        const contentIndex = e.path[0].getAttribute("data-id");
-        const contentVolumeInfo = content[contentIndex].volumeInfo;
-        const image = contentVolumeInfo.imageLinks.thumbnail;
-        const popHeader = document.querySelector("[book-title]");
-        const popImage = document.querySelector("[book-cover]");
-        const popDesc = document.querySelector("[book-desc]")
-        const popAuthor = document.querySelector("[author]")
-        const popPublishedDate = document.querySelector("[published]")
-        const popPublisher = document.querySelector("[publisher]")
-        const popCategory = document.querySelector("[categories]")
-        const bookIdentifier = document.querySelector("[book-identifier]");
-        const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
-        const toBookListButton = document.getElementById("save-to-booklist");
-        popHeader.textContent = contentVolumeInfo.title;
-        popDesc.textContent = contentVolumeInfo.description;
-        popImage.style.background = `url(${image}) no-repeat center center`;
-        popAuthor.textContent = `Author: ${contentVolumeInfo.authors}`;
-        popPublishedDate.textContent = `Date Published: ${contentVolumeInfo.publishedDate}`;
-        popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
-        popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
-        bookIdentifier.textContent = contentIndex;
+    let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
+    // opens popup for selected title
+    newDropdownItem.addEventListener("click", e => {
+      const content = JSON.parse(localStorage.getItem("BookList"));
+      const contentIndex = e.path[0].getAttribute("data-id");
+      const contentVolumeInfo = content[contentIndex].volumeInfo;
+      const image = contentVolumeInfo.imageLinks.thumbnail;
+      const popHeader = document.querySelector("[book-title]");
+      const popImage = document.querySelector("[book-cover]");
+      const popDesc = document.querySelector("[book-desc]")
+      const popAuthor = document.querySelector("[author]")
+      const popPublishedDate = document.querySelector("[published]")
+      const popPublisher = document.querySelector("[publisher]")
+      const popCategory = document.querySelector("[categories]")
+      const bookIdentifier = document.querySelector("[book-identifier]");
+      const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
+      const toBookListButton = document.getElementById("save-to-booklist");
+      popHeader.textContent = contentVolumeInfo.title;
+      popDesc.textContent = contentVolumeInfo.description;
+      popImage.style.background = `url(${image}) no-repeat center center`;
+      popAuthor.textContent = `Author: ${contentVolumeInfo.authors}`;
+      popPublishedDate.textContent = `Date Published: ${contentVolumeInfo.publishedDate}`;
+      popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
+      popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
+      bookIdentifier.textContent = contentIndex;
 
-        //make the to booklist button green if this title is already saved to it
-        for (let i = 0; i < bookListTitles.length; i++) {
-          if (bookListTitles[i] === contentVolumeInfo.title) {
-            toBookListButton.style.backgroundColor = "green";
-            toBookListButton.style.color = "white";
-            toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
-          }
+      //make the to booklist button green if this title is already saved to it
+      for (let i = 0; i < bookListTitles.length; i++) {
+        if (bookListTitles[i] === contentVolumeInfo.title) {
+          document.getElementById("save-to-booklist").classList.add("saved");
+          toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+        } else if (bookListTitles[i] !== contentVolumeInfo.title) {
+          document.getElementById("save-to-booklist").classList.remove("saved");
+          toBookListButton.innerHTML = "To Booklist";
         }
+      }
 
-        popup.classList.add("active");
-        popupOverlay.classList.add("active");
+      popup.classList.add("active");
+      popupOverlay.classList.add("active");
 
-      });
-    }
+    })
   }
 }
+
 //populates booklist on page reload
 window.addEventListener("load", populateBooklistDropdown);
 

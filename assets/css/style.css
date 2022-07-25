@@ -160,7 +160,7 @@ body {
 .btn:hover {
     background-color: white;
     color: black;
-    transform: scale(1.1);
+    transform: scale(1.05);
     transition: 300ms ease-in-out;
     cursor: pointer;
 }
@@ -190,7 +190,6 @@ body {
 
 .card-header {
     width: 100%;
-
     background-color: whitesmoke;
     border-radius: 1rem;
 }
@@ -287,6 +286,11 @@ body {
 
 .popup-subheader ul {
     list-style: none;
+}
+
+#save-to-booklist.saved {
+    background-color: green;
+    color: white;
 }
 
 .popup-button {
