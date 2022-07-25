@@ -1,12 +1,41 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
+:root {
+    --body-bg: #202124;
+    --body-text:  #868b90;
+    --nav-text: white;
+    --dropdown-hover-bg: red;
+    --dropdown-bg: white;
+    --dropdown-list-text: black;
+    --dropdown-list-hover-bg: #ddd;
+    --search-bg:  rgba(0, 0, 0, .5);
+    --search-text: whitesmoke;
+    --btn-text: whitesmoke;
+    --btn-bg: rgba(0, 0, 0, .5);
+    --btn-hover-bg: white;
+    --btn-hover-text: black;
+    --card-backup-bg: whitesmoke;
+    --card-bg: rgba(0, 0, 0, .9);
+    --card-border: whitesmoke;
+    --card-header-bg: whitesmoke;
+    --card-text: #777;
+    --pop-border: whitesmoke;
+    --pop-bg: rgba(0, 0, 0, .9);
+    --pop-header-border: black;
+    --pop-close-btn: white;
+    --pop-btn-text: gray;
+    --booklist-btn-saved: green;
+    --booklist-btn-saved-text: white;
+    --popup-overlay: rgba(0, 0, 0, .5);
+}
+
 body {
     /* background: rgb(172, 169, 169); */
     box-sizing: border-box;
     font-family: 'montserrat', sans-serif;
     font-weight: 400;
-    background-color: #202124;
-    color: #868b90;
+    background-color: var(--body-bg);
+    color: var(--body-text);
 }
 
 /* ------------------------------ NAV SECTION ---------------------------*/
@@ -26,7 +55,7 @@ body {
   .navbar a {
     float: left;
     font-size: 16px;
-    color: white;
+    color: var(--nav-text);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -43,7 +72,7 @@ body {
     font-size: 16px;
     border: none;
     outline: none;
-    color: white;
+    color: var(--nav-text);
     padding: 14px 16px;
     background-color: inherit;
     font-family: inherit; /* Important for vertical align on mobile phones */
@@ -52,7 +81,7 @@ body {
   
   /* Add a red background color to navbar links on hover */
   .navbar a:hover, .dropdown:hover .dropbtn, .booklistbtn:hover {
-    background-color: red;
+    background-color: var(--dropdown-hover-bg);
     cursor: pointer;
   }
   
@@ -60,7 +89,7 @@ body {
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: var(--dropdown-bg);
     min-width: 130px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -69,7 +98,7 @@ body {
   /* Links inside the dropdown */
   .dropdown-content a {
     float: none;
-    color: black;
+    color: var(--dropdown-list-text);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -78,7 +107,7 @@ body {
   
   /* Add a grey background color to dropdown links on hover */
   .dropdown-content a:hover {
-    background-color: #ddd;
+    background-color: var(--dropdown-list-hover-bg);
   }
   
   /* Show the dropdown menu on hover */
@@ -133,9 +162,9 @@ body {
 }
 
 #search {
-    background-color: rgba(0, 0, 0, .5);
+    background-color: var(--search-bg);
     font-size: 1.25rem;
-    color:whitesmoke;
+    color: var(--search-text);
     width: 50%;
     padding: 1rem;
     border: none;
@@ -146,9 +175,9 @@ body {
 }
 
 .btn {
-    color: whitesmoke;
+    color: var(--btn-text);
     font-size: 1rem;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: var(--btn-bg);
     width: 150px;
     border: none;
     border-radius: 10px;
@@ -158,8 +187,8 @@ body {
 }
 
 .btn:hover {
-    background-color: white;
-    color: black;
+    background-color: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
     transform: scale(1.05);
     transition: 300ms ease-in-out;
     cursor: pointer;
@@ -175,9 +204,9 @@ body {
 }
 
 .card {
-    background: whitesmoke;
-    background-color:rgba(0, 0, 0, .9);
-    border: 1px solid whitesmoke;
+    background: var(--card-backup-bg);
+    background-color:var(--card-bg);
+    border: 1px solid var(--card-border);
     padding: 1rem;
     border-radius: 0.5rem;
     transition: 250ms ease-in-out;
@@ -190,13 +219,13 @@ body {
 
 .card-header {
     width: 100%;
-    background-color: whitesmoke;
+    background-color: var(--card-header-bg);
     border-radius: 1rem;
 }
 
 .image {
     background-image: url('');
-    background-color: whitesmoke;
+    background-color: var(--card-backup-bg);
     background-size: no-repeat cover;
     height: 200px;
     margin: auto;
@@ -207,7 +236,7 @@ body {
 
 .card > .book-title {
     font-weight: 500;
-    color: #777;
+    color: var(--card-text);
 }
 
 .card .book-title {
@@ -234,10 +263,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    border: 1px solid whitesmoke;
+    border: 1px solid var(--pop-border);
     border-radius: 1rem;
     z-index: 10;
-    background-color: rgba(0, 0, 0, .9);
+    background-color: var(--pop-bg);
     width: fit-content;
     height: fit-content;
     min-height: 60%;
@@ -255,12 +284,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--pop-header-border);
     font-size: 1.75rem;
 }
 
 .popup-header .close-btn {
-    color: white;
+    color: var(--pop-close-btn);
     cursor: pointer;
     border: none;
     outline: none;
@@ -289,8 +318,8 @@ body {
 }
 
 #save-to-booklist.saved {
-    background-color: green;
-    color: white;
+    background-color: var(--booklist-btn-saved);
+    color: var(--booklist-btn-saved-text);
 }
 
 .popup-button {
@@ -304,7 +333,7 @@ body {
 .popup-button button {
     text-align: center;
     margin: auto;
-    background-color: gray;
+    background-color: var(--pop-btn-text);
     cursor: pointer;
 }
 
@@ -327,7 +356,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: var(--popup-overlay);
     pointer-events: none;
     transition: 300ms ease-in-out;
 }
