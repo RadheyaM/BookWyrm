@@ -224,6 +224,8 @@ function openPopUp (target) {
   //enable pin button on popup to create a pinned list
   pin.addEventListener("click", e => {
 
+    e.path[0].classList.add("saved");
+    e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
 
     for (let i = 0; i < pinnedListTitles.length; i++) {
       if(pinnedListTitles[i] === contentVolumeInfo.title) return
