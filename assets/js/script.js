@@ -125,6 +125,12 @@ function openPopUp (target) {
   const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
   const toBookListButton = document.getElementById("save-to-booklist");
 
+  for (let i = 0; i < bookListTitles.length; i++) {
+    if (bookListTitles[i] === contentVolumeInfo.title) {
+      document.getElementById("save-to-booklist").classList.add("saved");
+      toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+    }
+  }
   popHeader.textContent = contentVolumeInfo.title;
   popDesc.textContent = contentVolumeInfo.description;
   popImage.style.background = `url(${imageList[contentIndex]}) no-repeat center center`;
@@ -134,15 +140,6 @@ function openPopUp (target) {
   popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
   bookIdentifier.textContent = contentIndex;
 
-  for (let i = 0; i < bookListTitles.length; i++) {
-    if (bookListTitles[i] === contentVolumeInfo.title) {
-      toBookListButton.classList.add("saved");
-      toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
-    } else if (bookListTitles[i] !== contentVolumeInfo.title) {
-      toBookListButton.classList.remove("saved");
-      toBookListButton.innerHTML = "To Booklist";
-    }
-  }
 
 
   //add appropriate link to googlebooks button
@@ -288,9 +285,6 @@ function populateBooklistDropdown() {
         if (bookListTitles[i] === contentVolumeInfo.title) {
           document.getElementById("save-to-booklist").classList.add("saved");
           toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
-        } else if (bookListTitles[i] !== contentVolumeInfo.title) {
-          document.getElementById("save-to-booklist").classList.remove("saved");
-          toBookListButton.innerHTML = "To Booklist";
         }
       }
 
