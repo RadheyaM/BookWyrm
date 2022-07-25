@@ -1,15 +1,10 @@
 //create the required local storage arrays
 window.addEventListener("load", () => {
-  if (localStorage.getItem("History") == null) {
-    localStorage.setItem("History", "[]");
-  }
-
-  if (localStorage.getItem("BookListTitles") == null) {
-    localStorage.setItem("BookListTitles", "[]");
-  }
-
-  if (localStorage.getItem("BookList") == null) {
-    localStorage.setItem("BookList", "[]");
+  const storageArrays = ["History", "BookList", "BookListTitles", "PinnedList", "PinnedListTitles"];
+  for (let i = 0; i < storageArrays.length; i++) {
+    if (localStorage.getItem(`${storageArrays[i]}`) == null) {
+      localStorage.setItem(`${storageArrays[i]}`, "[]");
+    }
   }
 })
 
@@ -146,6 +141,32 @@ function openPopUp (target) {
   const viewOnGoogle = document.getElementById("google");
   viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
   viewOnGoogle.setAttribute("target", "_blank");
+
+  //enable pin button on popup to create a pinned list
+  const pin = document.getElementById("pin");
+  pin.addEventListener("click", e => {
+    const pinnedList = JSON.parse(localStorage.getItem("PinnedList"));
+    const pinnedListTitles = JSON.parse(localStorage.getItem("PinnedListTitles"));
+
+    for (let i = 0; i < pinnedListTitles.length; i++) {
+      if(pinnedListTitles[i] === contentVolumeInfo.title) return
+    }
+  
+    //add object to book list
+    pinnedList.push(content.items[contentIndex]);
+    console.log(pinnedList);
+    
+    //commit all back to local storage
+    localStorage.setItem("PinnedList", JSON.stringify(pinnedList));
+  
+    //update the book list titles list
+    const title = pinnedList[pinnedList.length - 1 || 0].volumeInfo.title
+    console.log(title);
+  
+    pinnedListTitles.push(title);
+    localStorage.setItem("pinnedListTitles", JSON.stringify(pinnedListTitles));
+    console.log(pinnedListTitles);
+  })
 
   //make it visible
   popup.classList.add("active");
