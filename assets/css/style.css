@@ -339,7 +339,7 @@ body {
     list-style: none;
 }
 
-#save-to-booklist.saved {
+#save-to-booklist.saved, #pin.saved {
     background-color: var(--booklist-btn-saved);
     color: var(--booklist-btn-saved-text);
 }

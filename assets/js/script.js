@@ -29,7 +29,51 @@ window.addEventListener("load", () => {
       let bookCards = document.querySelectorAll(".card");
       //Generate event listeners on each card
       bookCards.forEach(card => {
-        card.addEventListener("click", openPopUp);
+        card.addEventListener("click", e => {
+          const content = JSON.parse(localStorage.getItem("PinnedList"));
+          console.log(content);
+          const path = e.path.reverse();
+          console.log(path);
+          const contentIndex = path[5].children[3].innerHTML;
+          console.log(contentIndex);
+          const contentVolumeInfo = content[contentIndex].volumeInfo;
+          const image = contentVolumeInfo.imageLinks.thumbnail;
+          const popHeader = document.querySelector("[book-title]");
+          const popImage = document.querySelector("[book-cover]");
+          const popDesc = document.querySelector("[book-desc]")
+          const popAuthor = document.querySelector("[author]")
+          const popPublishedDate = document.querySelector("[published]")
+          const popPublisher = document.querySelector("[publisher]")
+          const popCategory = document.querySelector("[categories]")
+          const bookIdentifier = document.querySelector("[book-identifier]");
+          const bookListTitles = JSON.parse(localStorage.getItem("BookListTitles"));
+          const toBookListButton = document.getElementById("save-to-booklist");
+          popHeader.textContent = contentVolumeInfo.title;
+          popDesc.textContent = contentVolumeInfo.description;
+          popImage.style.background = `url(${image}) no-repeat center center`;
+          popAuthor.textContent = `Author: ${contentVolumeInfo.authors}`;
+          popPublishedDate.textContent = `Date Published: ${contentVolumeInfo.publishedDate}`;
+          popPublisher.textContent = `Published By: ${contentVolumeInfo.publisher}`;
+          popCategory.textContent = `Print Type: ${contentVolumeInfo.printType}`;
+          bookIdentifier.textContent = contentIndex;
+
+          //add appropriate link to googlebooks button
+          const viewOnGoogle = document.getElementById("google");
+          viewOnGoogle.setAttribute("href", contentVolumeInfo.canonicalVolumeLink);
+          viewOnGoogle.setAttribute("target", "_blank");
+
+          //make the to booklist button green if this title is already saved to it
+          for (let i = 0; i < bookListTitles.length; i++) {
+            if (bookListTitles[i] === contentVolumeInfo.title) {
+              document.getElementById("save-to-booklist").classList.add("saved");
+              toBookListButton.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+        }
+      }
+
+      popup.classList.add("active");
+      popupOverlay.classList.add("active");
+
+        });
       })
     }
   }
