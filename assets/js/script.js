@@ -6,6 +6,31 @@ window.addEventListener("load", () => {
       localStorage.setItem(`${storageArrays[i]}`, "[]");
     }
   }
+  //generate the pinned list cards below the search bar
+  const pinnedList = JSON.parse(localStorage.getItem("PinnedList"));
+  for (let i = 0; i < pinnedList.length; i++) {
+    const dataVolumeInfo = pinnedList[i].volumeInfo;
+    const image = dataVolumeInfo.imageLinks.thumbnail;
+    const bookCardTemplate = document.querySelector("#book-card-template");
+    const bookCardContainer = document.querySelector("#book-cards-container");  
+    const card = bookCardTemplate.content.cloneNode(true).children[0];
+    const bookCover = card.querySelector("[book-cover]");
+    const bookTitle = card.querySelector("[book-title]");
+    const bookAuthor = card.querySelector("[book-auth]");
+    const dataIdentifier = card.querySelector("[data-identifier]");
+  
+    bookCover.style.background = `url(${image}) no-repeat center center`;
+    bookTitle.textContent = dataVolumeInfo.title;
+    bookAuthor.textContent = dataVolumeInfo.authors;
+    dataIdentifier.textContent = i;
+    bookCardContainer.append(card);
+
+    let bookCards = document.querySelectorAll(".card");
+    //Generate event listeners on each card
+    bookCards.forEach(card => {
+      card.addEventListener("click", openPopUp);
+    })
+  }
 })
 
 //------------------------------------PERFORMING THE SEARCH -------------------------------------
