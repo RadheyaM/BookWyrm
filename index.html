@@ -16,7 +16,7 @@
 
     <nav class="navbar">
       <div class="dropdown">
-        <button class="dropbtn" booklist>
+        <button class="dropbtn" id="booklist">
           <i class="fa-solid fa-list"></i> 
            Booklist
           <i class="fa fa-caret-down"></i>
@@ -24,7 +24,7 @@
         <div class="dropdown-content"></div>
       </div>
       <div class="dropdown">
-        <button class="dropbtn" show-history>
+        <button class="dropbtn" id="show-history">
           <i class="fa-solid fa-clock-rotate-left"> </i>
            History
           <i class="fa fa-caret-down"></i>
@@ -38,7 +38,7 @@
  <!-- search bar and logo section  -->
   <section id="logo-search">
     <div id="logo">
-      <hi><i class="fa-solid fa-book-open"></i>BookWyrm</hi>
+      <h1><i class="fa-solid fa-book-open"></i>BookWyrm</h1>
     </div>
     <div class="search-container">
       <input id="search" placeholder="Enter Search Here">
@@ -53,13 +53,13 @@
   <section id="popup-display">
     <div class="popup" id="popup">
       <div class="popup-header">
-        <div class="title" book-title >POP UP!!!</div>
+        <div class="pop-title" book-title >POP UP!!!</div>
         <button data-close-button class="close-btn">&times;</button>
       </div>
       <hr>
       <div class="popup-subheader">
-        <div class="image" book-cover> </div>
-        <div class="details">
+        <div class="image pop-image" book-cover> </div>
+        <div class="pop-details">
           <ul>
             <li author></li>
             <li published> </li>
@@ -70,14 +70,14 @@
         <div class="popup-button">
             <button id="save-to-booklist" class="btn">To Booklist</button>
             <button id="pin" class="btn"><i class="fa-solid fa-thumbtack"></i> To Home</button></li>
-            <button class="btn"><a id="google"><i class="fa-brands fa-google"></i> Books</a></button>
+            <button id="google" class="btn"><a><i class="fa-brands fa-google"></i> Books</a></button>
         </div>
       </div>
       <hr>
       <div class="popup-body">
-        <div class="description" book-desc>Book Description</div>
+        <div class="pop-desc">Book Description</div>
       </div>
-      <div class="book-id" book-identifier></div>
+      <div class="pop-book-id"></div>
     </div>
     <div id="popup-bg"></div>
   </section>
@@ -87,14 +87,14 @@
     <template id="book-card-template">
       <div class="card">
         <div class="card-header">
-          <div class="image" book-cover> </div>
+          <div class="image card-image"> </div>
         </div>
         <div class="card-body">
             <hr>
-            <p class="book-title" book-title></p>
-            <p class="book-auth" book-auth></p>
+            <p class="book-title"></p>
+            <p class="book-auth"></p>
           </div>
-          <div class="card-footer" data-identifier></div>
+          <div class="volume-id"></div>
       </div>
     </template>
   </div>
@@ -104,14 +104,14 @@
       <div class="card">
         <div class="pin-icon"> <i class="fa-solid fa-thumbtack"></i></div>
         <div class="card-header">
-          <div class="image" book-cover> </div>
+          <div class="card-image"> </div>
         </div>
         <div class="card-body">
             <hr>
-            <p class="book-title" book-title></p>
-            <p class="book-auth" book-auth></p>
+            <p class="book-title"></p>
+            <p class="book-auth"></p>
           </div>
-          <div class="card-footer" data-identifier></div>
+          <div class="volume-id"></div>
       </div>
     </template>
   </div>
