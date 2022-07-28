@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Search for books, save, read, share.">
   <link rel="stylesheet" href="assets/css/style.css">
-  <script src="assets/js/script.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
   <script src="https://kit.fontawesome.com/a8eff56f0b.js/" crossorigin="anonymous"></script>
   <title>BookWyrm | Book Finder</title>
 </head>
@@ -51,7 +51,7 @@
 
   <!--Pop-up card displaying book info-->
   <section id="popup-display">
-    <div class="popup" id="popup">
+    <div class="popup" id="popup" data-volume-id="0" data-array-id="">
       <div class="popup-header">
         <div class="pop-title" book-title >POP UP!!!</div>
         <button data-close-button class="close-btn">&times;</button>
@@ -61,10 +61,10 @@
         <div class="image pop-image" book-cover> </div>
         <div class="pop-details">
           <ul>
-            <li author></li>
-            <li published> </li>
-            <li publisher> </li>
-            <li categories></li>
+            <li id="author"></li>
+            <li id="published"> </li>
+            <li id="publisher"> </li>
+            <li id="print-type"></li>
           </ul>
         </div>
         <div class="popup-button">
@@ -82,10 +82,10 @@
     <div id="popup-bg"></div>
   </section>
 
-  <!-- Template to generate book cards-->
+  <!-- Template to generate book cards on search-->
   <div id="book-cards-container"></div>
     <template id="book-card-template">
-      <div class="card">
+      <div class="card" data-volume-id="0" data-array-id="">
         <div class="card-header">
           <div class="image card-image"> </div>
         </div>
@@ -98,10 +98,10 @@
       </div>
     </template>
   </div>
-    <!-- Template to generate pinned list cards-->
+    <!-- Template to generate pinned list cards on page reload-->
     <div id="pinned-cards-container"></div>
     <template id="pinned-card-template">
-      <div class="card">
+      <div class="card" data-volume-id="0" data-array-id="">
         <div class="pin-icon"> <i class="fa-solid fa-thumbtack"></i></div>
         <div class="card-header">
           <div class="card-image"> </div>

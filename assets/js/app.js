@@ -1,6 +1,5 @@
 //global variables for DOM manipulation
 const searchBar = document.getElementById("search");
-const searchBarInput = document.getElementById("search").value;
 const searchContainer = document.getElementsByClassName("search-container")[0];
 const searchBtn = document.getElementById("search-btn");
 const refreshBtn = document.getElementById("refresh");
@@ -17,13 +16,19 @@ const cardImage = document.getElementsByClassName("card-image")[0];
 const cardBody = document.getElementsByClassName("card-body")[0];
 const cardTitle = document.getElementsByClassName("book-title")[0];
 const cardAuthor = document.getElementsByClassName("book-auth")[0];
-const cardVolumeId = document.getElementsByClassName("volume-id")[0];
+const openPopupButtons = document.querySelectorAll("[data-popup-target]");
+const closePopupButtons = document.querySelectorAll("[data-close-button]");
+const popupOverlay = document.getElementById("popup-bg");
 const popUp = document.getElementById("popup");
 const popUpHeader = document.getElementsByClassName("popup-header")[0];
 const popUpTitle = document.getElementsByClassName("pop-title")[0];
 const popUpSubHeader = document.getElementsByClassName("popup-subheader")[0];
 const popUpImage= document.getElementsByClassName("pop-image")[0];
 const popUpDetails = document.getElementsByClassName("pop-details")[0];
+const popUpAuth = document.getElementById("author");
+const popUpPublished = document.getElementById("published");
+const popUpPublisher = document.getElementById("publisher");
+const popUpPrint = document.getElementById("print-type");
 const popUpBody = document.getElementsByClassName("popup-body")[0];
 const popUpDesc = document.getElementsByClassName("pop-desc")[0];
 const popUpBookId = document.getElementsByClassName("pop-book-id")[0];
@@ -38,17 +43,18 @@ const popGoogleBtn = document.getElementById("google");
 window.addEventListener("load", () => {
   const storageArrays = ["History", "BookList", "BookListTitles", "PinnedList", "PinnedListTitles", "LastSearch"];
   //create the required local storage arrays
-  for (let item in storageArrays) {
-    if (readData(item) == null) {
-      writeData(item, []);
-    }
+  for (let i = 0; i < storageArrays.length; i++) {
+    // if (readData(storageArrays[i]) == null ||
+    //     readData(storageArrays[i]) == undefined ||
+    //     readData(storageArrays[i].length) === 0) {
+    writeData(storageArrays[i], []);
   }
   //generate the pinned cards if any
-  if (readData("PinnedList").length !== 0) {
+  if (readData("PinnedList") !== null) {
     generateCards("PinnedList", pinnedCardContainer);
 
     let newPinnedCards = document.querySelectorAll(".card");
-    newPinnedCards.forEach(card => {card.addEventListener("click", populatePopUp);
+    newPinnedCards.forEach(card => {card.addEventListener("click", OpenPopUp);
     //ADD CODE HERE TO GENERATE POPUP ONCE AN APPROPRIATE FUNCTION IS AVAILABLE
     })
   }
@@ -57,6 +63,7 @@ window.addEventListener("load", () => {
 //Peform the search
 searchBtn.addEventListener("click", () => {
   //hide any pinned cards
+  const searchBarInput = document.getElementById("search").value;
   if (readData("PinnedList").length !== 0) {
     pinnedCardContainer.classList.add("hidden");
   }
@@ -84,7 +91,7 @@ searchBar.addEventListener("keypress", e => {
     searchBtn.click();
   }
 });
-
+//refresh button reloads the page
 refreshBtn.addEventListener("click", () => {
     location.reload();
 })
@@ -99,7 +106,10 @@ async function performApiQuery (userInput) {
 }
 
 function generateCards (key, container) {
-  const storageArray = readData(key);  
+  let storageArray = readData(key);
+  if (storageArray[0] === "kind") {
+    storageArray = readData(key.items)
+  }
   for (let i = 0; i < storageArray.length; i++) {
     const volumeInfo = storageArray[i].volumeInfo;
     const image = volumeInfo.imageLinks.thumbnail;
@@ -107,28 +117,70 @@ function generateCards (key, container) {
     cardImage.style.background = `url(${image}) no-repeat center center`;
     cardTitle.textContent = volumeInfo.title;
     bookAuthor.textContent = volumeInfo.authors;
-    cardVolumeId.classList.add(i); //so book can be found in local storage
+    card.dataset.volumeId = i; //so book can be found in local storage
+    card.dataset.arrayId = key;
     container.append(cloneCard);
   }
 }
 
-function populatePopUp () {
+function openPopUp (target, key) {
+  if (target == null) return
+  let storageArray = readData(key);
+  if (storageArray[0] === "kind") {
+    storageArray = readData(key).items;
+  }
+  const path = target.path.reverse();
+  const volumeId = path[5].dataset.volumeId
+  const volumeInfo = storageArray[volumeId].volumeInfo;
 
+  popUpHeader.textContent = volumeInfo.title;
+  popUpDesc.textContent = volumeInfo.description
+  popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
+  popUpAuth.textContent = `Author:  ${volumeInfo.authors}`;
+  popUpPublished.textContent = `Published By:  ${volumeInfo.publishedDate}`;
+  popUpPublisher.textContent = `Published By:  ${volumeInfo.publisher}`;
+  popUpPrint.textContent = `Print Type:  ${volumeInfo.printType}`;
+  popUp.dataset.volumeId = volumeId //COULD BE IMPORTANT TO CHANGE THIS LATER!
+  popUp.dataset.arrayId = key; // ID the correct storage array
 }
 
-function saveSearchHistory () {
+function saveSearchHistory (userInput) {
+  const history = readData("History").push(userInput);
+  writeData("History", history);
+}
+
+//can use for multiple lists 
+function saveToList (key, key2) {
+  const list = readData(key);
+  const listTitles = readData(key2);
+  const volumeId = popUp.dataset.volumeId;
+  const arrayId = popUp.dataset.arrayId;
+  let sourceArray = readData(arrayId);
+  //account for differences in local storage arrays
+  if (sourceArray[0] === "kind") {
+    sourceArray = readData(arrayId).items
+  }
+  //prevent duplicates
+  for (let i = 0; i < key2.length; i++) {
+    if(key2[i] === list.volumeInfo.title) return
+  }
+
+  list.push(sourceArray[volumeId]);
+  writeData(list);
+  listTitles.push(sourceArray[volumeId].title);
+  writeData(listTitles);
 
 }
 
 function readData (key) {
-  return JSON.parse(localStorage.getItem(key) || [])
+  return JSON.parse(localStorage.getItem(key))
 }
 
 function writeData (key, data) {
-  return JSON.stringify(localStorage.setItem(key, data))
+  return localStorage.setItem(key, JSON.stringify(data))
 }
 
-function removeListDuplicates(list) {
-    let unique = [...new Set(list)]
-    return unique
-}
+// function removeListDuplicates(list) {
+//     let unique = [...new Set(list)]
+//     return unique
+// }
