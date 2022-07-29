@@ -125,10 +125,7 @@ function generateCards (key, container) {
 
 function openPopUp (target, key) {
   if (target == null) return
-  let storageArray = readData(key);
-  if (storageArray[0] === "kind") {
-    storageArray = readData(key).items;
-  }
+  const storageArray = readData(key);
   const path = target.path.reverse();
   const volumeId = path[5].dataset.volumeId
   const volumeInfo = storageArray[volumeId].volumeInfo;

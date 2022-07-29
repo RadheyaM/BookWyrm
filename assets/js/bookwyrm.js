@@ -55,6 +55,14 @@ searchBtn.addEventListener("click", () => {
   // //generate cards to display search results
   // generateCards("History", cardContainer);
 })
+
+closePopupButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    const target = button.closest(".popup"); //checks for the closest parent of a button element with class popup
+    closePopUp(target);
+  })
+})
+
 //_________________________________FUNCTION DECLARATIONS___________________________________________//
 
 //perform the query and save the data to local storage
@@ -85,10 +93,44 @@ function generateCards (key, container, template) {
     cardImage.style.background = `url(${imageList[i]}) no-repeat center center`;
     cardTitle.textContent = storageArray[i].title;
     cardAuthor.textContent = storageArray[i].authors;
-    cloneCard.classList.add(i) //so book can be found in local storage
-    cloneCard.classList.add(key);
+    cloneCard.dataset.volumeId = [i]; //so book can be found in local storage
+    cloneCard.dataset.array = key;
     container.append(cloneCard);
+    //add event listener to open popup
+    let bookCards = document.querySelectorAll(".card");
+    //Generate event listeners on each card
+    bookCards.forEach(card => {
+      card.addEventListener("click", openPopUp);
+    })
   }
+}
+
+function openPopUp (target) {
+  if (target == null) return
+  const path = target.path.reverse();
+  const volumeId = path[5].dataset.volumeId;
+  const arrayId = path[5].dataset.array;
+  const storageArray = readData(arrayId);
+  console.log(`volumeID = ${volumeId}`)
+  const volumeInfo = storageArray[volumeId];
+
+  popUpTitle.textContent = volumeInfo.title;
+  popUpDesc.textContent = volumeInfo.description
+  popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
+  popUpAuth.textContent = `Author:  ${volumeInfo.authors}`;
+  popUpPublished.textContent = `Published By:  ${volumeInfo.publishedDate}`;
+  popUpPublisher.textContent = `Published By:  ${volumeInfo.publisher}`;
+  popUpPrint.textContent = `Print Type:  ${volumeInfo.printType}`;
+  popUp.dataset.volumeId = volumeId //COULD BE IMPORTANT TO CHANGE THIS LATER!
+  popUp.dataset.arrayId = arrayId; // ID the correct storage array
+
+  popup.classList.add("active");
+  popupOverlay.classList.add("active");
+}
+
+function closePopUp (target) {
+  popup.classList.remove("active");
+  popupOverlay.classList.remove("active");
 }
 
 //read data in local storage array

@@ -306,7 +306,7 @@ body {
     font-size: 1.75rem;
 }
 
-.popup-header .close-btn {
+.close-btn {
     color: var(--pop-close-btn);
     cursor: pointer;
     border: none;
