@@ -11,12 +11,6 @@ const pinnedCardTemplate = document.getElementById("pinned-card-template");
 const pinIcon = document.getElementsByClassName("pin-icon")[0];
 const cardContainer = document.getElementById("book-cards-container");
 const cardTemplate = document.getElementById("book-card-template");
-const card = document.getElementsByClassName("card")[0];
-const cardHeader = document.getElementsByClassName("card-header")[0];
-const cardImage = document.getElementsByClassName("card-image")[0];
-const cardBody = document.getElementsByClassName("card-body")[0];
-const cardTitle = document.getElementsByClassName("book-title")[0];
-const cardAuthor = document.getElementsByClassName("book-auth")[0];
 const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById("popup-bg");
@@ -54,32 +48,70 @@ searchBtn.addEventListener("click", () => {
   const searchBarInput = document.getElementById("search").value;
   //Query google books with user search
   performApiQuery(searchBarInput);
-  console.log(readData("LastSearch"));
+  generateCards("LastSearch", cardContainer, cardTemplate)
+  //console.log(readData("LastSearch"));
   //save the search term
   // saveSearchHistory();
   // //generate cards to display search results
   // generateCards("History", cardContainer);
 })
-//----------------------------------------FUNCTION DECLARATIONS------------------------------------//
+//_________________________________FUNCTION DECLARATIONS___________________________________________//
 
+//perform the query and save the data to local storage
 async function performApiQuery (userInput) {
   const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${userInput}&maxResults=40&langRestrict=en`);
+  console.log(endpoint);
   const response = await fetch(endpoint);
   const data = await response.json();
   //console.log(data.items);
   //commit the search results to local storage
   let searchItems = [];
   for (let i = 0; i < data.items.length; i++) {
-    searchItems.push(data.items[i]);
+    searchItems.push(data.items[i].volumeInfo);
   }
   console.log(searchItems);
   writeData("LastSearch", searchItems);
 }
+//cards displaying search results
+function generateCards (key, container, template) {
+  const storageArray = readData(key);
+  const imageList = generateImageList(storageArray);
+  console.log(storageArray);
+  for (let i = 0; i < storageArray.length; i++) {
+    const cloneCard = template.content.cloneNode(true).children[0];
+    const cardImage = cloneCard.querySelectorAll(".image")[0];
+    const cardTitle = cloneCard.querySelectorAll(".book-title")[0];
+    const cardAuthor = cloneCard.querySelectorAll(".book-auth")[0];
+    cardImage.style.background = `url(${imageList[i]}) no-repeat center center`;
+    cardTitle.textContent = storageArray[i].title;
+    cardAuthor.textContent = storageArray[i].authors;
+    cloneCard.classList.add(i) //so book can be found in local storage
+    cloneCard.classList.add(key);
+    container.append(cloneCard);
+  }
+}
 
+//read data in local storage array
 function readData (key) {
   return JSON.parse(localStorage.getItem(key))
 }
-  
+//write data to local storage
 function writeData (key, data) {
   return localStorage.setItem(key, JSON.stringify(data))
+}
+
+//generate a list of image source pathways from API response data
+function generateImageList(data) {
+  let imageUrls = [];
+  for (let i = 0; i < data.length; i++) {
+    //prevent uncaught type-error due to missing image url
+    if (data[i].imageLinks !== undefined) {
+      imageUrls.push(data[i].imageLinks.thumbnail);
+    }
+    //placeholder if link missing
+    else {
+      imageUrls.push("assets/images/bookcover-placeholder.jpg");
+    }
+  }
+  return imageUrls;
 }

@@ -425,10 +425,10 @@ async function performApiQuery() {
 //generate a list of image source pathways from API response data
 function generateImageList(data) {
   let imageUrls = [];
-  for (let i = 0; i < data.items.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     //prevent uncaught type-error due to missing image url
     if (data.items[i].volumeInfo.imageLinks !== undefined) {
-      imageUrls.push(data.items[i].volumeInfo.imageLinks.thumbnail);
+      imageUrls.push(data[i].volumeInfo.imageLinks.thumbnail);
     }
     //placeholder if link missing
     else {
