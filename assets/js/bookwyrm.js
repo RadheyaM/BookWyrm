@@ -36,9 +36,10 @@ const popGoogleBtn = document.getElementById("google");
 
 // on initial load
 window.addEventListener("load", () => {
-  if (readData("LastSearch") == null) {
-    writeData("LastSearch", []);
-    console.log(readData("LastSearch"));
+  //LastSearch is for populating popups on card click after a search
+  writeData("LastSearch", []);
+  if (readData("History") === null) {
+    writeData("History", []);
   }
 });
 
@@ -48,12 +49,21 @@ searchBtn.addEventListener("click", () => {
   const searchBarInput = document.getElementById("search").value;
   //Query google books with user search
   performApiQuery(searchBarInput);
-  generateCards("LastSearch", cardContainer, cardTemplate)
+  //save history
+  saveSearchHistory(searchBarInput);
   //console.log(readData("LastSearch"));
-  //save the search term
-  // saveSearchHistory();
   // //generate cards to display search results
   // generateCards("History", cardContainer);
+})
+
+searchBar.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    searchBtn.click();
+  }
+});
+//refresh button reloads the page
+refreshBtn.addEventListener("click", () => {
+    location.reload();
 })
 
 closePopupButtons.forEach(button => {
@@ -79,22 +89,22 @@ async function performApiQuery (userInput) {
   }
   console.log(searchItems);
   writeData("LastSearch", searchItems);
+  generateCards(searchItems, cardContainer, cardTemplate)
 }
 //cards displaying search results
 function generateCards (key, container, template) {
-  const storageArray = readData(key);
-  const imageList = generateImageList(storageArray);
-  console.log(storageArray);
-  for (let i = 0; i < storageArray.length; i++) {
+  const bookList = key;
+  const imageList = generateImageList(bookList);
+  for (let i = 0; i < key.length; i++) {
     const cloneCard = template.content.cloneNode(true).children[0];
     const cardImage = cloneCard.querySelectorAll(".image")[0];
     const cardTitle = cloneCard.querySelectorAll(".book-title")[0];
     const cardAuthor = cloneCard.querySelectorAll(".book-auth")[0];
     cardImage.style.background = `url(${imageList[i]}) no-repeat center center`;
-    cardTitle.textContent = storageArray[i].title;
-    cardAuthor.textContent = storageArray[i].authors;
+    cardTitle.textContent = bookList[i].title;
+    cardAuthor.textContent = bookList[i].authors;
     cloneCard.dataset.volumeId = [i]; //so book can be found in local storage
-    cloneCard.dataset.array = key;
+    cloneCard.dataset.array = "LastSearch";
     container.append(cloneCard);
     //add event listener to open popup
     let bookCards = document.querySelectorAll(".card");
@@ -156,4 +166,11 @@ function generateImageList(data) {
     }
   }
   return imageUrls;
+}
+
+function saveSearchHistory (userInput) {
+  let history = readData("History");
+  history.push(userInput);
+  console.log(history);
+  writeData("History", history);
 }
