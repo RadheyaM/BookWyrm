@@ -23,10 +23,10 @@
     --pop-bg: rgba(0, 0, 0, .9);
     --pop-header-border: black;
     --pop-close-btn: white;
-    --pop-btn-text: gray;
     --booklist-btn-saved: green;
     --booklist-btn-saved-text: white;
     --popup-overlay: rgba(0, 0, 0, .5);
+    --popup-btn-remove: red;
 }
 
 body {
@@ -80,7 +80,9 @@ body {
   }
   
   /* Add a red background color to navbar links on hover */
-  .navbar a:hover, .dropdown:hover .dropbtn, .booklistbtn:hover {
+  .navbar a:hover, 
+  .dropdown:hover, 
+  .booklistbtn:hover {
     background-color: var(--dropdown-hover-bg);
     cursor: pointer;
   }
@@ -186,7 +188,10 @@ body {
     transition: 300ms ease-in-out;
 }
 
-.btn:hover {
+.btn:hover, 
+.pop-btn:hover, 
+.pop-btn-green:hover, 
+.pop-btn-red:hover {
     background-color: var(--btn-hover-bg);
     color: var(--btn-hover-text);
     transform: scale(1.05);
@@ -335,11 +340,6 @@ body {
     list-style: none;
 }
 
-#save-to-booklist.saved, #pin.saved {
-    background-color: var(--booklist-btn-saved);
-    color: var(--booklist-btn-saved-text);
-}
-
 .popup-button {
     display: flex;
     flex-direction: column;
@@ -351,12 +351,32 @@ body {
 .popup-button button {
     text-align: center;
     margin: auto;
-    background-color: var(--pop-btn-text);
     cursor: pointer;
+    width: 150px;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: 300ms ease-in-out;
 }
 
 .popup-button button a {
     text-decoration: none;
+}
+
+.pop-btn {
+    color: white;
+    background-color: grey;
+}
+
+.pop-btn-green {
+    color: white;
+    background-color: green;
+}
+
+.pop-btn-red {
+    color: white;
+    background-color: red;
 }
 
 .popup-body {

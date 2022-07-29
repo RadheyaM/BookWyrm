@@ -81,23 +81,29 @@ closePopupButtons.forEach(button => {
 
 //clicking To Booklist button on popup window saves that book to BookList
 popBooklistBtn.addEventListener("click", e => {
+  const btn = e.path[0];
+  if (btn.innerHTML === '<i class="fa-solid fa-circle-check"></i> Booklist') return
   //change button style on click
-  e.path[0].classList.add("saved");
-  e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+  btn.classList.remove("pop-btn");
+  btn.classList.add("pop-btn-green");
+  btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
   //save
   saveToList("BookList", "BookListTitles");
 })
 
 //same as above except for pin button and list
 popPinBtn.addEventListener("click", e => {
-  e.path[0].classList.add("saved");
-  e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
+  const btn = e.path[0];
+  if (e.path[0].innerHTML === '<i class="fa-solid fa-circle-check"></i> Booklist') return
+  btn.classList.remove("pop-btn");
+  btn.classList.add("pop-btn-green");
+  btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
   saveToList("PinList", "PinListTitles");
 })
 //_________________________________FUNCTION DECLARATIONS___________________________________________//
 
 //perform the query and save the data to local storage
-async function performApiQuery (userInput) {
+async function performApiQuery(userInput) {
   const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${userInput}&maxResults=40&langRestrict=en`);
   console.log(endpoint);
   const response = await fetch(endpoint);
@@ -113,7 +119,7 @@ async function performApiQuery (userInput) {
   generateCards(searchItems, cardContainer, cardTemplate)
 }
 //cards displaying search results
-function generateCards (key, container, template) {
+function generateCards(key, container, template) {
   const bookList = key;
   const imageList = generateImageList(bookList);
   for (let i = 0; i < key.length; i++) {
@@ -136,7 +142,7 @@ function generateCards (key, container, template) {
   }
 }
 //identifies the bookobject from card clicked and opens popup
-function openPopUp (target) {
+function openPopUp(target) {
   if (target == null) return
   const path = target.path.reverse();
   const volumeId = path[5].dataset.volumeId;
@@ -151,8 +157,9 @@ function openPopUp (target) {
   popupOverlay.classList.add("active");
 }
 
-function populatePopUp (volumeInfo, arrayId, volumeId) {
+function populatePopUp(volumeInfo, arrayId, volumeId) {
   popUpTitle.textContent = volumeInfo.title;
+  console.log(volumeInfo.title)
   popUpDesc.textContent = volumeInfo.description
   popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
   popUpAuth.textContent = `Author:  ${volumeInfo.authors}`;
@@ -161,10 +168,11 @@ function populatePopUp (volumeInfo, arrayId, volumeId) {
   popUpPrint.textContent = `Print Type:  ${volumeInfo.printType}`;
   popUp.dataset.volumeId = volumeId //COULD BE IMPORTANT TO CHANGE THIS LATER!
   popUp.dataset.arrayId = arrayId; // ID the correct storage array
+  popUpButtonChange(popUpTitle.innerHTML);
 }
 
 //removes popup window
-function closePopUp (target) {
+function closePopUp(target) {
   popUp.classList.remove("active");
   popupOverlay.classList.remove("active");
 }
@@ -194,7 +202,7 @@ function generateImageList(data) {
   return imageUrls;
 }
 //save the search term 
-function saveSearchHistory (userInput) {
+function saveSearchHistory(userInput) {
   let history = readData("History");
   history.push(userInput);
   console.log(history);
@@ -202,7 +210,7 @@ function saveSearchHistory (userInput) {
 }
 
 //can use for multiple lists 
-function saveToList (key, key2) {
+function saveToList(key, key2) {
   //list to be saved to
   const list = readData(key);
   //list of titles saved in the list
@@ -225,7 +233,7 @@ function saveToList (key, key2) {
   writeData(key2, listTitles);
 }
 
-function populateDropdown (key, key2, dropdownName) {
+function populateDropdown(key, key2, dropdownName) {
   const titlesArray = readData(key);
   const objectArray = readData(key2);
   const menuDropdown = document.getElementById(dropdownName);
@@ -254,4 +262,33 @@ function populateDropdown (key, key2, dropdownName) {
       });
     }
   }
+}
+
+function popUpButtonChange(popUpTitle) {
+  const bookList = readData("BookListTitles")
+  const pinList = readData("PinListTitles");
+  for (let index in bookList) {
+    if(bookList[index] === popUpTitle) {
+      popBooklistBtn.classList.remove("pop-btn");
+      popBooklistBtn.classList.add("pop-btn-red");
+      popBooklistBtn.innerHTML = '<i class="fa-solid fa-x"></i> From Booklist'; 
+    } 
+    else {
+      popBooklistBtn.innerHTML = '<i class="fa-solid fa-plus"></i> To Booklist';
+      popBooklistBtn.classList.remove("pop-btn-red");
+    }
+  }
+
+  for (let index in pinList) {
+    if(pinList[index] === popUpTitle) {
+      popPinBtn.classList.remove("pop-btn");
+      popPinBtn.classList.add("pop-btn-red");
+      popPinBtn.innerHTML = '<i class="fa-solid fa-x"></i> Remove Pin' 
+    }
+    else {
+      popPinBtn.innerHTML = '<i class="fa-solid fa-thumbtack"></i> To Home'
+      popPinBtn.classList.remove("pop-btn-red");
+    }
+  }  
+
 }
