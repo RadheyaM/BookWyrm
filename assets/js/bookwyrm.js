@@ -38,8 +38,12 @@ const popGoogleBtn = document.getElementById("google");
 window.addEventListener("load", () => {
   //LastSearch is for populating popups on card click after a search
   writeData("LastSearch", []);
-  if (readData("History") === null) {
-    writeData("History", []);
+  //generate storage arrays if they do not already exist
+  const storageKeys = ["History", "BookList", "BookListTitles", "PinList", "PinListTitles"]
+  for (let i = 0; i < storageKeys.length; i++) {
+    if (readData(storageKeys[i]) === null) {
+      writeData(storageKeys[i], []);
+    }
   }
 });
 
@@ -73,6 +77,14 @@ closePopupButtons.forEach(button => {
   })
 })
 
+//clicking To Booklist button on popup window saves that book to BookList
+popBooklistBtn.addEventListener("click", e => {
+  //change button style on click
+  e.path[0].classList.add("saved");
+  e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+  //save
+  saveToList("BookList", "BookListTitles");
+})
 //_________________________________FUNCTION DECLARATIONS___________________________________________//
 
 //perform the query and save the data to local storage
@@ -114,7 +126,7 @@ function generateCards (key, container, template) {
     })
   }
 }
-
+//populates the popup window when a card is clicked on
 function openPopUp (target) {
   if (target == null) return
   const path = target.path.reverse();
@@ -137,7 +149,7 @@ function openPopUp (target) {
   popup.classList.add("active");
   popupOverlay.classList.add("active");
 }
-
+//removes popup window
 function closePopUp (target) {
   popup.classList.remove("active");
   popupOverlay.classList.remove("active");
@@ -160,17 +172,37 @@ function generateImageList(data) {
     if (data[i].imageLinks !== undefined) {
       imageUrls.push(data[i].imageLinks.thumbnail);
     }
-    //placeholder if link missing
+    //add a placeholder if needed
     else {
       imageUrls.push("assets/images/bookcover-placeholder.jpg");
     }
   }
   return imageUrls;
 }
-
+//save the search term 
 function saveSearchHistory (userInput) {
   let history = readData("History");
   history.push(userInput);
   console.log(history);
   writeData("History", history);
+}
+
+//can use for multiple lists 
+function saveToList (key, key2) {
+  const list = readData(key);
+  const listTitles = readData(key2);
+  const volumeId = popUp.dataset.volumeId;
+  const arrayId = popUp.dataset.arrayId;
+  let sourceArray = readData(arrayId);
+
+  //prevent duplicates
+  for (let i = 0; i < listTitles.length; i++) {
+    if(listTitles[i] === list.title) return
+  }
+
+  list.push(sourceArray[volumeId]);
+  writeData(key, list);
+  listTitles.push(sourceArray[volumeId].title);
+  writeData(key2, listTitles);
+
 }
