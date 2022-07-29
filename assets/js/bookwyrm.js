@@ -45,6 +45,8 @@ window.addEventListener("load", () => {
       writeData(storageKeys[i], []);
     }
   }
+  populateDropdown("History", "History", "history-dropdown");
+  populateDropdown("BookListTitles", "BookList", "booklist-dropdown");
 });
 
 //Peform the search
@@ -133,7 +135,7 @@ function generateCards (key, container, template) {
     })
   }
 }
-//populates the popup window when a card is clicked on
+//identifies the bookobject from card clicked and opens popup
 function openPopUp (target) {
   if (target == null) return
   const path = target.path.reverse();
@@ -143,6 +145,13 @@ function openPopUp (target) {
   console.log(`volumeID = ${volumeId}`)
   const volumeInfo = storageArray[volumeId];
 
+  populatePopUp(volumeInfo, arrayId, volumeId);
+
+  popUp.classList.add("active");
+  popupOverlay.classList.add("active");
+}
+
+function populatePopUp (volumeInfo, arrayId, volumeId) {
   popUpTitle.textContent = volumeInfo.title;
   popUpDesc.textContent = volumeInfo.description
   popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
@@ -152,13 +161,11 @@ function openPopUp (target) {
   popUpPrint.textContent = `Print Type:  ${volumeInfo.printType}`;
   popUp.dataset.volumeId = volumeId //COULD BE IMPORTANT TO CHANGE THIS LATER!
   popUp.dataset.arrayId = arrayId; // ID the correct storage array
-
-  popup.classList.add("active");
-  popupOverlay.classList.add("active");
 }
+
 //removes popup window
 function closePopUp (target) {
-  popup.classList.remove("active");
+  popUp.classList.remove("active");
   popupOverlay.classList.remove("active");
 }
 
@@ -216,4 +223,35 @@ function saveToList (key, key2) {
   writeData(key, list);
   listTitles.push(sourceArray[volumeId].title);
   writeData(key2, listTitles);
+}
+
+function populateDropdown (key, key2, dropdownName) {
+  const titlesArray = readData(key);
+  const objectArray = readData(key2);
+  const menuDropdown = document.getElementById(dropdownName);
+  //generate the links and populate
+  for (let i = 0; i < titlesArray.length; i++) {
+    let newA = document.createElement("a");
+    newA.innerHTML = titlesArray[i];
+    newA.setAttribute("data-id", i);
+    menuDropdown.appendChild(newA);
+    //add event listeners to each new link added
+    let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
+    // initiates eventAction upon clicking a dropdown link
+    if (dropdownName === "history-dropdown") {
+      newDropdownItem.addEventListener("click", e => {
+        searchBar.value = e.path[0].innerHTML;
+        searchBtn.click()
+      })
+    }
+    else {
+      newDropdownItem.addEventListener("click", e => {
+        const volumeId = e.path[0].getAttribute("data-id");
+        const volumeInfo = objectArray[volumeId];
+        populatePopUp(volumeInfo, key, volumeId);
+        popUp.classList.add("active");
+        popupOverlay.classList.add("active");
+      });
+    }
+  }
 }
