@@ -16,7 +16,6 @@ const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById("popup-bg");
 const popUp = document.getElementById("popup");
 const popUpHeader = document.getElementsByClassName("popup-header")[0];
-const popUpTitle = document.getElementsByClassName("pop-title")[0];
 const popUpSubHeader = document.getElementsByClassName("popup-subheader")[0];
 const popUpImage= document.getElementsByClassName("pop-image")[0];
 const popUpDetails = document.getElementsByClassName("pop-details")[0];
@@ -128,8 +127,8 @@ function generateCards(key, container, template) {
     const cardTitle = cloneCard.querySelectorAll(".book-title")[0];
     const cardAuthor = cloneCard.querySelectorAll(".book-auth")[0];
     cardImage.style.background = `url(${imageList[i]}) no-repeat center center`;
-    cardTitle.textContent = bookList[i].title;
-    cardAuthor.textContent = bookList[i].authors;
+    cardTitle.innerHTML = bookList[i].title;
+    cardAuthor.innerHTML = bookList[i].authors;
     cloneCard.dataset.volumeId = [i]; //so book can be found in local storage
     cloneCard.dataset.array = "LastSearch";
     container.append(cloneCard);
@@ -158,17 +157,17 @@ function openPopUp(target) {
 }
 
 function populatePopUp(volumeInfo, arrayId, volumeId) {
-  popUpTitle.textContent = volumeInfo.title;
-  console.log(volumeInfo.title)
-  popUpDesc.textContent = volumeInfo.description
+  const popUpTitle = document.getElementsByClassName("pop-title")[0];
+  popUpTitle.innerHTML = volumeInfo.title;
+  popUpDesc.innerHTML = volumeInfo.description
   popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
-  popUpAuth.textContent = `Author:  ${volumeInfo.authors}`;
-  popUpPublished.textContent = `Published By:  ${volumeInfo.publishedDate}`;
-  popUpPublisher.textContent = `Published By:  ${volumeInfo.publisher}`;
-  popUpPrint.textContent = `Print Type:  ${volumeInfo.printType}`;
+  popUpAuth.innerHTML = `Author:  ${volumeInfo.authors}`;
+  popUpPublished.innerHTML = `Published By:  ${volumeInfo.publishedDate}`;
+  popUpPublisher.innerHTML = `Published By:  ${volumeInfo.publisher}`;
+  popUpPrint.innerHTML = `Print Type:  ${volumeInfo.printType}`;
   popUp.dataset.volumeId = volumeId //COULD BE IMPORTANT TO CHANGE THIS LATER!
   popUp.dataset.arrayId = arrayId; // ID the correct storage array
-  popUpButtonChange(popUpTitle.innerHTML);
+  popUpButtonChange();
 }
 
 //removes popup window
@@ -264,11 +263,16 @@ function populateDropdown(key, key2, dropdownName) {
   }
 }
 
-function popUpButtonChange(popUpTitle) {
+function popUpButtonChange() {
   const bookList = readData("BookListTitles")
   const pinList = readData("PinListTitles");
-  for (let index in bookList) {
-    if(bookList[index] === popUpTitle) {
+  const popUpTitle = document.getElementsByClassName("pop-title")[0];
+  popBooklistBtn.removeAttribute("class");
+  popPinBtn.removeAttribute("class");
+  popBooklistBtn.innerHTML = '<i class="fa-solid fa-plus"></i> To Booklist'
+  popPinBtn.innerHTML = '<i class="fa-solid fa-thumbtack"></i> To Home'
+  for (let i = 0; i < bookList.length; i++) {
+    if(bookList[i] === popUpTitle.innerHTML) {
       popBooklistBtn.classList.remove("pop-btn");
       popBooklistBtn.classList.add("pop-btn-red");
       popBooklistBtn.innerHTML = '<i class="fa-solid fa-x"></i> From Booklist'; 
@@ -276,11 +280,13 @@ function popUpButtonChange(popUpTitle) {
     else {
       popBooklistBtn.innerHTML = '<i class="fa-solid fa-plus"></i> To Booklist';
       popBooklistBtn.classList.remove("pop-btn-red");
+      popBooklistBtn.classList.remove("pop-btn-green");
+      popBooklistBtn.classList.add("pop-btn");
     }
   }
 
-  for (let index in pinList) {
-    if(pinList[index] === popUpTitle) {
+  for (let i = 0; i < pinList.length; i++) {
+    if(pinList[i] === popUpTitle.innerHTML) {
       popPinBtn.classList.remove("pop-btn");
       popPinBtn.classList.add("pop-btn-red");
       popPinBtn.innerHTML = '<i class="fa-solid fa-x"></i> Remove Pin' 
@@ -288,6 +294,8 @@ function popUpButtonChange(popUpTitle) {
     else {
       popPinBtn.innerHTML = '<i class="fa-solid fa-thumbtack"></i> To Home'
       popPinBtn.classList.remove("pop-btn-red");
+      popPinBtn.classList.remove("pop-btn-green");
+      popPinBtn.classList.add("pop-btn");
     }
   }  
 
