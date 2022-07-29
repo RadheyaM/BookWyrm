@@ -83,7 +83,7 @@ searchBtn.addEventListener("click", () => {
   setTimeout(() => {
     refreshBtn.classList.remove("hidden");
   }, 1000);
-})
+}) 
 
 // Perform search upon hitting enter 
 searchBar.addEventListener("keypress", e => {

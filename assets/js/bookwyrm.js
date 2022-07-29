@@ -85,6 +85,13 @@ popBooklistBtn.addEventListener("click", e => {
   //save
   saveToList("BookList", "BookListTitles");
 })
+
+//same as above except for pin button and list
+popPinBtn.addEventListener("click", e => {
+  e.path[0].classList.add("saved");
+  e.path[0].innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
+  saveToList("PinList", "PinListTitles");
+})
 //_________________________________FUNCTION DECLARATIONS___________________________________________//
 
 //perform the query and save the data to local storage
@@ -189,20 +196,24 @@ function saveSearchHistory (userInput) {
 
 //can use for multiple lists 
 function saveToList (key, key2) {
+  //list to be saved to
   const list = readData(key);
+  //list of titles saved in the list
   const listTitles = readData(key2);
+  //id of the volume currently displayed on open popup
   const volumeId = popUp.dataset.volumeId;
+  //id of the storage array populating the open popup
   const arrayId = popUp.dataset.arrayId;
+  //should get the book object currently being displayed
   let sourceArray = readData(arrayId);
 
   //prevent duplicates
   for (let i = 0; i < listTitles.length; i++) {
-    if(listTitles[i] === list.title) return
+    if (listTitles[i] === sourceArray[volumeId].title) return
   }
-
+  //save displayed book object to new appropriate list
   list.push(sourceArray[volumeId]);
   writeData(key, list);
   listTitles.push(sourceArray[volumeId].title);
   writeData(key2, listTitles);
-
 }
