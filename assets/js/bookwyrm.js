@@ -1,4 +1,5 @@
-//global variables for DOM manipulation
+//_________________________GLOBAL CONSTANTS_______________________________________
+
 const searchBar = document.getElementById("search");
 const searchContainer = document.getElementsByClassName("search-container")[0];
 const searchBtn = document.getElementById("search-btn");
@@ -37,22 +38,42 @@ const popBooklistBtn = document.getElementById("save-to-booklist");
 const popPinBtn = document.getElementById("pin");
 const popGoogleBtn = document.getElementById("google");
 
-// on initial load
+//_____________________________ EVENT LISTENERS__________________________________________
 
+// on initial load
 window.addEventListener("load", () => {
-  if (readData("LastSearch") == null || []) {
+  if (readData("LastSearch") == null) {
     writeData("LastSearch", []);
     console.log(readData("LastSearch"));
   }
 });
 
+//Peform the search
+searchBtn.addEventListener("click", () => {
+  //hide any pinned cards
+  const searchBarInput = document.getElementById("search").value;
+  //Query google books with user search
+  performApiQuery(searchBarInput);
+  console.log(readData("LastSearch"));
+  //save the search term
+  // saveSearchHistory();
+  // //generate cards to display search results
+  // generateCards("History", cardContainer);
+})
 //----------------------------------------FUNCTION DECLARATIONS------------------------------------//
 
 async function performApiQuery (userInput) {
   const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${userInput}&maxResults=40&langRestrict=en`);
   const response = await fetch(endpoint);
   const data = await response.json();
-  writeData("LastSearch", data)
+  //console.log(data.items);
+  //commit the search results to local storage
+  let searchItems = [];
+  for (let i = 0; i < data.items.length; i++) {
+    searchItems.push(data.items[i]);
+  }
+  console.log(searchItems);
+  writeData("LastSearch", searchItems);
 }
 
 function readData (key) {
