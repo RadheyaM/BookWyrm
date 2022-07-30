@@ -60,6 +60,10 @@ window.addEventListener("load", () => {
 //Peform the search
 searchBtn.addEventListener("click", () => {
   //hide any pinned cards
+  if (readData("PinList").length !== 0) {
+    const pinnedCardContainer = document.getElementById("pinned-cards-container");
+    pinnedCardContainer.classList.add("hidden");
+  }
   const searchBarInput = document.getElementById("search").value;
   //Query google books with user search
   performApiQuery(searchBarInput);
