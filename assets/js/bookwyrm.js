@@ -46,6 +46,7 @@ window.addEventListener("load", () => {
   }
   populateDropdown("History", "History", "history-dropdown");
   populateDropdown("BookListTitles", "BookList", "booklist-dropdown");
+  generateCards("PinList", pinnedCardContainer, pinnedCardTemplate);
 });
 
 //Peform the search
@@ -115,13 +116,13 @@ async function performApiQuery(userInput) {
   }
   console.log(searchItems);
   writeData("LastSearch", searchItems);
-  generateCards(searchItems, cardContainer, cardTemplate)
+  generateCards("LastSearch", cardContainer, cardTemplate);
 }
 //cards displaying search results
 function generateCards(key, container, template) {
-  const bookList = key;
+  const bookList = readData(key);
   const imageList = generateImageList(bookList);
-  for (let i = 0; i < key.length; i++) {
+  for (let i = 0; i < bookList.length; i++) {
     const cloneCard = template.content.cloneNode(true).children[0];
     const cardImage = cloneCard.querySelectorAll(".image")[0];
     const cardTitle = cloneCard.querySelectorAll(".book-title")[0];
@@ -135,7 +136,7 @@ function generateCards(key, container, template) {
     cardTitle.innerHTML = title;
     cardAuthor.innerHTML = bookList[i].authors;
     cloneCard.dataset.volumeId = [i]; //so book can be found in local storage
-    cloneCard.dataset.array = "LastSearch";
+    cloneCard.dataset.array = key;
     container.append(cloneCard);
     //add event listener to open popup
     let bookCards = document.querySelectorAll(".card");
