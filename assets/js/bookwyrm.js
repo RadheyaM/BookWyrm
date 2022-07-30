@@ -65,9 +65,6 @@ searchBtn.addEventListener("click", () => {
   performApiQuery(searchBarInput);
   //save history
   saveSearchHistory(searchBarInput);
-  //console.log(readData("LastSearch"));
-  // //generate cards to display search results
-  // generateCards("History", cardContainer);
 })
 
 searchBar.addEventListener("keypress", e => {
@@ -90,7 +87,14 @@ closePopupButtons.forEach(button => {
 //clicking To Booklist button on popup window saves that book to BookList
 popBooklistBtn.addEventListener("click", e => {
   const btn = e.path[0];
-  if (btn.innerHTML === addedBklst || btn.innerHTML === removeBklst) return
+  if (btn.innerHTML === addedBklst) return
+  if (btn.innerHTML === removeBklst) {
+    btn.classList.remove("pop-btn-red");
+    btn.classList.add("pop-btn");
+    btn.innerHTML = addBklst;
+    removeData("BookList", "BookListTitles", popUpTitle.innerHTML);
+    return
+  }
   //change button style on click
   btn.classList.remove("pop-btn");
   btn.classList.add("pop-btn-green");
@@ -102,7 +106,14 @@ popBooklistBtn.addEventListener("click", e => {
 //same as above except for pin button and list
 popPinBtn.addEventListener("click", e => {
   const btn = e.path[0];
-  if (btn.innerHTML === addedPin || btn.innerHTML === removePin) return
+  if (btn.innerHTML === addedPin) return
+  if (btn.innerHTML === removePin) {
+    btn.classList.remove("pop-btn-red");
+    btn.classList.add("pop-btn");
+    btn.innerHTML = addPin;
+    removeData("PinList", "PinListTitles", popUpTitle.innerHTML);
+    return
+  }
   btn.classList.remove("pop-btn");
   btn.classList.add("pop-btn-green");
   btn.innerHTML = addedPin;
@@ -122,13 +133,11 @@ async function performApiQuery(userInput) {
   console.log(endpoint);
   const response = await fetch(endpoint);
   const data = await response.json();
-  //console.log(data.items);
   //commit the search results to local storage
   let searchItems = [];
   for (let i = 0; i < data.items.length; i++) {
     searchItems.push(data.items[i].volumeInfo);
   }
-  console.log(searchItems);
   writeData("LastSearch", searchItems);
   generateCards("LastSearch", cardContainer, cardTemplate);
 }
@@ -167,7 +176,6 @@ function openPopUp(target) {
   const volumeId = path[5].dataset.volumeId;
   const arrayId = path[5].dataset.array;
   const storageArray = readData(arrayId);
-  console.log(`volumeID = ${volumeId}`)
   const volumeInfo = storageArray[volumeId];
 
   populatePopUp(volumeInfo, arrayId, volumeId);
@@ -189,7 +197,7 @@ function populatePopUp(volumeInfo, arrayId, volumeId) {
   //add external link to google books page
   popGoogleLink.setAttribute("href", volumeInfo.canonicalVolumeLink);
   popGoogleLink.setAttribute("target", "_blank");
-
+  //give buttons appropriate style
   changeButtons();
 }
 
@@ -204,13 +212,31 @@ function closePopUp(target) {
   popPinBtn.innerHTML = "";
 }
 
-//read data in local storage array
+//read data in local storage
 function readData (key) {
   return JSON.parse(localStorage.getItem(key))
 }
 //write data to local storage
 function writeData (key, data) {
   return localStorage.setItem(key, JSON.stringify(data))
+}
+//remove data from a specified local storage array
+function removeData (listKey, listTitlesKey, titleToRemove) {
+  console.log(`title to remove: ${titleToRemove}`);
+  let list = readData(listKey);
+  let listTitles = readData(listTitlesKey);
+  console.log(list);
+  console.log(listTitles);
+  const removeTitlesIndex = listTitles.indexOf(titleToRemove);
+  console.log(`index: ${removeTitlesIndex}`);
+
+  list.splice(removeTitlesIndex, 1);
+  console.log(list);
+  listTitles.splice(removeTitlesIndex, 1);
+  console.log(`newlistTitles = ${listTitles}`)
+  writeData(listKey, list);
+  writeData(listTitlesKey, listTitles);
+
 }
 
 //generate a list of image source pathways from API response data
@@ -232,7 +258,6 @@ function generateImageList(data) {
 function saveSearchHistory(userInput) {
   let history = readData("History");
   history.push(userInput);
-  console.log(history);
   writeData("History", history);
 }
 
@@ -240,12 +265,16 @@ function saveSearchHistory(userInput) {
 function saveToList(listKey, listTitlesKey) {
   //list to be saved to
   const list = readData(listKey);
-  //list of titles saved in the list
+
+  //list of titles saved
   const listTitles = readData(listTitlesKey);
+
   //id of the volume currently displayed on open popup
   const volumeId = popUp.dataset.volumeId;
+
   //id of the storage array populating the open popup
   const arrayId = popUp.dataset.arrayId;
+
   //should get the book object currently being displayed
   let sourceArray = readData(arrayId);
 
@@ -297,11 +326,6 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
 }
 
 function changeButtons() {
-  console.log(readData("PinListTitles"));
-  console.log(readData("BookListTitles"));
-  console.log(popUpTitle.innerHTML);
-
-  console.log(`bklst worked: ${readData("BookListTitles").length}`)
   popBooklistBtn.classList.add("pop-btn");
   popBooklistBtn.innerHTML = addBklst;
 
@@ -311,8 +335,6 @@ function changeButtons() {
       popBooklistBtn.innerHTML = removeBklst;
     }
   }
-
-  console.log(`pin worked: ${readData("PinListTitles").length}`)
   popPinBtn.classList.add("pop-btn");
   popPinBtn.innerHTML = addPin;
 
@@ -323,10 +345,3 @@ function changeButtons() {
     } 
   }
 }
-
-
-
-// popBooklistBtn.classList.add("pop-btn-red");
-// popBooklistBtn.innerHTML = '<i class="fa-solid fa-x"></i> From Booklist';
-// popPinBtn.classList.add("pop-btn");
-// popPinBtn.innerHTML = '<i class="fa-solid fa-thumbtack"></i> to home'
