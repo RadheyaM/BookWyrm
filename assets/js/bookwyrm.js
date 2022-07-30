@@ -126,8 +126,13 @@ function generateCards(key, container, template) {
     const cardImage = cloneCard.querySelectorAll(".image")[0];
     const cardTitle = cloneCard.querySelectorAll(".book-title")[0];
     const cardAuthor = cloneCard.querySelectorAll(".book-auth")[0];
+    //limit string length on cards
+    let title = bookList[i].title;
+    if (title.length > 30) {
+      title = title.substring(0, 30) + "..."
+    }
     cardImage.style.background = `url(${imageList[i]}) no-repeat center center`;
-    cardTitle.innerHTML = bookList[i].title;
+    cardTitle.innerHTML = title;
     cardAuthor.innerHTML = bookList[i].authors;
     cloneCard.dataset.volumeId = [i]; //so book can be found in local storage
     cloneCard.dataset.array = "LastSearch";
@@ -233,12 +238,15 @@ function saveToList(key, key2) {
 }
 
 function populateDropdown(key, key2, dropdownName) {
-  const titlesArray = readData(key);
+  let titlesArray = readData(key);
   const objectArray = readData(key2);
   const menuDropdown = document.getElementById(dropdownName);
   //generate the links and populate
   for (let i = 0; i < titlesArray.length; i++) {
     let newA = document.createElement("a");
+    if (titlesArray[i].length > 15) {
+      titlesArray[i] = titlesArray[i].substring(0, 13) + "..."
+    }
     newA.innerHTML = titlesArray[i];
     newA.setAttribute("data-id", i);
     menuDropdown.appendChild(newA);
