@@ -29,7 +29,8 @@ const popUpBookId = document.getElementsByClassName("pop-book-id")[0];
 const popUpButtonsCont = document.getElementsByClassName("popup-button")[0];
 const popBooklistBtn = document.getElementById("save-to-booklist");
 const popPinBtn = document.getElementById("pin");
-const popGoogleBtn = document.getElementById("google");
+const popGoogleLink = document.getElementById("google");
+const popGoogleBtn = document.getElementById("google-btn");
 
 //_____________________________ EVENT LISTENERS__________________________________________
 
@@ -100,6 +101,12 @@ popPinBtn.addEventListener("click", e => {
   btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
   saveToList("PinList", "PinListTitles");
 })
+
+//clicking button automatically clicks and opens link to google books
+popGoogleBtn.addEventListener("click", () => {
+  popGoogleLink.click();
+});
+
 //_________________________________FUNCTION DECLARATIONS___________________________________________//
 
 //perform the query and save the data to local storage
@@ -157,6 +164,10 @@ function openPopUp(target) {
   const volumeInfo = storageArray[volumeId];
 
   populatePopUp(volumeInfo, arrayId, volumeId);
+
+  //add external link to google books page
+  popGoogleLink.setAttribute("href", volumeInfo.canonicalVolumeLink);
+  popGoogleLink.setAttribute("target", "_blank");
 
   popUp.classList.add("active");
   popupOverlay.classList.add("active");
