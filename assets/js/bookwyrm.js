@@ -16,6 +16,7 @@ const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById("popup-bg");
 const popUp = document.getElementById("popup");
 const popUpHeader = document.getElementsByClassName("popup-header")[0];
+const popUpTitle = document.getElementsByClassName("pop-title")[0];
 const popUpSubHeader = document.getElementsByClassName("popup-subheader")[0];
 const popUpImage= document.getElementsByClassName("pop-image")[0];
 const popUpDetails = document.getElementsByClassName("pop-details")[0];
@@ -31,6 +32,12 @@ const popBooklistBtn = document.getElementById("save-to-booklist");
 const popPinBtn = document.getElementById("pin");
 const popGoogleLink = document.getElementById("google");
 const popGoogleBtn = document.getElementById("google-btn");
+const addPin = '<i class="fa-solid fa-thumbtack"></i> To Home'
+const removePin = '<i class="fa-solid fa-x"></i> From Home'
+const addBklst = '<i class="fa-solid fa-plus"></i> Booklist'
+const removeBklst = '<i class="fa-solid fa-x"></i> From Booklist'
+const addedBklst = '<i class="fa-solid fa-circle-check"></i> Booklist'
+const addedPin = '<i class="fa-solid fa-circle-check"></i> Pinned!'
 
 //_____________________________ EVENT LISTENERS__________________________________________
 
@@ -83,11 +90,11 @@ closePopupButtons.forEach(button => {
 //clicking To Booklist button on popup window saves that book to BookList
 popBooklistBtn.addEventListener("click", e => {
   const btn = e.path[0];
-  if (btn.innerHTML === '<i class="fa-solid fa-circle-check"></i> Booklist') return
+  if (btn.innerHTML === addedBklst || btn.innerHTML === removeBklst) return
   //change button style on click
   btn.classList.remove("pop-btn");
   btn.classList.add("pop-btn-green");
-  btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Booklist';
+  btn.innerHTML = addedBklst;
   //save
   saveToList("BookList", "BookListTitles");
 })
@@ -95,10 +102,10 @@ popBooklistBtn.addEventListener("click", e => {
 //same as above except for pin button and list
 popPinBtn.addEventListener("click", e => {
   const btn = e.path[0];
-  if (e.path[0].innerHTML === '<i class="fa-solid fa-circle-check"></i> Booklist') return
+  if (btn.innerHTML === addedPin || btn.innerHTML === removePin) return
   btn.classList.remove("pop-btn");
   btn.classList.add("pop-btn-green");
-  btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Pinned!';
+  btn.innerHTML = addedPin;
   saveToList("PinList", "PinListTitles");
 })
 
@@ -165,16 +172,11 @@ function openPopUp(target) {
 
   populatePopUp(volumeInfo, arrayId, volumeId);
 
-  //add external link to google books page
-  popGoogleLink.setAttribute("href", volumeInfo.canonicalVolumeLink);
-  popGoogleLink.setAttribute("target", "_blank");
-
   popUp.classList.add("active");
   popupOverlay.classList.add("active");
 }
 
 function populatePopUp(volumeInfo, arrayId, volumeId) {
-  const popUpTitle = document.getElementsByClassName("pop-title")[0];
   popUpTitle.innerHTML = volumeInfo.title;
   popUpDesc.innerHTML = volumeInfo.description
   popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
@@ -184,13 +186,22 @@ function populatePopUp(volumeInfo, arrayId, volumeId) {
   popUpPrint.innerHTML = `Print Type:  ${volumeInfo.printType}`;
   popUp.dataset.volumeId = volumeId //COULD BE IMPORTANT TO CHANGE THIS LATER!
   popUp.dataset.arrayId = arrayId; // ID the correct storage array
-  popUpButtonChange();
+  //add external link to google books page
+  popGoogleLink.setAttribute("href", volumeInfo.canonicalVolumeLink);
+  popGoogleLink.setAttribute("target", "_blank");
+
+  changeButtons();
 }
 
 //removes popup window
 function closePopUp(target) {
   popUp.classList.remove("active");
   popupOverlay.classList.remove("active");
+  //remove style on buttons
+  popBooklistBtn.removeAttribute("class");
+  popPinBtn.removeAttribute("class");
+  popBooklistBtn.innerHTML = "";
+  popPinBtn.innerHTML = "";
 }
 
 //read data in local storage array
@@ -226,11 +237,11 @@ function saveSearchHistory(userInput) {
 }
 
 //can use for multiple lists 
-function saveToList(key, key2) {
+function saveToList(listKey, listTitlesKey) {
   //list to be saved to
-  const list = readData(key);
+  const list = readData(listKey);
   //list of titles saved in the list
-  const listTitles = readData(key2);
+  const listTitles = readData(listTitlesKey);
   //id of the volume currently displayed on open popup
   const volumeId = popUp.dataset.volumeId;
   //id of the storage array populating the open popup
@@ -238,20 +249,20 @@ function saveToList(key, key2) {
   //should get the book object currently being displayed
   let sourceArray = readData(arrayId);
 
-  //prevent duplicates
+  //prevent duplicates and null values
   for (let i = 0; i < listTitles.length; i++) {
-    if (listTitles[i] === sourceArray[volumeId].title) return
+    if (listTitles[i] === sourceArray[volumeId].title || sourceArray[volumeId].title === null) return
   }
   //save displayed book object to new appropriate list
   list.push(sourceArray[volumeId]);
-  writeData(key, list);
+  writeData(listKey, list);
   listTitles.push(sourceArray[volumeId].title);
-  writeData(key2, listTitles);
+  writeData(listTitlesKey, listTitles);
 }
 
-function populateDropdown(key, key2, dropdownName) {
-  let titlesArray = readData(key);
-  const objectArray = readData(key2);
+function populateDropdown(titlesKey, listKey, dropdownName) {
+  let titlesArray = readData(titlesKey);
+  const objectArray = readData(listKey);
   const menuDropdown = document.getElementById(dropdownName);
   //generate the links and populate
   for (let i = 0; i < titlesArray.length; i++) {
@@ -262,9 +273,10 @@ function populateDropdown(key, key2, dropdownName) {
     newA.innerHTML = titlesArray[i];
     newA.setAttribute("data-id", i);
     menuDropdown.appendChild(newA);
+
     //add event listeners to each new link added
     let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
-    // initiates eventAction upon clicking a dropdown link
+    // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
       newDropdownItem.addEventListener("click", e => {
         searchBar.value = e.path[0].innerHTML;
@@ -275,48 +287,46 @@ function populateDropdown(key, key2, dropdownName) {
       newDropdownItem.addEventListener("click", e => {
         const volumeId = e.path[0].getAttribute("data-id");
         const volumeInfo = objectArray[volumeId];
-        populatePopUp(volumeInfo, key, volumeId);
+        populatePopUp(volumeInfo, listKey, volumeId);
+        //style the buttons
         popUp.classList.add("active");
         popupOverlay.classList.add("active");
       });
     }
-  }
+  } 
 }
 
-function popUpButtonChange() {
-  const bookList = readData("BookListTitles")
-  const pinList = readData("PinListTitles");
-  const popUpTitle = document.getElementsByClassName("pop-title")[0];
-  popBooklistBtn.removeAttribute("class");
-  popPinBtn.removeAttribute("class");
-  popBooklistBtn.innerHTML = '<i class="fa-solid fa-plus"></i> To Booklist'
-  popPinBtn.innerHTML = '<i class="fa-solid fa-thumbtack"></i> To Home'
-  for (let i = 0; i < bookList.length; i++) {
-    if(bookList[i] === popUpTitle.innerHTML) {
-      popBooklistBtn.classList.remove("pop-btn");
+function changeButtons() {
+  console.log(readData("PinListTitles"));
+  console.log(readData("BookListTitles"));
+  console.log(popUpTitle.innerHTML);
+
+  console.log(`bklst worked: ${readData("BookListTitles").length}`)
+  popBooklistBtn.classList.add("pop-btn");
+  popBooklistBtn.innerHTML = addBklst;
+
+  for (let i = 0; i < readData("BookListTitles").length; i++) {
+    if (popUpTitle.innerHTML === readData("BookListTitles")[i]) {
       popBooklistBtn.classList.add("pop-btn-red");
-      popBooklistBtn.innerHTML = '<i class="fa-solid fa-x"></i> From Booklist'; 
-    } 
-    else {
-      popBooklistBtn.innerHTML = '<i class="fa-solid fa-plus"></i> To Booklist';
-      popBooklistBtn.classList.remove("pop-btn-red");
-      popBooklistBtn.classList.remove("pop-btn-green");
-      popBooklistBtn.classList.add("pop-btn");
+      popBooklistBtn.innerHTML = removeBklst;
     }
   }
 
-  for (let i = 0; i < pinList.length; i++) {
-    if(pinList[i] === popUpTitle.innerHTML) {
-      popPinBtn.classList.remove("pop-btn");
-      popPinBtn.classList.add("pop-btn-red");
-      popPinBtn.innerHTML = '<i class="fa-solid fa-x"></i> Remove Pin' 
-    }
-    else {
-      popPinBtn.innerHTML = '<i class="fa-solid fa-thumbtack"></i> To Home'
-      popPinBtn.classList.remove("pop-btn-red");
-      popPinBtn.classList.remove("pop-btn-green");
-      popPinBtn.classList.add("pop-btn");
-    }
-  }  
+  console.log(`pin worked: ${readData("PinListTitles").length}`)
+  popPinBtn.classList.add("pop-btn");
+  popPinBtn.innerHTML = addPin;
 
+  for (let i = 0; i < readData("PinListTitles").length; i++) {
+    if (popUpTitle.innerHTML === readData("PinListTitles")[i]) {
+      popPinBtn.classList.add("pop-btn-red");
+      popPinBtn.innerHTML = removePin;
+    } 
+  }
 }
+
+
+
+// popBooklistBtn.classList.add("pop-btn-red");
+// popBooklistBtn.innerHTML = '<i class="fa-solid fa-x"></i> From Booklist';
+// popPinBtn.classList.add("pop-btn");
+// popPinBtn.innerHTML = '<i class="fa-solid fa-thumbtack"></i> to home'
