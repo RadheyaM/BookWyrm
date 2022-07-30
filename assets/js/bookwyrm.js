@@ -3,6 +3,7 @@
 const searchBar = document.getElementById("search");
 const searchContainer = document.getElementsByClassName("search-container")[0];
 const searchBtn = document.getElementById("search-btn");
+const refreshBtnContainer = document.getElementsByClassName("refresh")[0];
 const refreshBtn = document.getElementById("refresh");
 const navBar = document.getElementsByClassName("navbar")[0];
 const logo = document.getElementById("logo");
@@ -69,6 +70,14 @@ searchBtn.addEventListener("click", () => {
   performApiQuery(searchBarInput);
   //save history
   saveSearchHistory(searchBarInput);
+  //change view so that new search requires page reset
+  navBar.classList.add("hidden");
+  searchContainer.classList.add("hidden");
+  logo.classList.add("on-search");
+  //delayed appearance of a refresh button
+  setTimeout(() => {
+    refreshBtnContainer.classList.remove("hidden");
+  }, 1000);
 })
 
 searchBar.addEventListener("keypress", e => {
