@@ -8,7 +8,7 @@
     --dropdown-bg: white;
     --dropdown-list-txt: black;
     --dropdown-list-hover-bg: #ddd;
-    --search-bg:  rgba(0, 0, 0, .5);
+    --search-bg: rgba(0, 0, 0, .5);
     --search-txt: whitesmoke;
     --btn-txt: whitesmoke;
     --btn-bg: rgba(0, 0, 0, .5);
@@ -49,83 +49,85 @@ i {
     align-items: center;
     overflow: hidden;
     font-size: 1.5rem;
-  }
+}
 
-  .navbar.hidden {
+.navbar.hidden {
     display: none;
-  }
-  
-  /* Links inside the navbar */
-  .navbar a {
+}
+
+/* Links inside the navbar */
+.navbar a {
     float: left;
     font-size: 16px;
     color: var(--nav-txt);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-  }
-  
-  /* The dropdown container */
-  .dropdown {
+}
+
+/* The dropdown container */
+.dropdown {
     float: left;
     overflow: hidden;
-  }
-  
-  /* Dropdown button */
-  .dropdown .dropbtn {
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
     font-size: 16px;
     border: none;
     outline: none;
     color: var(--nav-txt);
     padding: 14px 16px;
     background-color: inherit;
-    font-family: inherit; /* Important for vertical align on mobile phones */
-    margin: 0; /* Important for vertical align on mobile phones */
-  }
-  
-  /* Add a red background color to navbar links on hover */
-  .navbar a:hover, 
-  .dropdown:hover, 
-  .booklistbtn:hover {
+    font-family: inherit;
+    /* Important for vertical align on mobile phones */
+    margin: 0;
+    /* Important for vertical align on mobile phones */
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover,
+.dropdown:hover,
+.booklistbtn:hover {
     background-color: var(--dropdown-hover-bg);
     cursor: pointer;
-  }
-  
-  /* Dropdown content (hidden by default) */
-  .dropdown-content {
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
     display: none;
     position: absolute;
     background-color: var(--dropdown-bg);
     min-width: 130px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
     float: none;
     color: var(--dropdown-list-txt);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
-  }
-  
-  /* Add a grey background color to dropdown links on hover */
-  .dropdown-content a:hover {
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
     background-color: var(--dropdown-list-hover-bg);
-  }
-  
-  /* Show the dropdown menu on hover */
-  .dropdown:hover .dropdown-content {
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
     display: block;
-  }
+}
 
 /* the logo */
 
 #logo {
     display: flex;
-    height:300px;
+    height: 300px;
     align-items: center;
     justify-content: center;
     font-size: 6rem;
@@ -153,7 +155,8 @@ i {
     display: none;
 }
 
-.refresh, .dl {
+.refresh,
+.dl {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -193,9 +196,9 @@ i {
     transition: 300ms ease-in-out;
 }
 
-.btn:hover, 
-.pop-btn:hover, 
-.pop-btn-green:hover, 
+.btn:hover,
+.pop-btn:hover,
+.pop-btn-green:hover,
 .pop-btn-red:hover {
     background-color: var(--btn-hover-bg);
     color: var(--btn-hover-txt);
@@ -206,7 +209,7 @@ i {
 
 /* CARD SECTION */
 /* make the book cards responsive with an adaptive grid setup */
-#book-cards-container, 
+#book-cards-container,
 #pinned-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -227,7 +230,7 @@ i {
 
 .card {
     background: var(--card-backup-bg);
-    background-color:var(--card-bg);
+    background-color: var(--card-bg);
     color: var(--card-txt);
     padding: 1rem;
     border-radius: 0.5rem;
@@ -264,7 +267,7 @@ i {
     padding: auto;
 }
 
-.card > .book-title {
+.card>.book-title {
     font-weight: 500;
     color: var(--card-txt);
 }
@@ -279,7 +282,7 @@ i {
     padding: .25rem;
 }
 
-.card > .card-footer {
+.card>.card-footer {
     display: none;
 }
 
@@ -336,7 +339,7 @@ i {
     font-size: 1.5rem
 }
 
-.popup-subheader > .image {
+.popup-subheader>.image {
     background-image: url('');
     background-size: no-repeat cover;
     width: 200px;

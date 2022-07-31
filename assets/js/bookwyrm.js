@@ -19,7 +19,7 @@ const popUp = document.getElementById("popup");
 const popUpHeader = document.getElementsByClassName("popup-header")[0];
 const popUpTitle = document.getElementsByClassName("pop-title")[0];
 const popUpSubHeader = document.getElementsByClassName("popup-subheader")[0];
-const popUpImage= document.getElementsByClassName("pop-image")[0];
+const popUpImage = document.getElementsByClassName("pop-image")[0];
 const popUpDetails = document.getElementsByClassName("pop-details")[0];
 const popUpAuth = document.getElementById("author");
 const popUpPublished = document.getElementById("published");
@@ -33,12 +33,12 @@ const popBooklistBtn = document.getElementById("save-to-booklist");
 const popPinBtn = document.getElementById("pin");
 const popGoogleLink = document.getElementById("google");
 const popGoogleBtn = document.getElementById("google-btn");
-const addPin = '<i class="fa-solid fa-thumbtack"></i> To Home'
-const removePin = '<i class="fa-solid fa-x"></i> From Home'
-const addBklst = '<i class="fa-solid fa-plus"></i> Booklist'
-const removeBklst = '<i class="fa-solid fa-x"></i> From Booklist'
-const addedBklst = '<i class="fa-solid fa-circle-check"></i> Booklist'
-const addedPin = '<i class="fa-solid fa-circle-check"></i> Pinned!'
+const addPin = '<i class="fa-solid fa-thumbtack"></i> To Home';
+const removePin = '<i class="fa-solid fa-x"></i> From Home';
+const addBklst = '<i class="fa-solid fa-plus"></i> Booklist';
+const removeBklst = '<i class="fa-solid fa-x"></i> From Booklist';
+const addedBklst = '<i class="fa-solid fa-circle-check"></i> Booklist';
+const addedPin = '<i class="fa-solid fa-circle-check"></i> Pinned!';
 const root = document.querySelector(":root");
 const toggle = document.getElementById("toggle");
 const toggleContainer = document.getElementsByClassName("dl")[0];
@@ -50,7 +50,13 @@ window.addEventListener("load", () => {
   //LastSearch is for populating popups on card click after a search
   writeData("LastSearch", []);
   //generate storage arrays if they do not already exist
-  const storageKeys = ["History", "BookList", "BookListTitles", "PinList", "PinListTitles"]
+  const storageKeys = [
+    "History",
+    "BookList",
+    "BookListTitles",
+    "PinList",
+    "PinListTitles",
+  ];
   for (let i = 0; i < storageKeys.length; i++) {
     if (readData(storageKeys[i]) === null) {
       writeData(storageKeys[i], []);
@@ -65,7 +71,9 @@ window.addEventListener("load", () => {
 searchBtn.addEventListener("click", () => {
   //hide any pinned cards
   if (readData("PinList").length !== 0) {
-    const pinnedCardContainer = document.getElementById("pinned-cards-container");
+    const pinnedCardContainer = document.getElementById(
+      "pinned-cards-container"
+    );
     pinnedCardContainer.classList.add("hidden");
   }
   const searchBarInput = document.getElementById("search").value;
@@ -82,9 +90,9 @@ searchBtn.addEventListener("click", () => {
   setTimeout(() => {
     refreshBtnContainer.classList.remove("hidden");
   }, 1000);
-})
+});
 
-searchBar.addEventListener("keypress", e => {
+searchBar.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     searchBtn.click();
   }
@@ -94,27 +102,27 @@ toggle.addEventListener("click", toggleDarkLightMode);
 
 //refresh button reloads the page
 refreshBtn.addEventListener("click", () => {
-    location.reload();
-})
+  location.reload();
+});
 
-closePopupButtons.forEach(button => {
+closePopupButtons.forEach((button) => {
   button.addEventListener("click", () => {
     const target = button.closest(".popup"); //checks for the closest parent of a button element with class popup
     closePopUp(target);
-  })
-})
+  });
+});
 
 //clicking To Booklist button on popup window saves that book to BookList
-popBooklistBtn.addEventListener("click", e => {
+popBooklistBtn.addEventListener("click", (e) => {
   const btn = e.path[0];
   console.log(e);
-  if (btn.innerHTML === addedBklst) return
+  if (btn.innerHTML === addedBklst) return;
   if (btn.innerHTML === removeBklst) {
     btn.classList.remove("pop-btn-red");
     btn.classList.add("pop-btn");
     btn.innerHTML = addBklst;
     removeData("BookList", "BookListTitles", popUpTitle.innerHTML);
-    return
+    return;
   }
   //change button style on click
   btn.classList.remove("pop-btn");
@@ -122,24 +130,24 @@ popBooklistBtn.addEventListener("click", e => {
   btn.innerHTML = addedBklst;
   //save
   saveToList("BookList", "BookListTitles");
-},)
+});
 
 //same as above except for pin button and list
-popPinBtn.addEventListener("click", e => {
+popPinBtn.addEventListener("click", (e) => {
   const btn = e.path[0];
-  if (btn.innerHTML === addedPin) return
+  if (btn.innerHTML === addedPin) return;
   if (btn.innerHTML === removePin) {
     btn.classList.remove("pop-btn-red");
     btn.classList.add("pop-btn");
     btn.innerHTML = addPin;
     removeData("PinList", "PinListTitles", popUpTitle.innerHTML);
-    return
+    return;
   }
   btn.classList.remove("pop-btn");
   btn.classList.add("pop-btn-green");
   btn.innerHTML = addedPin;
   saveToList("PinList", "PinListTitles");
-},)
+});
 
 //clicking button automatically clicks and opens link to google books
 popGoogleBtn.addEventListener("click", () => {
@@ -150,7 +158,9 @@ popGoogleBtn.addEventListener("click", () => {
 
 //perform the query and save the data to local storage
 async function performApiQuery(userInput) {
-  const endpoint = new URL(`https://www.googleapis.com/books/v1/volumes?q=${userInput}&maxResults=40&langRestrict=en`);
+  const endpoint = new URL(
+    `https://www.googleapis.com/books/v1/volumes?q=${userInput}&maxResults=40&langRestrict=en`
+  );
   console.log(endpoint);
   const response = await fetch(endpoint);
   const data = await response.json();
@@ -175,7 +185,7 @@ function generateCards(key, container, template) {
     //limit string length on cards
     let title = bookList[i].title;
     if (title.length > 30) {
-      title = title.substring(0, 30) + "..."
+      title = title.substring(0, 30) + "...";
     }
     cardImage.style.background = `url(${imageList[i]}) no-repeat center center`;
     cardTitle.innerHTML = title;
@@ -186,14 +196,14 @@ function generateCards(key, container, template) {
     //add event listener to open popup
     let bookCards = document.querySelectorAll(".card");
     //Generate event listeners on each card
-    bookCards.forEach(card => {
+    bookCards.forEach((card) => {
       card.addEventListener("click", openPopUp);
-    })
+    });
   }
 }
 //identifies the bookobject from card clicked and opens popup
 function openPopUp(target) {
-  if (target == null) return
+  if (target == null) return;
   const path = target.path.reverse();
   const volumeId = path[5].dataset.volumeId;
   const arrayId = path[5].dataset.array;
@@ -208,13 +218,13 @@ function openPopUp(target) {
 
 function populatePopUp(volumeInfo, arrayId, volumeId) {
   popUpTitle.innerHTML = volumeInfo.title;
-  popUpDesc.innerHTML = volumeInfo.description
+  popUpDesc.innerHTML = volumeInfo.description;
   popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
   popUpAuth.innerHTML = `Author:  ${volumeInfo.authors}`;
   popUpPublished.innerHTML = `Published By:  ${volumeInfo.publishedDate}`;
   popUpPublisher.innerHTML = `Published By:  ${volumeInfo.publisher}`;
   popUpPrint.innerHTML = `Print Type:  ${volumeInfo.printType}`;
-  popUp.dataset.volumeId = volumeId //COULD BE IMPORTANT TO CHANGE THIS LATER!
+  popUp.dataset.volumeId = volumeId; //COULD BE IMPORTANT TO CHANGE THIS LATER!
   popUp.dataset.arrayId = arrayId; // ID the correct storage array
   //add external link to google books page
   popGoogleLink.setAttribute("href", volumeInfo.canonicalVolumeLink);
@@ -235,19 +245,19 @@ function closePopUp(target) {
 }
 
 //read data in local storage
-function readData (key) {
-  return JSON.parse(localStorage.getItem(key))
+function readData(key) {
+  return JSON.parse(localStorage.getItem(key));
 }
 //write data to local storage
-function writeData (key, data) {
-  if (key == null || data == null){
-    console.log("Trying to add null value to local storage")
-    return
+function writeData(key, data) {
+  if (key == null || data == null) {
+    console.log("Trying to add null value to local storage");
+    return;
   }
-  return localStorage.setItem(key, JSON.stringify(data))
+  return localStorage.setItem(key, JSON.stringify(data));
 }
 //remove data from a specified local storage array
-function removeData (listKey, listTitlesKey, titleToRemove) {
+function removeData(listKey, listTitlesKey, titleToRemove) {
   let list = readData(listKey);
   let listTitles = readData(listTitlesKey);
   const removeTitlesIndex = listTitles.indexOf(titleToRemove);
@@ -256,7 +266,6 @@ function removeData (listKey, listTitlesKey, titleToRemove) {
   listTitles.splice(removeTitlesIndex, 1);
   writeData(listKey, list);
   writeData(listTitlesKey, listTitles);
-
 }
 
 //generate a list of image source pathways from API response data
@@ -274,14 +283,14 @@ function generateImageList(data) {
   }
   return imageUrls;
 }
-//save the search term 
+//save the search term
 function saveSearchHistory(userInput) {
   let history = readData("History");
   history.push(userInput);
   writeData("History", history);
 }
 
-//can use for multiple lists 
+//can use for multiple lists
 function saveToList(listKey, listTitlesKey) {
   //list to be saved to
   const list = readData(listKey);
@@ -300,8 +309,11 @@ function saveToList(listKey, listTitlesKey) {
 
   //prevent duplicates and null values
   for (let i = 0; i < listTitles.length; i++) {
-    if (listTitles[i] === sourceArray[volumeId].title || 
-        sourceArray[volumeId].title == null) return
+    if (
+      listTitles[i] === sourceArray[volumeId].title ||
+      sourceArray[volumeId].title == null
+    )
+      return;
   }
   //save displayed book object to new appropriate list
   list.push(sourceArray[volumeId]);
@@ -319,7 +331,7 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
   for (let i = 0; i < titlesArray.length; i++) {
     let newA = document.createElement("a");
     if (titlesArray[i].length > 15) {
-      titlesArray[i] = titlesArray[i].substring(0, 13) + "..."
+      titlesArray[i] = titlesArray[i].substring(0, 13) + "...";
     }
     newA.innerHTML = titlesArray[i];
     newA.setAttribute("data-id", i);
@@ -329,13 +341,12 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
-      newDropdownItem.addEventListener("click", e => {
+      newDropdownItem.addEventListener("click", (e) => {
         searchBar.value = e.path[0].innerHTML;
-        searchBtn.click()
-      })
-    }
-    else {
-      newDropdownItem.addEventListener("click", e => {
+        searchBtn.click();
+      });
+    } else {
+      newDropdownItem.addEventListener("click", (e) => {
         const volumeId = e.path[0].getAttribute("data-id");
         const volumeInfo = objectArray[volumeId];
         populatePopUp(volumeInfo, listKey, volumeId);
@@ -344,7 +355,7 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
         popupOverlay.classList.add("active");
       });
     }
-  } 
+  }
 }
 
 function changeButtons() {
@@ -364,7 +375,7 @@ function changeButtons() {
     if (popUpTitle.innerHTML === readData("PinListTitles")[i]) {
       popPinBtn.classList.add("pop-btn-red");
       popPinBtn.innerHTML = removePin;
-    } 
+    }
   }
 }
 
@@ -373,7 +384,7 @@ function toggleDarkLightMode() {
   // if (theme === "default") {
   //   writeData("Theme", "lightmode");
   // } else if (theme === "lightmode") {
-    
+
   // }
   const rootStyle = getComputedStyle(root);
   //light colors
@@ -382,8 +393,8 @@ function toggleDarkLightMode() {
   const mediumBlue = "#00B4D8";
   const lightBlue = "#90E0EF";
   const lightestBlue = "#caf0f866";
-  const lightGreen = "#06d6a0"
-  const darkYellow = "#edae49"
+  const lightGreen = "#06d6a0";
+  const darkYellow = "#edae49";
   //css variables
   const bodyBg = "--body-bg";
   const maintxt = "--main-txt";
@@ -399,28 +410,23 @@ function toggleDarkLightMode() {
   const dpTxt = "--dropdown-list-txt";
   const popBg = "--pop-bg";
   //becomes dark blue
-  let white = [
-    "--nav-txt", 
-    "--btn-txt",
-    "--btn-hover-bg", 
-    "--pop-btn-txt",
-  ]
+  let white = ["--nav-txt", "--btn-txt", "--btn-hover-bg", "--pop-btn-txt"];
   //becomes dark blue
   let whiteSmoke = [
     "--search-txt",
     "--card-backup-bg",
     "--card-border",
     "--card-header-bg",
-    "--pop-border"
-  ]
+    "--pop-border",
+  ];
   //becomes lightest blue
   let black = [
     "--pop-header-border",
     "--search-bg",
     "--btn-bg",
     "--card-bg",
-    "--pop-overlay"
-  ]
+    "--pop-overlay",
+  ];
   //change colors on toggle click
   root.style.setProperty(maintxt, darkBlue);
   root.style.setProperty(bodyBg, "white");
@@ -445,5 +451,4 @@ function toggleDarkLightMode() {
   for (let i = 0; i < black.length; i++) {
     root.style.setProperty(black[i], lightestBlue);
   }
-
 }
