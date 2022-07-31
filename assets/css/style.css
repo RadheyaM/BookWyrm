@@ -157,9 +157,10 @@ body {
     width: 100%;
 }
 
-.refresh.hidden {
+.refresh.hidden,
+.dl.hidden {
     display: none;
-    height: 0;
+    height: 1;
     width: 0;
 }
 

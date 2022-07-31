@@ -41,6 +41,7 @@ const addedBklst = '<i class="fa-solid fa-circle-check"></i> Booklist'
 const addedPin = '<i class="fa-solid fa-circle-check"></i> Pinned!'
 const root = document.querySelector(":root");
 const toggle = document.getElementById("toggle");
+const toggleContainer = document.getElementsByClassName("dl")[0];
 
 //_____________________________ EVENT LISTENERS__________________________________________
 
@@ -75,6 +76,7 @@ searchBtn.addEventListener("click", () => {
   //change view so that new search requires page reset
   navBar.classList.add("hidden");
   searchContainer.classList.add("hidden");
+  toggleContainer.classList.add("hidden");
   logo.classList.add("on-search");
   //delayed appearance of a refresh button
   setTimeout(() => {
@@ -308,7 +310,8 @@ function saveToList(listKey, listTitlesKey) {
 }
 
 function populateDropdown(titlesKey, listKey, dropdownName) {
-  let titlesArray = readData(titlesKey);
+  const removeDup = new Set(readData(titlesKey));
+  const titlesArray = Array.from(removeDup);
   const objectArray = readData(listKey);
   const menuDropdown = document.getElementById(dropdownName);
   //generate the links and populate
