@@ -365,60 +365,81 @@ function changeButtons() {
 }
 
 function toggleDarkLightMode() {
+  // let theme = readData("Theme");
+  // if (theme === "default") {
+  //   writeData("Theme", "lightmode");
+  // } else if (theme === "lightmode") {
+    
+  // }
   const rootStyle = getComputedStyle(root);
-  console.log(rootStyle.getPropertyValue("--body-bg"));
   //light colors
   const darkestBlue = "#03045E";
   const darkBlue = "#0077B6";
   const mediumBlue = "#00B4D8";
   const lightBlue = "#90E0EF";
-  const lightestBlue = "#CAF0F8";
+  const lightestBlue = "#caf0f866";
+  const lightGreen = "#06d6a0"
+  const darkYellow = "#edae49"
   //css variables
   const bodyBg = "--body-bg";
   const maintxt = "--main-txt";
   const dpHoverBg = "--dropdown-hover-bg";
   const cardBg = "--card-bg";
-  const cardImageBg = "--card-backup-bg"
+  const cardImageBg = "--card-backup-bg";
   const cardTxt = "--card-txt";
+  const popBtnStd = "--pop-btn-std";
+  const popBtnSaved = "--pop-btn-saved";
+  const popBtnRemove = "--pop-btn-remove";
+  const btnHoverTxt = "--btn-hover-txt";
+  const dpBg = "--dropdown-bg";
+  const dpTxt = "--dropdown-list-txt";
+  const popBg = "--pop-bg";
+  //becomes dark blue
   let white = [
     "--nav-txt", 
-    "--dropdown-bg",
+    "--btn-txt",
     "--btn-hover-bg", 
     "--pop-btn-txt",
   ]
+  //becomes dark blue
   let whiteSmoke = [
     "--search-txt",
-    "--btn-txt",
     "--card-backup-bg",
     "--card-border",
     "--card-header-bg",
     "--pop-border"
   ]
+  //becomes lightest blue
   let black = [
-    "--dropdown-list-txt",
-    "--btn-hover-txt",
     "--pop-header-border",
     "--search-bg",
     "--btn-bg",
     "--card-bg",
-    "--pop-bg",
     "--pop-overlay"
   ]
   //change colors on toggle click
-  root.style.setProperty(maintxt, mediumBlue);
-  root.style.setProperty(bodyBg, lightestBlue);
-  root.style.setProperty(dpHoverBg, mediumBlue);
+  root.style.setProperty(maintxt, darkBlue);
+  root.style.setProperty(bodyBg, "white");
+  root.style.setProperty(dpHoverBg, lightestBlue);
   root.style.setProperty(cardBg, lightBlue);
   root.style.setProperty(cardTxt, darkestBlue);
   root.style.setProperty(cardImageBg, lightBlue);
+  root.style.setProperty(popBtnStd, lightBlue);
+  root.style.setProperty(btnHoverTxt, "white");
+  root.style.setProperty(dpBg, lightestBlue);
+  root.style.setProperty(dpTxt, darkBlue);
+  root.style.setProperty(popBg, "white");
+  root.style.setProperty(popBtnSaved, lightGreen);
+  root.style.setProperty(popBtnRemove, darkYellow);
+
   for (let i = 0; i < white.length; i++) {
-    root.style.setProperty(white[i], darkBlue);
+    root.style.setProperty(white[i], darkestBlue);
   }
   for (let i = 0; i < whiteSmoke.length; i++) {
     root.style.setProperty(whiteSmoke[i], darkBlue);
   }
   for (let i = 0; i < black.length; i++) {
-    root.style.setProperty(black[i], lightBlue);
+    root.style.setProperty(black[i], lightestBlue);
   }
 
 }

@@ -26,7 +26,7 @@
     --pop-btn-saved: green;
     --pop-btn-std: grey;
     --popup-overlay: rgba(0, 0, 0, .5);
-    --pop-btn-remove: red;
+    --pop-btn-remove: #edae49;
 }
 
 body {
