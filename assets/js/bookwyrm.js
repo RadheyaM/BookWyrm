@@ -107,6 +107,7 @@ closePopupButtons.forEach(button => {
 //clicking To Booklist button on popup window saves that book to BookList
 popBooklistBtn.addEventListener("click", e => {
   const btn = e.path[0];
+  console.log(e);
   if (btn.innerHTML === addedBklst) return
   if (btn.innerHTML === removeBklst) {
     btn.classList.remove("pop-btn-red");
@@ -121,7 +122,7 @@ popBooklistBtn.addEventListener("click", e => {
   btn.innerHTML = addedBklst;
   //save
   saveToList("BookList", "BookListTitles");
-})
+},)
 
 //same as above except for pin button and list
 popPinBtn.addEventListener("click", e => {
@@ -138,7 +139,7 @@ popPinBtn.addEventListener("click", e => {
   btn.classList.add("pop-btn-green");
   btn.innerHTML = addedPin;
   saveToList("PinList", "PinListTitles");
-})
+},)
 
 //clicking button automatically clicks and opens link to google books
 popGoogleBtn.addEventListener("click", () => {
@@ -163,7 +164,8 @@ async function performApiQuery(userInput) {
 }
 //cards displaying search results
 function generateCards(key, container, template) {
-  const bookList = readData(key);
+  const removeDup = new Set(readData(key));
+  const bookList = Array.from(removeDup);
   const imageList = generateImageList(bookList);
   for (let i = 0; i < bookList.length; i++) {
     const cloneCard = template.content.cloneNode(true).children[0];
@@ -238,22 +240,20 @@ function readData (key) {
 }
 //write data to local storage
 function writeData (key, data) {
+  if (key == null || data == null){
+    console.log("Trying to add null value to local storage")
+    return
+  }
   return localStorage.setItem(key, JSON.stringify(data))
 }
 //remove data from a specified local storage array
 function removeData (listKey, listTitlesKey, titleToRemove) {
-  console.log(`title to remove: ${titleToRemove}`);
   let list = readData(listKey);
   let listTitles = readData(listTitlesKey);
-  console.log(list);
-  console.log(listTitles);
   const removeTitlesIndex = listTitles.indexOf(titleToRemove);
-  console.log(`index: ${removeTitlesIndex}`);
 
   list.splice(removeTitlesIndex, 1);
-  console.log(list);
   listTitles.splice(removeTitlesIndex, 1);
-  console.log(`newlistTitles = ${listTitles}`)
   writeData(listKey, list);
   writeData(listTitlesKey, listTitles);
 
@@ -300,7 +300,8 @@ function saveToList(listKey, listTitlesKey) {
 
   //prevent duplicates and null values
   for (let i = 0; i < listTitles.length; i++) {
-    if (listTitles[i] === sourceArray[volumeId].title || sourceArray[volumeId].title === null) return
+    if (listTitles[i] === sourceArray[volumeId].title || 
+        sourceArray[volumeId].title == null) return
   }
   //save displayed book object to new appropriate list
   list.push(sourceArray[volumeId]);

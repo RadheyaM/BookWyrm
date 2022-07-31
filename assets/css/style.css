@@ -38,6 +38,10 @@ body {
     color: var(--main-txt);
 }
 
+i {
+    pointer-events: none;
+}
+
 /* ------------------------------ NAV SECTION ---------------------------*/
 /* Navbar container */
 .navbar {
@@ -202,7 +206,8 @@ body {
 
 /* CARD SECTION */
 /* make the book cards responsive with an adaptive grid setup */
-#book-cards-container, #pinned-cards-container {
+#book-cards-container, 
+#pinned-cards-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 0.5rem;
