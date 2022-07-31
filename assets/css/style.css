@@ -2,31 +2,31 @@
 
 :root {
     --body-bg: #202124;
-    --body-text:  #868b90;
-    --nav-text: white;
+    --main-txt: #868b90;
+    --nav-txt: white;
     --dropdown-hover-bg: red;
     --dropdown-bg: white;
-    --dropdown-list-text: black;
+    --dropdown-list-txt: black;
     --dropdown-list-hover-bg: #ddd;
     --search-bg:  rgba(0, 0, 0, .5);
-    --search-text: whitesmoke;
-    --btn-text: whitesmoke;
+    --search-txt: whitesmoke;
+    --btn-txt: whitesmoke;
     --btn-bg: rgba(0, 0, 0, .5);
     --btn-hover-bg: white;
-    --btn-hover-text: black;
+    --btn-hover-txt: black;
     --card-backup-bg: whitesmoke;
     --card-bg: rgba(0, 0, 0, .9);
     --card-border: whitesmoke;
     --card-header-bg: whitesmoke;
-    --card-text: #777;
+    --card-txt: #777;
     --pop-border: whitesmoke;
     --pop-bg: rgba(0, 0, 0, .9);
     --pop-header-border: black;
-    --pop-close-btn: white;
-    --booklist-btn-saved: green;
-    --booklist-btn-saved-text: white;
+    --pop-btn-txt: white;
+    --pop-btn-saved: green;
+    --pop-btn-std: grey;
     --popup-overlay: rgba(0, 0, 0, .5);
-    --popup-btn-remove: red;
+    --pop-btn-remove: red;
 }
 
 body {
@@ -35,7 +35,7 @@ body {
     font-family: 'montserrat', sans-serif;
     font-weight: 400;
     background-color: var(--body-bg);
-    color: var(--body-text);
+    color: var(--main-txt);
 }
 
 /* ------------------------------ NAV SECTION ---------------------------*/
@@ -55,7 +55,7 @@ body {
   .navbar a {
     float: left;
     font-size: 16px;
-    color: var(--nav-text);
+    color: var(--nav-txt);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -72,7 +72,7 @@ body {
     font-size: 16px;
     border: none;
     outline: none;
-    color: var(--nav-text);
+    color: var(--nav-txt);
     padding: 14px 16px;
     background-color: inherit;
     font-family: inherit; /* Important for vertical align on mobile phones */
@@ -100,7 +100,7 @@ body {
   /* Links inside the dropdown */
   .dropdown-content a {
     float: none;
-    color: var(--dropdown-list-text);
+    color: var(--dropdown-list-txt);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -149,7 +149,7 @@ body {
     display: none;
 }
 
-.refresh {
+.refresh, .dl {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,7 +166,7 @@ body {
 #search {
     background-color: var(--search-bg);
     font-size: 1.25rem;
-    color: var(--search-text);
+    color: var(--search-txt);
     width: 50%;
     padding: 1rem;
     border: none;
@@ -177,7 +177,7 @@ body {
 }
 
 .btn {
-    color: var(--btn-text);
+    color: var(--btn-txt);
     font-size: 1rem;
     background-color: var(--btn-bg);
     width: 150px;
@@ -193,7 +193,7 @@ body {
 .pop-btn-green:hover, 
 .pop-btn-red:hover {
     background-color: var(--btn-hover-bg);
-    color: var(--btn-hover-text);
+    color: var(--btn-hover-txt);
     transform: scale(1.05);
     transition: 300ms ease-in-out;
     cursor: pointer;
@@ -222,6 +222,7 @@ body {
 .card {
     background: var(--card-backup-bg);
     background-color:var(--card-bg);
+    color: var(--card-txt);
     padding: 1rem;
     border-radius: 0.5rem;
     transition: 250ms ease-in-out;
@@ -259,7 +260,7 @@ body {
 
 .card > .book-title {
     font-weight: 500;
-    color: var(--card-text);
+    color: var(--card-txt);
 }
 
 .card .book-title {
@@ -312,7 +313,7 @@ body {
 }
 
 .close-btn {
-    color: var(--pop-close-btn);
+    color: var(--pop-btn-txt);
     cursor: pointer;
     border: none;
     outline: none;
@@ -365,18 +366,18 @@ body {
 }
 
 .pop-btn {
-    color: white;
-    background-color: grey;
+    color: var(--pop-btn-txt);
+    background-color: var(--pop-btn-std);
 }
 
 .pop-btn-green {
-    color: white;
-    background-color: green;
+    color: var(--pop-btn-txt);
+    background-color: var(--pop-btn-saved);
 }
 
 .pop-btn-red {
-    color: white;
-    background-color: red;
+    color: var(--pop-btn-txt);
+    background-color: var(--pop-btn-remove);
 }
 
 .popup-body {

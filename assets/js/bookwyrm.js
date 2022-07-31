@@ -39,6 +39,8 @@ const addBklst = '<i class="fa-solid fa-plus"></i> Booklist'
 const removeBklst = '<i class="fa-solid fa-x"></i> From Booklist'
 const addedBklst = '<i class="fa-solid fa-circle-check"></i> Booklist'
 const addedPin = '<i class="fa-solid fa-circle-check"></i> Pinned!'
+const root = document.querySelector(":root");
+const toggle = document.getElementById("toggle");
 
 //_____________________________ EVENT LISTENERS__________________________________________
 
@@ -85,6 +87,9 @@ searchBar.addEventListener("keypress", e => {
     searchBtn.click();
   }
 });
+//dark/light mode toggle button
+toggle.addEventListener("click", toggleDarkLightMode);
+
 //refresh button reloads the page
 refreshBtn.addEventListener("click", () => {
     location.reload();
@@ -357,4 +362,63 @@ function changeButtons() {
       popPinBtn.innerHTML = removePin;
     } 
   }
+}
+
+function toggleDarkLightMode() {
+  const rootStyle = getComputedStyle(root);
+  console.log(rootStyle.getPropertyValue("--body-bg"));
+  //light colors
+  const darkestBlue = "#03045E";
+  const darkBlue = "#0077B6";
+  const mediumBlue = "#00B4D8";
+  const lightBlue = "#90E0EF";
+  const lightestBlue = "#CAF0F8";
+  //css variables
+  const bodyBg = "--body-bg";
+  const maintxt = "--main-txt";
+  const dpHoverBg = "--dropdown-hover-bg";
+  const cardBg = "--card-bg";
+  const cardImageBg = "--card-backup-bg"
+  const cardTxt = "--card-txt";
+  let white = [
+    "--nav-txt", 
+    "--dropdown-bg",
+    "--btn-hover-bg", 
+    "--pop-btn-txt",
+  ]
+  let whiteSmoke = [
+    "--search-txt",
+    "--btn-txt",
+    "--card-backup-bg",
+    "--card-border",
+    "--card-header-bg",
+    "--pop-border"
+  ]
+  let black = [
+    "--dropdown-list-txt",
+    "--btn-hover-txt",
+    "--pop-header-border",
+    "--search-bg",
+    "--btn-bg",
+    "--card-bg",
+    "--pop-bg",
+    "--pop-overlay"
+  ]
+  //change colors on toggle click
+  root.style.setProperty(maintxt, mediumBlue);
+  root.style.setProperty(bodyBg, lightestBlue);
+  root.style.setProperty(dpHoverBg, mediumBlue);
+  root.style.setProperty(cardBg, lightBlue);
+  root.style.setProperty(cardTxt, darkestBlue);
+  root.style.setProperty(cardImageBg, lightBlue);
+  for (let i = 0; i < white.length; i++) {
+    root.style.setProperty(white[i], darkBlue);
+  }
+  for (let i = 0; i < whiteSmoke.length; i++) {
+    root.style.setProperty(whiteSmoke[i], darkBlue);
+  }
+  for (let i = 0; i < black.length; i++) {
+    root.style.setProperty(black[i], lightBlue);
+  }
+
 }
