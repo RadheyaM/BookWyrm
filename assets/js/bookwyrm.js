@@ -34,14 +34,58 @@ const popPinBtn = document.getElementById("pin");
 const popGoogleLink = document.getElementById("google");
 const popGoogleBtn = document.getElementById("google-btn");
 const addPin = '<i class="fa-solid fa-thumbtack"></i> To Home';
-const removePin = '<i class="fa-solid fa-x"></i> From Home';
+const removePin = '<i class="fa-solid fa-circle-minus"></i> Unpin';
 const addBklst = '<i class="fa-solid fa-plus"></i> Booklist';
-const removeBklst = '<i class="fa-solid fa-x"></i> From Booklist';
+const removeBklst = '<i class="fa-solid fa-circle-minus"></i> From Booklist';
 const addedBklst = '<i class="fa-solid fa-circle-check"></i> Booklist';
 const addedPin = '<i class="fa-solid fa-circle-check"></i> Pinned!';
+const removed = '<i class="fa-solid fa-trash"></i> Removed!';
+//const for changing color theme
 const root = document.querySelector(":root");
 const toggle = document.getElementById("toggle");
 const toggleContainer = document.getElementsByClassName("dl")[0];
+const darkestBlue = "#03045E";
+const darkBlue = "#0077B6";
+const mediumBlue = "#00B4D8";
+const lightBlue = "#90E0EF";
+const lightestBlue = "#caf0f866";
+const lightGreen = "#06d6a0";
+const darkYellow = "#edae49";
+const bodyBg = "--body-bg";
+const maintxt = "--main-txt";
+const dpHoverBg = "--dropdown-hover-bg";
+const cardBg = "--card-bg";
+const cardImageBg = "--card-backup-bg";
+const cardTxt = "--card-txt";
+const popBtnStd = "--pop-btn-std";
+const popBtnSaved = "--pop-btn-saved";
+const popBtnRemove = "--pop-btn-remove";
+const btnHoverTxt = "--btn-hover-txt";
+const dpBg = "--dropdown-bg";
+const dpTxt = "--dropdown-list-txt";
+const popBg = "--pop-bg";
+const white = [
+  "--nav-txt",
+  "--btn-txt",
+  "--btn-hover-bg",
+  "--pop-btn-txt"
+];
+//becomes dark blue
+const whiteSmoke = [
+  "--search-txt",
+  "--card-backup-bg",
+  "--card-border",
+  "--card-header-bg",
+  "--pop-border",
+];
+//becomes lightest blue
+const black = [
+  "--pop-header-border",
+  "--search-bg",
+  "--btn-bg",
+  "--card-bg",
+  "--pop-overlay",
+];
 
 //_____________________________ EVENT LISTENERS__________________________________________
 
@@ -62,9 +106,17 @@ window.addEventListener("load", () => {
       writeData(storageKeys[i], []);
     }
   }
+  // to store active theme
+  if (readData("Theme") === null) {
+    writeData("Theme", "default");
+  }
+  //populate the dropdowns, generate pinned cards
   populateDropdown("History", "History", "history-dropdown");
   populateDropdown("BookListTitles", "BookList", "booklist-dropdown");
   generateCards("PinList", pinnedCardContainer, pinnedCardTemplate);
+  if (readData("Theme") === "blue") {
+    toggle.click();
+  }
 });
 
 //Peform the search
@@ -98,7 +150,14 @@ searchBar.addEventListener("keypress", (e) => {
   }
 });
 //dark/light mode toggle button
-toggle.addEventListener("click", toggleDarkLightMode);
+toggle.addEventListener("click", () => {
+  let theme = readData("Theme");
+  if (theme === "default") {
+    activateLightTheme();
+    return
+  }
+  activateDarkTheme();
+});
 
 //refresh button reloads the page
 refreshBtn.addEventListener("click", () => {
@@ -116,11 +175,9 @@ closePopupButtons.forEach((button) => {
 popBooklistBtn.addEventListener("click", (e) => {
   const btn = e.path[0];
   console.log(e);
-  if (btn.innerHTML === addedBklst) return;
+  if (btn.innerHTML === addedBklst || btn.innerHTML === removed) return;
   if (btn.innerHTML === removeBklst) {
-    btn.classList.remove("pop-btn-red");
-    btn.classList.add("pop-btn");
-    btn.innerHTML = addBklst;
+    btn.innerHTML = removed;
     removeData("BookList", "BookListTitles", popUpTitle.innerHTML);
     return;
   }
@@ -135,11 +192,9 @@ popBooklistBtn.addEventListener("click", (e) => {
 //same as above except for pin button and list
 popPinBtn.addEventListener("click", (e) => {
   const btn = e.path[0];
-  if (btn.innerHTML === addedPin) return;
+  if (btn.innerHTML === addedPin || btn.innerHTML === removed) return;
   if (btn.innerHTML === removePin) {
-    btn.classList.remove("pop-btn-red");
-    btn.classList.add("pop-btn");
-    btn.innerHTML = addPin;
+    btn.innerHTML = removed;
     removeData("PinList", "PinListTitles", popUpTitle.innerHTML);
     return;
   }
@@ -379,54 +434,7 @@ function changeButtons() {
   }
 }
 
-function toggleDarkLightMode() {
-  // let theme = readData("Theme");
-  // if (theme === "default") {
-  //   writeData("Theme", "lightmode");
-  // } else if (theme === "lightmode") {
-
-  // }
-  const rootStyle = getComputedStyle(root);
-  //light colors
-  const darkestBlue = "#03045E";
-  const darkBlue = "#0077B6";
-  const mediumBlue = "#00B4D8";
-  const lightBlue = "#90E0EF";
-  const lightestBlue = "#caf0f866";
-  const lightGreen = "#06d6a0";
-  const darkYellow = "#edae49";
-  //css variables
-  const bodyBg = "--body-bg";
-  const maintxt = "--main-txt";
-  const dpHoverBg = "--dropdown-hover-bg";
-  const cardBg = "--card-bg";
-  const cardImageBg = "--card-backup-bg";
-  const cardTxt = "--card-txt";
-  const popBtnStd = "--pop-btn-std";
-  const popBtnSaved = "--pop-btn-saved";
-  const popBtnRemove = "--pop-btn-remove";
-  const btnHoverTxt = "--btn-hover-txt";
-  const dpBg = "--dropdown-bg";
-  const dpTxt = "--dropdown-list-txt";
-  const popBg = "--pop-bg";
-  //becomes dark blue
-  let white = ["--nav-txt", "--btn-txt", "--btn-hover-bg", "--pop-btn-txt"];
-  //becomes dark blue
-  let whiteSmoke = [
-    "--search-txt",
-    "--card-backup-bg",
-    "--card-border",
-    "--card-header-bg",
-    "--pop-border",
-  ];
-  //becomes lightest blue
-  let black = [
-    "--pop-header-border",
-    "--search-bg",
-    "--btn-bg",
-    "--card-bg",
-    "--pop-overlay",
-  ];
+function activateLightTheme() {
   //change colors on toggle click
   root.style.setProperty(maintxt, darkBlue);
   root.style.setProperty(bodyBg, "white");
@@ -451,4 +459,33 @@ function toggleDarkLightMode() {
   for (let i = 0; i < black.length; i++) {
     root.style.setProperty(black[i], lightestBlue);
   }
+  writeData("Theme", "blue");
+}
+
+function activateDarkTheme() {
+  //change colors on toggle click
+  root.style.setProperty(maintxt, "#868b90");
+  root.style.setProperty(bodyBg, "#202124");
+  root.style.setProperty(dpHoverBg, "red");
+  root.style.setProperty(cardBg, "rgba(0, 0, 0, .9);");
+  root.style.setProperty(cardTxt, "#777");
+  root.style.setProperty(cardImageBg, "whitesmoke");
+  root.style.setProperty(popBtnStd, "grey");
+  root.style.setProperty(btnHoverTxt, "black");
+  root.style.setProperty(dpBg, "red");
+  root.style.setProperty(dpTxt, "black");
+  root.style.setProperty(popBg, "rgba(0, 0, 0, .9)");
+  root.style.setProperty(popBtnSaved, "green");
+  root.style.setProperty(popBtnRemove, darkYellow);
+
+  for (let i = 0; i < white.length; i++) {
+    root.style.setProperty(white[i], "white");
+  }
+  for (let i = 0; i < whiteSmoke.length; i++) {
+    root.style.setProperty(whiteSmoke[i], "whitesmoke");
+  }
+  for (let i = 0; i < black.length; i++) {
+    root.style.setProperty(black[i], "black");
+  }
+  writeData("Theme", "default");
 }
