@@ -473,7 +473,7 @@ function activateDarkTheme() {
   root.style.setProperty(cardImageBg, "whitesmoke");
   root.style.setProperty(popBtnStd, "grey");
   root.style.setProperty(btnHoverTxt, "black");
-  root.style.setProperty(dpBg, "red");
+  root.style.setProperty(dpBg, "white");
   root.style.setProperty(dpTxt, "black");
   root.style.setProperty(popBg, "rgba(0, 0, 0, .9)");
   root.style.setProperty(popBtnSaved, "green");
