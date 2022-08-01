@@ -55,7 +55,7 @@ i {
     display: none;
 }
 
-/* Links inside the navbar */
+/* Links inside the dropdown */
 .navbar a {
     float: left;
     font-size: 16px;
@@ -83,6 +83,12 @@ i {
     /* Important for vertical align on mobile phones */
     margin: 0;
     /* Important for vertical align on mobile phones */
+}
+
+.settings {
+    font-size: 16px;
+    float: right;
+    margin-right: 2rem;
 }
 
 /* Add a red background color to navbar links on hover */

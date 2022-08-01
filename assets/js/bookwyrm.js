@@ -40,6 +40,9 @@ const removeBklst = '<i class="fa-solid fa-circle-minus"></i> From Booklist';
 const addedBklst = '<i class="fa-solid fa-circle-check"></i> Booklist';
 const addedPin = '<i class="fa-solid fa-circle-check"></i> Pinned!';
 const removed = '<i class="fa-solid fa-trash"></i> Removed!';
+const clearHistory = document.getElementById("clear-history");
+const clearBooklist = document.getElementById("clear-booklist");
+const clearPinlist = document.getElementById("clear-pinlist");
 //const for changing color theme
 const root = document.querySelector(":root");
 const toggle = document.getElementById("toggle");
@@ -166,6 +169,48 @@ toggle.addEventListener("click", () => {
 refreshBtn.addEventListener("click", () => {
   location.reload();
 });
+
+//settings
+clearHistory.addEventListener("click", () => {
+  if (confirm("Delete all history?") == true) {
+    if (confirm("Are you sure?\n Removed info cannot be restored...") == true) {
+      writeData("History", []);
+      location.reload();
+    } else {
+      return
+    }
+  } else {
+    return
+  }
+})
+
+clearBooklist.addEventListener("click", () => {
+  if (confirm("Clear Booklist?") == true) {
+    if (confirm("Are you sure?\n Removed info cannot be restored...") == true) {
+      writeData("BookList", []);
+      writeData("BookListTitles", []);
+      location.reload();
+    } else {
+      return
+    }
+  } else {
+    return
+  }
+})
+
+clearPinlist.addEventListener("click", () => {
+  if (confirm("Remove All Pin Cards?") == true) {
+    if (confirm("Are you sure?\n Removed info cannot be restored...") == true) {
+      writeData("PinList", []);
+      writeData("PinListTitles", []);
+      location.reload();
+    } else {
+      return
+    }
+  } else {
+    return
+  }
+})
 
 closePopupButtons.forEach((button) => {
   button.addEventListener("click", () => {
