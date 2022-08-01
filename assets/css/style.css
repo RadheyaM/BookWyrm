@@ -88,7 +88,21 @@ i {
 .settings {
     font-size: 16px;
     float: right;
-    margin-right: 2rem;
+    padding: 0;
+}
+
+#toggle {
+    float: right;
+    padding: 1rem 1rem 1rem 0rem;
+    color: var(--btn-txt);
+    font-size: 1rem;
+    background-color: var(--body-bg);
+    width: 150px;
+    border: none;
+    border-radius: 10px;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: 300ms ease-in-out;
 }
 
 /* Add a red background color to navbar links on hover */
@@ -161,21 +175,16 @@ i {
     display: none;
 }
 
-.dl {
-    padding-top: 1rem;
-}
-
-.refresh,
-.dl {
+.refresh {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 75px;
     width: 100%;
+    padding-top: 2rem;
 }
 
-.refresh.hidden,
-.dl.hidden {
+.refresh.hidden {
     display: none;
     height: 1;
     width: 0;
@@ -209,7 +218,8 @@ i {
 .btn:hover,
 .pop-btn:hover,
 .pop-btn-green:hover,
-.pop-btn-red:hover {
+.pop-btn-red:hover,
+#toggle:hover {
     background-color: var(--btn-hover-bg);
     color: var(--btn-hover-txt);
     transform: scale(1.05);
