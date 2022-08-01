@@ -93,14 +93,13 @@ i {
 
 #toggle {
     float: right;
-    padding: 1rem 1rem 1rem 0rem;
+    padding: 1rem 1rem 1rem 1rem;
     color: var(--btn-txt);
     font-size: 1rem;
     background-color: var(--body-bg);
-    width: 150px;
+    width: 110px;
     border: none;
     border-radius: 10px;
-    margin-right: 1rem;
     cursor: pointer;
     transition: 300ms ease-in-out;
 }
@@ -108,6 +107,7 @@ i {
 /* Add a red background color to navbar links on hover */
 .navbar a:hover,
 .dropdown:hover,
+.dropbtn:hover,
 .booklistbtn:hover {
     background-color: var(--dropdown-hover-bg);
     cursor: pointer;
@@ -222,7 +222,7 @@ i {
 #toggle:hover {
     background-color: var(--btn-hover-bg);
     color: var(--btn-hover-txt);
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: 300ms ease-in-out;
     cursor: pointer;
 }
