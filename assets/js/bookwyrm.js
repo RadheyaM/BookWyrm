@@ -138,6 +138,7 @@ searchBtn.addEventListener("click", () => {
   searchContainer.classList.add("hidden");
   toggleContainer.classList.add("hidden");
   logo.classList.add("on-search");
+  refreshBtn.innerHTML = ' <i class="fa-solid fa-arrows-rotate"></i> New Search';
   //delayed appearance of a refresh button
   setTimeout(() => {
     refreshBtnContainer.classList.remove("hidden");
