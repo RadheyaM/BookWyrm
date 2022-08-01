@@ -46,7 +46,6 @@ const clearPinlist = document.getElementById("clear-pinlist");
 //const for changing color theme
 const root = document.querySelector(":root");
 const toggle = document.getElementById("toggle");
-const toggleContainer = document.getElementsByClassName("dl")[0];
 const darkestBlue = "#03045E";
 const darkBlue = "#0077B6";
 const mediumBlue = "#00B4D8";
@@ -139,8 +138,7 @@ searchBtn.addEventListener("click", () => {
   //change view so that new search requires page reset
   navBar.classList.add("hidden");
   searchContainer.classList.add("hidden");
-  toggleContainer.classList.add("hidden");
-  logo.classList.add("on-search");
+  logo.style.padding = 0;
   refreshBtn.innerHTML = ' <i class="fa-solid fa-arrows-rotate"></i> New Search';
   //delayed appearance of a refresh button
   setTimeout(() => {
