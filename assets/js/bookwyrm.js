@@ -115,7 +115,7 @@ window.addEventListener("load", () => {
   populateDropdown("BookListTitles", "BookList", "booklist-dropdown");
   generateCards("PinList", pinnedCardContainer, pinnedCardTemplate);
   if (readData("Theme") === "blue") {
-    toggle.click();
+    activateLightTheme();
   }
 });
 
@@ -154,9 +154,11 @@ toggle.addEventListener("click", () => {
   let theme = readData("Theme");
   if (theme === "default") {
     activateLightTheme();
+    writeData("Theme", "blue");
     return
   }
   activateDarkTheme();
+  writeData("Theme", "default");
 });
 
 //refresh button reloads the page
@@ -459,7 +461,6 @@ function activateLightTheme() {
   for (let i = 0; i < black.length; i++) {
     root.style.setProperty(black[i], lightestBlue);
   }
-  writeData("Theme", "blue");
 }
 
 function activateDarkTheme() {
@@ -487,5 +488,4 @@ function activateDarkTheme() {
   for (let i = 0; i < black.length; i++) {
     root.style.setProperty(black[i], "black");
   }
-  writeData("Theme", "default");
 }
