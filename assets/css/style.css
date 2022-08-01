@@ -48,7 +48,6 @@ i {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    font-size: 1.5rem;
 }
 
 .navbar.hidden {
@@ -58,7 +57,6 @@ i {
 /* Links inside the dropdown */
 .navbar a {
     float: left;
-    font-size: 16px;
     color: var(--nav-txt);
     text-align: center;
     padding: 14px 16px;
@@ -73,7 +71,7 @@ i {
 
 /* Dropdown button */
 .dropdown .dropbtn {
-    font-size: 16px;
+    font-size: 1rem;
     border: none;
     outline: none;
     color: var(--nav-txt);
@@ -86,7 +84,6 @@ i {
 }
 
 .settings {
-    font-size: 16px;
     float: right;
     padding: 0;
 }
@@ -150,8 +147,9 @@ i {
     height: 300px;
     align-items: center;
     justify-content: center;
-    font-size: 6rem;
+    font-size: 4rem;
     font-weight: 600;
+    margin: auto;
 }
 
 #logo.on-search {
@@ -181,7 +179,6 @@ i {
     justify-content: center;
     height: 75px;
     width: 100%;
-    padding-top: 2rem;
 }
 
 .refresh.hidden {
@@ -192,7 +189,7 @@ i {
 
 #search {
     background-color: var(--search-bg);
-    font-size: 1.25rem;
+    font-size: 1rem;
     color: var(--search-txt);
     width: 50%;
     padding: 1rem;
@@ -200,12 +197,15 @@ i {
     border-radius: 10px;
     scale: 1;
     transition: 300ms ease-in-out;
+}
 
+#search::placeholder {
+    font-size: 0.8rem;
 }
 
 .btn {
     color: var(--btn-txt);
-    font-size: 1rem;
+    font-size: 0.8rem;
     background-color: var(--btn-bg);
     width: 150px;
     border: none;
@@ -213,6 +213,8 @@ i {
     padding: 1rem;
     cursor: pointer;
     transition: 300ms ease-in-out;
+    text-align: center;
+    justify-content: center;
 }
 
 .btn:hover,
@@ -438,4 +440,53 @@ i {
 
 #history-container {
     display: none;
+}
+
+/*
+----------------------MEDIA QUERIES------------------------------
+*/
+
+@media screen and (max-width: 768px) {
+
+    #logo {
+        font-size: 2.5rem;
+        width: 80vw;
+        margin: auto;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 520px) {
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #logo {
+        font-size: 1.5rem;
+        height: 100px;
+        padding: 3rem 0;
+    }
+
+    .search-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    #search {
+        height: 10px;
+        font-size: 1rem;
+        width: 75%;
+    }
+
+    .btn {
+        font-size: 0.75rem;
+        height: 40px;
+    }
+
+
 }
