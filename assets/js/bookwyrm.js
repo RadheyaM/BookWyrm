@@ -442,12 +442,12 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
-      newDropdownItem.addEventListener("click", (e) => {
+      newDropdownItem.addEventListener(clickTouch(), (e) => {
         searchBar.value = e.path[0].innerHTML;
         searchBtn.click();
       });
     } else {
-      newDropdownItem.addEventListener("click", (e) => {
+      newDropdownItem.addEventListener(clickTouch(), (e) => {
         const volumeId = e.path[0].getAttribute("data-id");
         const volumeInfo = objectArray[volumeId];
         populatePopUp(volumeInfo, listKey, volumeId);
@@ -457,6 +457,15 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
       });
     }
   }
+}
+//attempt to fix some issues on ios touchscreen devices
+function clickTouch() {
+  if ("ontouchstart" in document.documentElement === true) {
+    return 'touchstart';
+  } else {
+    return 'click'
+  }
+
 }
 
 function changeButtons() {
