@@ -50,6 +50,7 @@ const darkestBlue = "#03045E";
 const darkBlue = "#0077B6";
 const mediumBlue = "#00B4D8";
 const lightBlue = "#90E0EF";
+const lightishBlue = "#caf0f8"
 const lightestBlue = "#caf0f866";
 const lightGreen = "#06d6a0";
 const darkYellow = "#edae49";
@@ -499,7 +500,7 @@ function activateLightTheme() {
   root.style.setProperty(cardImageBg, lightBlue);
   root.style.setProperty(popBtnStd, lightBlue);
   root.style.setProperty(btnHoverTxt, "white");
-  root.style.setProperty(dpBg, lightestBlue);
+  root.style.setProperty(dpBg, lightishBlue);
   root.style.setProperty(dpTxt, darkBlue);
   root.style.setProperty(popBg, "white");
   root.style.setProperty(popBtnSaved, lightGreen);
