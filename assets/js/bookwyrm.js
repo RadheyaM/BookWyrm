@@ -298,7 +298,7 @@ function generateCards(key, container, template) {
     let bookCards = document.querySelectorAll(".card");
     //Generate event listeners on each card
     bookCards.forEach((card) => {
-      card.addEventListener("click", openPopUp);
+      card.addEventListener(clickTouch(), openPopUp);
     });
   }
 }
@@ -442,13 +442,17 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
-      newDropdownItem.addEventListener(clickTouch(), (e) => {
-        searchBar.value = e.path[0].innerHTML;
+      newDropdownItem.addEventListener(clickTouch(), (event) => {
+        searchBar.value = event.path[0].innerHTML;
+        console.log(event.path[0]);
         searchBtn.click();
       });
     } else {
-      newDropdownItem.addEventListener(clickTouch(), (e) => {
-        const volumeId = e.path[0].getAttribute("data-id");
+      newDropdownItem.addEventListener(clickTouch(), (event) => {
+        //to fix event issue on firefox
+        const ev = window.event || event;
+        const path = event.path || (event.composedPath && event.composedPath());
+        const volumeId = ev[0].getAttribute("data-id");
         const volumeInfo = objectArray[volumeId];
         populatePopUp(volumeInfo, listKey, volumeId);
         //style the buttons
