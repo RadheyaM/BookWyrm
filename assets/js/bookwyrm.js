@@ -443,8 +443,10 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
       newDropdownItem.addEventListener(clickTouch(), (event) => {
-        searchBar.value = event.path[0].innerHTML;
-        console.log(event.path[0]);
+        const ev = window.event || event;
+        const path = event.path || (event.composedPath && event.composedPath());
+        searchBar.value = ev.innerHTML;
+        console.log(ev);
         searchBtn.click();
       });
     } else {
