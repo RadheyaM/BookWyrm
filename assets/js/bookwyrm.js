@@ -443,18 +443,12 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
       newDropdownItem.addEventListener(clickTouch(), (event) => {
-        const ev = window.event || event;
-        const path = event.path || (event.composedPath && event.composedPath());
-        searchBar.value = ev.innerHTML;
-        console.log(ev);
+        searchBar.value = event.path[0].innerHTML;
         searchBtn.click();
       });
     } else {
       newDropdownItem.addEventListener(clickTouch(), (event) => {
-        //to fix event issue on firefox
-        const ev = window.event || event;
-        const path = event.path || (event.composedPath && event.composedPath());
-        const volumeId = ev[0].getAttribute("data-id");
+        const volumeId = event.path[0].getAttribute("data-id");
         const volumeInfo = objectArray[volumeId];
         populatePopUp(volumeInfo, listKey, volumeId);
         //style the buttons
