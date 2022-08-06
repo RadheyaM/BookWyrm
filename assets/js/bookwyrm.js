@@ -303,7 +303,7 @@ function generateCards(key, container, template) {
     let bookCards = document.querySelectorAll(".card");
     //Generate event listeners on each card
     bookCards.forEach((card) => {
-      card.addEventListener(clickTouch(), openPopUp);
+      card.addEventListener("click", openPopUp);
     });
   }
 }
@@ -447,12 +447,12 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     let newDropdownItem = menuDropdown.getElementsByTagName("a")[i];
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
-      newDropdownItem.addEventListener(clickTouch(), (event) => {
+      newDropdownItem.addEventListener("click", (event) => {
         searchBar.value = event.path[0].innerHTML;
         searchBtn.click();
       });
     } else {
-      newDropdownItem.addEventListener(clickTouch(), (event) => {
+      newDropdownItem.addEventListener("click", (event) => {
         const volumeId = event.path[0].getAttribute("data-id");
         const volumeInfo = objectArray[volumeId];
         populatePopUp(volumeInfo, listKey, volumeId);
@@ -462,15 +462,6 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
       });
     }
   }
-}
-//attempt to fix some issues on ios touchscreen devices
-function clickTouch() {
-  if ("ontouchstart" in document.documentElement === true) {
-    return 'touchstart';
-  } else {
-    return 'click'
-  }
-
 }
 
 function changeButtons() {
