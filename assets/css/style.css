@@ -321,8 +321,10 @@ i {
     width: fit-content;
     height: fit-content;
     min-height: 60%;
+    max-height: 80vh;
     max-width: 70%;
     transition: 300ms ease-in-out;
+    overflow-y: scroll;
 }
 
 .popup.active {
