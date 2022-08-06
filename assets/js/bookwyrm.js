@@ -152,6 +152,10 @@ searchBar.addEventListener("keypress", (e) => {
     searchBtn.click();
   }
 });
+
+//close popup on clicking overlay
+popupOverlay.addEventListener("click", closePopUp);
+
 //dark/light mode toggle button
 toggle.addEventListener("click", () => {
   let theme = readData("Theme");
