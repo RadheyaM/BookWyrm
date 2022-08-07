@@ -384,7 +384,7 @@ function generateImageList(data) {
     }
     //add a placeholder if needed
     else {
-      imageUrls.push("assets/images/bookcover-placeholder.jpg");
+      imageUrls.push("assets/images/bookwyrm-placeholder.png");
     }
   }
   return imageUrls;
