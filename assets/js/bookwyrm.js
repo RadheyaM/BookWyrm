@@ -430,9 +430,14 @@ function saveToList(listKey, listTitlesKey) {
 
 function populateDropdown(titlesKey, listKey, dropdownName) {
   const removeDup = new Set(readData(titlesKey));
-  const titlesArray = Array.from(removeDup);
+  let titlesArray = Array.from(removeDup);
   const objectArray = readData(listKey);
   const menuDropdown = document.getElementById(dropdownName);
+
+  //limit history dropdown to ten most recent searches
+  if (listKey === "History") {
+    titlesArray = titlesArray.slice(-10);
+  }
   //generate the links and populate
   for (let i = 0; i < titlesArray.length; i++) {
     let newA = document.createElement("a");
