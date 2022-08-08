@@ -4,9 +4,9 @@
 
 ## Overview
 
-BookWyrm is a book finder site enabling a user to send queries to the Google Books API and recieve responses in the form of cards.  The user can expand a modal, or popup window, by clicking a card to get more information on a given book, they can also save it to a booklist, pin it to their home page or visit the Google Books page for that book via buttons in modal. 
+BookWyrm is a book finder site enabling a user to send queries to the Google Books API and recieve responses in the form of cards.  On receiving the search results the user can expand a modal, or popup window, by clicking a card to get more information on a given book, they can also save it to a booklist, pin it to their home page or visit the Google Books page for that book via buttons in the modal. 
 
-The aim of the project is to provide a clean and simple interface to search for and save books.  Although Google Books itself is an excellent resource there seemed to be an opening for site that allows the user to see the results quickly, at a glance in the form of cards.
+Why not just use Google Books? Although Google Books itself is an excellent platform, BookWyrm does particularly well in displaying the search results in cards that can be seen at a glance, and instead of clicking each link and opening a new page to get more info on the book, you can access the info on the same page with a click.  It's specifically designed for quick searches, which you can save or pin to your homescreen.  BookWyrm is targeted towards users looking for this feature set, and of course users who simply find the interface subjectively more congenial than Google Books.
 
 ## Table of Contents
 + [Planning](#planning)
