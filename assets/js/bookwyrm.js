@@ -242,11 +242,6 @@ popPinBtn.addEventListener("click", (e) => {
   saveToList("PinList", "PinListTitles");
 });
 
-//clicking button automatically clicks and opens link to google books
-popGoogleBtn.addEventListener("click", () => {
-  popGoogleLink.click();
-});
-
 //_________________________________FUNCTION DECLARATIONS___________________________________________//
 
 //perform the query and save the data to local storage
@@ -440,6 +435,7 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
       newDropdownItem.addEventListener("click", (event) => {
+        console.log(event);
         searchBar.value = event.path[0].innerHTML;
         searchBtn.click();
       });
