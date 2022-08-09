@@ -373,7 +373,8 @@ i {
     padding-right: 1rem;
 }
 
-.popup-button button {
+.popup-button button,
+.popup-button a {
     text-align: center;
     margin: auto;
     cursor: pointer;
@@ -385,7 +386,8 @@ i {
     transition: 300ms ease-in-out;
 }
 
-.popup-button button a {
+.popup-button>a {
+    padding: 0;
     text-decoration: none;
 }
 

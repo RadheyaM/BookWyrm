@@ -23,7 +23,7 @@ const popUpPrint = document.getElementById("print-type");
 const popUpDesc = document.getElementsByClassName("pop-desc")[0];
 const popBooklistBtn = document.getElementById("save-to-booklist");
 const popPinBtn = document.getElementById("pin");
-const popGoogleLink = document.getElementById("google");
+const popGoogleLink = popUp.getElementsByTagName("a")[0];
 const popGoogleBtn = document.getElementById("google-btn");
 const addPin = '<i class="fa-solid fa-thumbtack"></i> To Home';
 const removePin = '<i class="fa-solid fa-circle-minus"></i> Unpin';
@@ -58,12 +58,7 @@ const btnHoverTxt = "--btn-hover-txt";
 const dpBg = "--dropdown-bg";
 const dpTxt = "--dropdown-list-txt";
 const popBg = "--pop-bg";
-const white = [
-  "--nav-txt",
-  "--btn-txt",
-  "--btn-hover-bg",
-  "--pop-btn-txt"
-];
+const white = ["--nav-txt", "--btn-txt", "--btn-hover-bg", "--pop-btn-txt"];
 //becomes dark blue
 const whiteSmoke = [
   "--search-txt",
@@ -131,7 +126,8 @@ searchBtn.addEventListener("click", () => {
   navBar.classList.add("hidden");
   searchContainer.classList.add("hidden");
   logo.style.padding = 0;
-  refreshBtn.innerHTML = ' <i class="fa-solid fa-arrows-rotate"></i> New Search';
+  refreshBtn.innerHTML =
+    ' <i class="fa-solid fa-arrows-rotate"></i> New Search';
   //delayed appearance of a refresh button
   setTimeout(() => {
     refreshBtnContainer.classList.remove("hidden");
@@ -421,9 +417,9 @@ function saveToList(listKey, listTitlesKey) {
 
 function populateDropdown(titlesKey, listKey, dropdownName) {
   const removeDup = new Set(readData(titlesKey));
-  let titlesArray = Array.from(removeDup);
   const objectArray = readData(listKey);
   const menuDropdown = document.getElementById(dropdownName);
+  let titlesArray = Array.from(removeDup);
 
   //limit history dropdown to ten most recent searches
   if (listKey === "History") {
@@ -459,7 +455,7 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     }
   }
 }
-
+//edits the popup buttons styling
 function changeButtons() {
   popBooklistBtn.classList.add("pop-btn");
   popBooklistBtn.innerHTML = addBklst;
