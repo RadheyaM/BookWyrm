@@ -211,7 +211,6 @@ closePopupButtons.forEach((button) => {
 //clicking To Booklist button on popup window saves that book to BookList
 popBooklistBtn.addEventListener("click", (e) => {
   const btn = e.path[0];
-  console.log(e);
   if (btn.innerHTML === addedBklst || btn.innerHTML === removed) return;
   if (btn.innerHTML === removeBklst) {
     btn.innerHTML = removed;
@@ -248,7 +247,6 @@ async function performApiQuery(userInput) {
   const endpoint = new URL(
     `https://www.googleapis.com/books/v1/volumes?q=${userInput}&maxResults=40&langRestrict=en`
   );
-  console.log(endpoint);
   const response = await fetch(endpoint);
   const data = await response.json();
   //commit the search results to local storage
@@ -344,7 +342,6 @@ function readData(key) {
 //write data to local storage
 function writeData(key, data) {
   if (key == null || data == null) {
-    console.log("Trying to add null value to local storage");
     return;
   }
   return localStorage.setItem(key, JSON.stringify(data));
@@ -440,7 +437,6 @@ function populateDropdown(titlesKey, listKey, dropdownName) {
     // initiates appropriate action upon clicking a dropdown link
     if (dropdownName === "history-dropdown") {
       newDropdownItem.addEventListener("click", (event) => {
-        console.log(event);
         searchBar.value = event.path[0].innerHTML;
         searchBtn.click();
       });
