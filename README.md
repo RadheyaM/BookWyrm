@@ -24,9 +24,10 @@ Why not just use Google Books? Although Google Books itself is an excellent plat
 ## Planning
 
 ### Target Users
-- Students
-- Avid Readers
-- Researchers
+- Students.
+- Avid Readers.
+- Researchers.
+- Anyone searching for books who prefers the UI over Google Books.
 
 ### User Stories
 What I want as a user from a book finder site:
@@ -43,9 +44,9 @@ What I want as a user from a book finder site:
 ### Site Goals
 The site aims to be:
 
-- Clean, simple and fast UI.
-- Visually attractive and intuitive.
-- Responsive to user input.
+- Clean, simple and fast.
+- Visually attractive, smooth and intuitive UI.
+- Responsive to user input, always providing reinforcing feedback to any action performed.
 - Consistent in delivering the features promised.
 
 
@@ -174,6 +175,16 @@ Included in the link below are test results initial and after the fixes showing 
 #### Mobile
 
 ![Lighthouse Mobile Image](documents/testing/lighthouse/lighthouse-mob-result.png)
+
+### Adaptability
+
+#### Screen Size
+Testing was done extensively throughout, and upon completion across various screen sizes supplied by Chrome Developer Tools.
+
+#### Browser and device Compatibility
+-  The site works well in Chrome, Edge and Safari on windows and macOS devices.  
+-  The site works well on Android mobile devices.
+-  The site loads and looks good in the Firefox browser and on iOS touchscreen devices but there is a bug that hampers functionality on these technologies, which is detailed in the Known Bugs section below.
 
 ### Known Bugs To Be Fixed
 #### Firefox and iOS Devices
