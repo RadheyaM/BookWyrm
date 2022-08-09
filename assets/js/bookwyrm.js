@@ -307,7 +307,8 @@ function openPopUp(target) {
 function populatePopUp(volumeInfo, arrayId, volumeId) {
   popUpTitle.innerHTML = volumeInfo.title;
   popUpDesc.innerHTML = volumeInfo.description;
-  popUpImage.style.background = `url(${volumeInfo.imageLinks.thumbnail}) no-repeat center center`;
+  imageList = generateImageList(volumeInfo);
+  popUpImage.style.background = `url(${imageList[0]}) no-repeat center center`;
   popUpAuth.innerHTML = `Author:  ${volumeInfo.authors}`;
   popUpPublished.innerHTML = `Published By:  ${volumeInfo.publishedDate}`;
   popUpPublisher.innerHTML = `Published By:  ${volumeInfo.publisher}`;
