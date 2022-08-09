@@ -6,7 +6,7 @@
 
 ## Overview
 
-BookWyrm is a book finder site enabling a user to send queries to the Google Books API and recieve responses in the form of cards.  On receiving the search results the user can expand a pop-up window by clicking a card to get more information on a given book. They can also save it to a booklist, pin it to their home page or visit the Google Books page for that book via buttons in the modal. 
+BookWyrm is a single page book finder site enabling users to send queries to the Google Books API and recieve responses in the form of cards.  On receiving the search results the user can expand a pop-up window by clicking a card to get more information on a given book. They can also save it to a booklist, pin it to their home page or visit the Google Books page for that book via buttons in the modal. 
 
 Why not just use Google Books? Although Google Books itself is an excellent platform, BookWyrm does particularly well in displaying the search results in cards that can be seen at a glance, and instead of opening each link in a new window, you can access the info on the same page with a click.  
 
@@ -264,6 +264,9 @@ If a book is removed from the booklist or pinned cards memory on the home screen
 
 #### Book Titles 
 If the user attempts to add a book with the same title as a book already in a list, nothing new will be added.  To fix, logic checking for more than just the title when blocking duplicate entries can be written.
+
+#### Theme Toggle Flashes
+On changing the theme or reloading with the light theme active there is a flash as the color is changed.
 
 ## Deployment
 Within the Github respository window select the 'settings' tab menu and navigate to 'pages'. Select 'Branch: main' from the dropdown menu and execute. The site will be live in a matter of minutes, and the live URL will be displayed on the same deployment page. Any changes made after deployment in the main branch will be added to the live site after they are committed and pushed to the Github repository.
