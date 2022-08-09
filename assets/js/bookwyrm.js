@@ -306,13 +306,18 @@ function openPopUp(target) {
 function populatePopUp(volumeInfo, arrayId, volumeId) {
   popUpTitle.innerHTML = volumeInfo.title;
   popUpDesc.innerHTML = volumeInfo.description;
-  const imageList = generateImageList(volumeInfo);
-  popUpImage.style.background = `url(${imageList[0]}) no-repeat center center`;
+  let thumbnail = volumeInfo.imageLinks;
+  //allow the popup to open if placeholder image on card
+  if (thumbnail === undefined) {
+    popUpImage.style.background = `no-repeat center center`;
+  } else {
+    popUpImage.style.background = `url(${thumbnail}) no-repeat center center`;
+  }
   popUpAuth.innerHTML = `Author:  ${volumeInfo.authors}`;
   popUpPublished.innerHTML = `Published By:  ${volumeInfo.publishedDate}`;
   popUpPublisher.innerHTML = `Published By:  ${volumeInfo.publisher}`;
   popUpPrint.innerHTML = `Print Type:  ${volumeInfo.printType}`;
-  popUp.dataset.volumeId = volumeId; //COULD BE IMPORTANT TO CHANGE THIS LATER!
+  popUp.dataset.volumeId = volumeId;
   popUp.dataset.arrayId = arrayId; // ID the correct storage array
   //add external link to google books page
   popGoogleLink.setAttribute("href", volumeInfo.canonicalVolumeLink);
