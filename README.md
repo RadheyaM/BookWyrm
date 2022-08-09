@@ -1,6 +1,6 @@
 # BookWyrm
 
-<img src="documents/feature-images/bookwyrm-mockup.webp" width="70%" height="70%">
+<img src="documents/feature-images/bookwyrm-mockup.webp" width="100%" height="100%">
 
 [View the Live Project](https://radheyam.github.io/BookWyrm/)
 
@@ -85,6 +85,19 @@ The popup contains two interactive buttons, which have varying functions dependi
 A footer was not included as it was deemed unnecessary.
 
 ## Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- [Google Books API](https://developers.google.com/books/docs/v1/using) - all information returned on a search.
+- [Git](https://git-scm.com/) - for version control.
+- [Github](https://github.com/) - repository to store the project files and host/share the project.
+- [Gitpod](https://gitpod.io/) - browser IDE used to write the project code.
+- [Convertio](https://convertio.co/jpg-webp/) - used to convert jpg images to better optimised webp format.
+- [Optimizilla](https://imagecompressor.com/) - used to optimise the images for better performance.
+- [Coolers](https://coolors.co/) for the blue color palette.
+- [Techsini](https://techsini.com/multi-mockup/index.php) - for the site mockup image
+- Chrome developer tools - used to view, edit and test the site throughout development.
 
 ## Testing
 
