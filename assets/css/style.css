@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
 
+/*Colour variables*/
 :root {
     --body-bg: #202124;
     --main-txt: #868b90;
@@ -152,7 +153,7 @@ i {
     margin: auto;
 }
 
-/* SEARCH SECTION */
+/*----------------------------- SEARCH SECTION ---------------------------------*/
 
 .search-container {
     width: 100%;
@@ -225,7 +226,7 @@ i {
     cursor: pointer;
 }
 
-/* CARD SECTION */
+/* ----------------------------------CARD SECTION ----------------------------*/
 /* make the book cards responsive with an adaptive grid setup */
 #book-cards-container,
 #pinned-cards-container {
@@ -305,7 +306,7 @@ i {
     display: none;
 }
 
-/* POP-UP SECTION */
+/* ----------------------------------POP-UP SECTION -----------------------------*/
 .popup {
     position: fixed;
     top: 50%;
