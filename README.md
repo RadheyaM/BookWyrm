@@ -86,6 +86,25 @@ A footer was not included as it was deemed unnecessary.
 
 ## Testing
 
+### Lighthouse - Google Developer Tools
+
+Accessibility
+  - the score is decreased due to the buttons not having a name, however it is part of the design of the theme toggle button to just comprise images and the popup buttons innerHTML will be populated by JavaScript.
+
+SEO
+  - There are some errors here beyond the scope of the course to fix.
+
+[Lighthouse Report Results](documents/testing/lighthouse/)
+
+#### Desktop
+
+![Lighthouse Desktop Image](documents/testing/lighthouse/lighthouse-dsktp-result.png)
+
+
+#### Mobile
+
+![Lighthouse Mobile Image](documents/testing/lighthouse/lighthouse-mob-result.png)
+
 ### Known Bugs To Be Fixed
 #### Firefox and iOS Devices
 The event listener to open popups relies on event.path to identify which book information to use in populating a popup window.  The event.path synthax is not supported on iOS touchscreen devices or on the Firefox browser and as a result the popups cannot be opened when using these technologies.  An attempt was made to rectify the issue but as the bug was discovered late in development there was insufficient time available to rectify it before the deadline.
@@ -94,7 +113,8 @@ The event listener to open popups relies on event.path to identify which book in
 An error pops up in the console on loading the site linked to favicon.ico, but as it does not seem to affect performance in any way it was not addressed due to more important issues.
 
 #### Missing API Info
-There is a placeholder image supplier for missing image links to avoid errors, but sometimes other information is missing from particular books and is displayed as "undefined".  To be fixed by adding logic to replace undefined with a message explaining the issue to the user.
+There is a placeholder image supplied for cards when the API data is missing image links, but it does not transfer onto the popup. With an indepth look at the logic defining the image path this issue can be fixed.
+Furthermore, sometimes other information is missing from particular books and is displayed as "undefined".  To be fixed by adding logic to replace undefined with a message explaining the issue to the user.
 
 #### Removing Book Without Refresh
 If a book is removed from the booklist or pinned cards memory on the home screen, it will still be visible but will not open a popup upon click.  Only removed upon window refresh.  This should be realitively easy to fix by adding a hidden class to the elements involved. 
