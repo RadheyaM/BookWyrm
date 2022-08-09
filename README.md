@@ -268,6 +268,9 @@ If the user attempts to add a book with the same title as a book already in a li
 #### Theme Toggle Flashes
 On changing the theme or reloading with the light theme active there is a flash as the color is changed.
 
+#### Closing Popup
+Clicking the overlay to close the popup above an active card under the overlay does not close the popup, but clicking anywhere else on the overlay does. X to close works at all times.
+
 ## Deployment
 Within the Github respository window select the 'settings' tab menu and navigate to 'pages'. Select 'Branch: main' from the dropdown menu and execute. The site will be live in a matter of minutes, and the live URL will be displayed on the same deployment page. Any changes made after deployment in the main branch will be added to the live site after they are committed and pushed to the Github repository.
 

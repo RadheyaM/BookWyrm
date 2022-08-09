@@ -34,7 +34,7 @@ const removed = '<i class="fa-solid fa-trash"></i> Removed!';
 const clearHistory = document.getElementById("clear-history");
 const clearBooklist = document.getElementById("clear-booklist");
 const clearPinlist = document.getElementById("clear-pinlist");
-//const for changing color theme
+//constants for changing color theme
 const root = document.querySelector(":root");
 const toggle = document.getElementById("toggle");
 const darkestBlue = "#03045E";
@@ -98,7 +98,7 @@ window.addEventListener("load", () => {
   if (readData("Theme") === null) {
     writeData("Theme", "default");
   }
-  //populate the dropdowns, generate pinned cards
+  //populate the dropdowns, generate pinned cards, activate theme
   populateDropdown("History", "History", "history-dropdown");
   populateDropdown("BookListTitles", "BookList", "booklist-dropdown");
   generateCards("PinList", pinnedCardContainer, pinnedCardTemplate);
@@ -278,7 +278,7 @@ function generateCards(key, container, template) {
     cloneCard.dataset.volumeId = [i]; //so book can be found in local storage
     cloneCard.dataset.array = key;
     container.append(cloneCard);
-    //add event listener to open popup
+    //add event listener to open the popup
     let bookCards = document.querySelectorAll(".card");
     //Generate event listeners on each card
     bookCards.forEach((card) => {
@@ -320,7 +320,7 @@ function populatePopUp(volumeInfo, arrayId, volumeId) {
   //add external link to google books page
   popGoogleLink.setAttribute("href", volumeInfo.canonicalVolumeLink);
   popGoogleLink.setAttribute("target", "_blank");
-  //give buttons appropriate style
+  //give buttons appropriate style!
   changeButtons();
 }
 
