@@ -9,26 +9,18 @@ const navBar = document.getElementsByClassName("navbar")[0];
 const logo = document.getElementById("logo");
 const pinnedCardContainer = document.getElementById("pinned-cards-container");
 const pinnedCardTemplate = document.getElementById("pinned-card-template");
-const pinIcon = document.getElementsByClassName("pin-icon")[0];
 const cardContainer = document.getElementById("book-cards-container");
 const cardTemplate = document.getElementById("book-card-template");
-const openPopupButtons = document.querySelectorAll("[data-popup-target]");
 const closePopupButtons = document.querySelectorAll("[data-close-button]");
 const popupOverlay = document.getElementById("popup-bg");
 const popUp = document.getElementById("popup");
-const popUpHeader = document.getElementsByClassName("popup-header")[0];
 const popUpTitle = document.getElementsByClassName("pop-title")[0];
-const popUpSubHeader = document.getElementsByClassName("popup-subheader")[0];
 const popUpImage = document.getElementsByClassName("pop-image")[0];
-const popUpDetails = document.getElementsByClassName("pop-details")[0];
 const popUpAuth = document.getElementById("author");
 const popUpPublished = document.getElementById("published");
 const popUpPublisher = document.getElementById("publisher");
 const popUpPrint = document.getElementById("print-type");
-const popUpBody = document.getElementsByClassName("popup-body")[0];
 const popUpDesc = document.getElementsByClassName("pop-desc")[0];
-const popUpBookId = document.getElementsByClassName("pop-book-id")[0];
-const popUpButtonsCont = document.getElementsByClassName("popup-button")[0];
 const popBooklistBtn = document.getElementById("save-to-booklist");
 const popPinBtn = document.getElementById("pin");
 const popGoogleLink = document.getElementById("google");
@@ -48,9 +40,8 @@ const root = document.querySelector(":root");
 const toggle = document.getElementById("toggle");
 const darkestBlue = "#03045E";
 const darkBlue = "#0077B6";
-const mediumBlue = "#00B4D8";
 const lightBlue = "#90E0EF";
-const lightishBlue = "#caf0f8"
+const lightishBlue = "#caf0f8";
 const lightestBlue = "#caf0f866";
 const lightGreen = "#06d6a0";
 const darkYellow = "#edae49";
@@ -162,7 +153,7 @@ toggle.addEventListener("click", () => {
   if (theme === "default") {
     activateLightTheme();
     writeData("Theme", "blue");
-    return
+    return;
   }
   activateDarkTheme();
   writeData("Theme", "default");
@@ -180,12 +171,12 @@ clearHistory.addEventListener("click", () => {
       writeData("History", []);
       location.reload();
     } else {
-      return
+      return;
     }
   } else {
-    return
+    return;
   }
-})
+});
 
 clearBooklist.addEventListener("click", () => {
   if (confirm("Clear Booklist?") == true) {
@@ -194,12 +185,12 @@ clearBooklist.addEventListener("click", () => {
       writeData("BookListTitles", []);
       location.reload();
     } else {
-      return
+      return;
     }
   } else {
-    return
+    return;
   }
-})
+});
 
 clearPinlist.addEventListener("click", () => {
   if (confirm("Remove All Pin Cards?") == true) {
@@ -208,12 +199,12 @@ clearPinlist.addEventListener("click", () => {
       writeData("PinListTitles", []);
       location.reload();
     } else {
-      return
+      return;
     }
   } else {
-    return
+    return;
   }
-})
+});
 
 closePopupButtons.forEach((button) => {
   button.addEventListener("click", () => {
