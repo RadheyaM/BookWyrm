@@ -374,7 +374,8 @@ i {
 }
 
 .popup-button button,
-.popup-button a {
+.popup-button>a {
+    font-family: 'montserrat', sans-serif;
     text-align: center;
     margin: auto;
     cursor: pointer;
@@ -387,8 +388,13 @@ i {
 }
 
 .popup-button>a {
-    padding: 0;
-    text-decoration: none;
+    text-decoration: solid;
+    font-size: 1.5rem;
+    color: var(--btn-txt)
+}
+
+.popup-button>a:hover {
+    transform: scale(1.1);
 }
 
 .pop-btn {
@@ -478,7 +484,8 @@ i {
         padding: 0;
     }
 
-    .popup-button {
+    .popup-button,
+    .popup-button>a {
         gap: 1rem;
         padding: 0;
     }
