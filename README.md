@@ -1,5 +1,7 @@
 # BookWyrm
 
+<img src="documents/feature-images/bookwyrm-mockup.webp" width="70%" height="70%">
+
 [View the Live Project](https://radheyam.github.io/BookWyrm/)
 
 ## Overview
