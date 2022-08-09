@@ -88,11 +88,10 @@ A footer was not included as it was deemed unnecessary.
 
 ### Known Bugs To Be Fixed
 #### Firefox and iOS Devices
-The event listener to open popups relies on event.path to identify which book information to use in populating a popup window.  The event.path is not supported on iOS touchscreen devices or on the Firefox browser and as a result the popups cannot be opened when using these technologies.  An attempt was made to rectify the issue but as the bug was discovered late in development there was insufficient time available to rectify it before the deadline.
+The event listener to open popups relies on event.path to identify which book information to use in populating a popup window.  The event.path synthax is not supported on iOS touchscreen devices or on the Firefox browser and as a result the popups cannot be opened when using these technologies.  An attempt was made to rectify the issue but as the bug was discovered late in development there was insufficient time available to rectify it before the deadline.
 
 #### Favicon Error
-The following error pops up in the console on loading the site but as it does not seem to affect performance in any way it was not addressed due to more important issues.
-  GET https://8000-radheyam-bookwyrm-gj0q4c2c3os.ws-eu59.gitpod.io/undefined 404
+An error pops up in the console on loading the site linked to favicon.ico, but as it does not seem to affect performance in any way it was not addressed due to more important issues.
 
 #### Missing API Info
 There is a placeholder image supplier for missing image links to avoid errors, but sometimes other information is missing from particular books and is displayed as "undefined".  To be fixed by adding logic to replace undefined with a message explaining the issue to the user.
@@ -104,5 +103,6 @@ If a book is removed from the booklist or pinned cards memory on the home screen
 If the user attempts to add a book with the same title as a book already in a list, nothing new will be added.  To fix, logic checking for more than just the title when blocking duplicate entries can be written.
 
 ## Deployment
+Within the Github respository window select the 'settings' tab menu and navigate to 'pages'. Select 'Branch: main' from the dropdown menu and execute. The site will be live in a matter of minutes, and the live URL will be displayed on the same deployment page. Any changes made after deployment in the main branch will be added to the live site after they are committed and pushed to the Github repository.
 
 ## Credits
