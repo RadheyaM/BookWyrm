@@ -533,4 +533,9 @@ i {
         width: 80vw;
         ;
     }
+
+    .card-header {
+        width: 75%;
+        margin: auto;
+    }
 }
