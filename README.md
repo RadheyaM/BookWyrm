@@ -12,10 +12,9 @@ Why not just use Google Books? Although Google Books itself is an excellent plat
 
 ## Table of Contents
 + [Planning](#planning)
-+ [Development](#development)
 + [Features](#features)
   - [Home Page](#homepage)
-
++ [Functionality Overview](#functionality-overview)
 + [Technologies Used](#technologies-used)
 + [Testing](#testing)
 + [Deployment](#deployment)
@@ -56,8 +55,6 @@ The font will be Montserrat from Google Fonts.
 The primary color scheme will be black with white text, which tends to be less straining on the eyes than a brighter theme.  There will however be a secondary light theme, which the user will be able to toggle to their preference.
 
 ![Blue Color Palette](documents/feature-images/color-pallet-light.webp)
-
-## Development
 
 ## Features
 [Comprehensive selection of feature images](documents/feature-images/)
@@ -117,6 +114,36 @@ The popup contains two interactive buttons, which have varying functions dependi
 
 ### Footer
 A footer was not included as it was deemed unnecessary.
+
+## Functionality Overview
+
+This section aims to clarify the general working of the code, giving an insight into how the features work behind the scenes to anyone reviewing the code indepth.
+
+### Querying
+Fundamentally the site is a GUI to to query the Google Books API.  An asyncronous function generates a query URL based on user search input and stores the response JSON data in local storage.
+
+### Local Storage
+Local storage is relied upon for all main features of the site.  
+-  Saving the response data which is then used to populate the cards.
+-  Saving the search history.
+-  Saving data related to books saved by the user in the booklist and pinned cards list.
+-  There are two local storage arrays for each list, one for the complete book JSON file retrieved and then saved by the user and the other saves just the title information.  As they are saved at the same time the ordering of the arrays always matches.
+-  Saving the user theme choice.
+
+### Populating HTML from Local Storage
+-  HTML Templates are used to generate cards containing specific information from the response data.
+-  The popup is not a template, but the same code re-populated each time it's opened.
+-  The booklist and history dropdown menus are populated by generating new HTML list links when added.
+-  The specific book used to populate a given popup is chosen by a data variable ID which is set when the card is generated, using this it is able to find the specific book in the relevant local storage array.
+
+### Popup Buttons
+-  The popup buttons are adaptable to where certain book information is stored.  When the popup is generated JavaScript code looks through the local storage to check if the book is stored or not and the particular status is reflected in how the button appears to the user.
+
+### Event Listeners
+- On load event listeners are used to populate or update the local storage lists each time the site is reloaded.
+- Click event listeners combined with event.path is used to identify the particular book ID in storage.
+- Refreshing the page after user input is quite important and influenced the design of the site to facilitate mandatory refreshes where possible. There is also an update button to refresh the homepage after making changes to the lists as they don't update without a page refresh.
+
 
 ## Technologies Used
 
@@ -188,7 +215,7 @@ Testing was done extensively throughout, and upon completion across various scre
 
 ### Known Bugs To Be Fixed
 #### Firefox and iOS Devices
-The event listener to open popups relies on event.path to identify which book information to use in populating a popup window.  The event.path synthax is not supported on iOS touchscreen devices or on the Firefox browser and as a result the popups cannot be opened when using these technologies.  An attempt was made to rectify the issue but as the bug was discovered late in development there was insufficient time available to rectify it before the deadline.
+The event listener to open popups relies on event.path to choose specific data to populate the popup window.  The event.path synthax is not supported on iOS touchscreen devices or on the Firefox browser and as a result the popups cannot be opened when using these technologies.  An attempt was made to rectify the issue but as event.path is crucial and as the bug was discovered late in development there was insufficient time available to rectify it before the deadline.
 
 #### Favicon Error
 An error pops up in the console on loading the site linked to favicon.ico, but as it does not seem to affect performance in any way it was not addressed due to more important issues.
