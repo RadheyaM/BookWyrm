@@ -178,8 +178,9 @@ Local storage is relied upon for all main features of the site.
 - [Convertio](https://convertio.co/jpg-webp/) - used to convert jpg images to better optimised webp format.
 - [Optimizilla](https://imagecompressor.com/) - used to optimise the images for better performance.
 - [Coolers](https://coolors.co/) for the blue color palette.
-- [Techsini](https://techsini.com/multi-mockup/index.php) - for the site mockup image
+- [Techsini](https://techsini.com/multi-mockup/index.php) - for the site mockup image.
 - Chrome developer tools - used to view, edit and test the site throughout development.
+- Google Fonts.
 
 ## Testing
 
@@ -255,3 +256,9 @@ If the user attempts to add a book with the same title as a book already in a li
 Within the Github respository window select the 'settings' tab menu and navigate to 'pages'. Select 'Branch: main' from the dropdown menu and execute. The site will be live in a matter of minutes, and the live URL will be displayed on the same deployment page. Any changes made after deployment in the main branch will be added to the live site after they are committed and pushed to the Github repository.
 
 ## Credits
+
+- Dropdown code taken almost verbatim, with small changes, from [W3schools](https://www.w3schools.com/howto/howto_css_dropdown_navbar.asp).
+- In designing many of the features of the site (cards and modal in particular) inspiration and ideas were gained from [Web Dev Simplifed](https://www.youtube.com/c/WebDevSimplified) on YouTube.
+- Watching [dcode](https://www.youtube.com/c/dcode-software) videos on YouTube were invaluable in improving my understanding of local storage and async functions.
+- Many thanks to my mentor Brian Macharia for pointing me in the right direction with resources and advice.
+- Many thanks to Code Institute for providing the learning materials.
