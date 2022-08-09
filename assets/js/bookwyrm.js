@@ -24,7 +24,6 @@ const popUpDesc = document.getElementsByClassName("pop-desc")[0];
 const popBooklistBtn = popUp.getElementsByTagName("button")[1];
 const popPinBtn = popUp.getElementsByTagName("button")[2];
 const popGoogleLink = popUp.getElementsByTagName("a")[0];
-const popGoogleBtn = document.getElementById("google-btn");
 const addPin = '<i class="fa-solid fa-thumbtack"></i> To Home';
 const removePin = '<i class="fa-solid fa-circle-minus"></i> Unpin';
 const addBklst = '<i class="fa-solid fa-plus"></i> Booklist';
@@ -307,7 +306,7 @@ function openPopUp(target) {
 function populatePopUp(volumeInfo, arrayId, volumeId) {
   popUpTitle.innerHTML = volumeInfo.title;
   popUpDesc.innerHTML = volumeInfo.description;
-  imageList = generateImageList(volumeInfo);
+  const imageList = generateImageList(volumeInfo);
   popUpImage.style.background = `url(${imageList[0]}) no-repeat center center`;
   popUpAuth.innerHTML = `Author:  ${volumeInfo.authors}`;
   popUpPublished.innerHTML = `Published By:  ${volumeInfo.publishedDate}`;

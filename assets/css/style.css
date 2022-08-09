@@ -446,6 +446,13 @@ i {
 /*
 ----------------------MEDIA QUERIES------------------------------
 */
+@media screen and (min-width: 1600px) {
+    .popup {
+        height: 600px;
+        width: 30vw;
+        overflow-y: scroll;
+    }
+}
 
 @media screen and (max-width: 800px) {
 
