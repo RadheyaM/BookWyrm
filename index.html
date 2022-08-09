@@ -16,8 +16,8 @@
   <!--navigation bar-->
   <header>
     <nav class="navbar">
-      <button id="toggle"><i class="fa-solid fa-moon"></i>&nbsp&nbsp&nbsp<i
-          class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp&nbsp&nbsp<i class="fa-solid fa-sun"></i></button>
+      <button id="toggle"><i class="fa-solid fa-moon"></i>&nbsp;&nbsp;&nbsp;<i
+          class="fa-solid fa-arrow-right-arrow-left"></i>&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-sun"></i></button>
       <div class="dropdown">
         <button class="dropbtn" id="booklist">
           <i class="fa-solid fa-list"></i>
@@ -42,7 +42,6 @@
           <a id="clear-pinlist">Clear Pinlist</a>
         </div>
       </div>
-    </nav>
     </nav>
   </header>
 
@@ -79,9 +78,10 @@
           </ul>
         </div>
         <div class="popup-button">
-          <button id="save-to-booklist"><a target="_parent" id="booklist-a"></a></button>
-          <button id="pin"><a target="_parent" id="pin-a"></a></button>
-          <button id="google-btn" class="pop-btn"><a id="google"><i class="fa-brands fa-google"></i> Books</a></button>
+          <button id="save-to-booklist"><a href="" target="_parent" id="booklist-a"></a></button>
+          <button id="pin"><a href="" target="_parent" id="pin-a"></a></button>
+          <button id="google-btn" href="" class="pop-btn"><a id="google"><i class="fa-brands fa-google"></i>
+              Books</a></button>
         </div>
       </div>
       <hr>
@@ -94,37 +94,37 @@
   </section>
 
   <!-- Template to generate book cards on search-->
-  <div id="book-cards-container"></div>
-  <template id="book-card-template">
-    <div class="card">
-      <div class="card-header">
-        <div class="image"> </div>
+  <div id="book-cards-container">
+    <template id="book-card-template">
+      <div class="card">
+        <div class="card-header">
+          <div class="image"> </div>
+        </div>
+        <div class="card-body">
+          <hr>
+          <p class="book-title"></p>
+          <p class="book-auth"></p>
+        </div>
+        <div class="volume-id"></div>
       </div>
-      <div class="card-body">
-        <hr>
-        <p class="book-title"></p>
-        <p class="book-auth"></p>
-      </div>
-      <div class="volume-id"></div>
-    </div>
-  </template>
+    </template>
   </div>
   <!-- Template to generate pinned list cards on page reload-->
-  <div id="pinned-cards-container"></div>
-  <template id="pinned-card-template">
-    <div class="card">
-      <div class="pin-icon"> <i class="fa-solid fa-thumbtack"></i></div>
-      <div class="card-header">
-        <div class="image"> </div>
+  <div id="pinned-cards-container">
+    <template id="pinned-card-template">
+      <div class="card">
+        <div class="pin-icon"> <i class="fa-solid fa-thumbtack"></i></div>
+        <div class="card-header">
+          <div class="image"> </div>
+        </div>
+        <div class="card-body">
+          <hr>
+          <p class="book-title"></p>
+          <p class="book-auth"></p>
+        </div>
+        <div class="volume-id"></div>
       </div>
-      <div class="card-body">
-        <hr>
-        <p class="book-title"></p>
-        <p class="book-auth"></p>
-      </div>
-      <div class="volume-id"></div>
-    </div>
-  </template>
+    </template>
   </div>
 </body>
 

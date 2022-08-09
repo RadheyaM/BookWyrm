@@ -357,7 +357,6 @@ i {
 
 .popup-subheader>.image {
     background-image: url('');
-    background-size: no-repeat cover;
     width: 200px;
     cursor: default;
 }
