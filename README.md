@@ -86,13 +86,35 @@ A footer was not included as it was deemed unnecessary.
 
 ## Testing
 
-### Lighthouse - Google Developer Tools
+### JSHint - JavaScript Code Validator
 
+Three warnings - not serious:
+
+  - async functions only available in ES8.  No issues were detected in performance across devices due to this issue.
+  - Two of the same issue, functions declared inside of a loop warning.  This could be improved for readability but they are simple functions and are annotated accordingly but going forward this advice will be followed.
+
+  - [JSHint Test Configurations](documents/testing/validator-results/jshint/jshint-configs.png)
+  - [JSHint Test Feedback Results](documents/testing/validator-results/jshint/jshint-results.png)
+
+### W3C CSS Validator
+
+
+This document validates as CSS level 3 + SVG.
+  - [Results](documents/testing/validator-results/css-w3c-validator.pdf)
+
+### W3C Nu HTML Validator
+
+Passed with no errors or warnings to show.
+  - [Results](documents/testing/validator-results/nu-html-w3c-validator.pdf)
+
+### Lighthouse - Google Developer Tools
 Accessibility
-  - the score is decreased due to the buttons not having a name, however it is part of the design of the theme toggle button to just comprise images and the popup buttons innerHTML will be populated by JavaScript.
+  - the score is decreased due to the buttons not having a name, however it is part of the design of the theme toggle button to be just icons and the popup buttons innerHTML will be populated by JavaScript.
 
 SEO
   - There are some errors here beyond the scope of the course to fix.
+
+Included in the link below are test results initial and after the fixes showing improvements.
 
 [Lighthouse Report Results](documents/testing/lighthouse/)
 
