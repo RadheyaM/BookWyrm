@@ -12,8 +12,18 @@ Why not just use Google Books? Although Google Books itself is an excellent plat
 
 ## Table of Contents
 + [Planning](#planning)
+  - [Target Users](#target-users)
+  - [User Stories](#user-stories)
+  - [Site Goals](#site-goals)
+  - [Font and Color Scheme](#font-and-color-scheme)
 + [Features](#features)
-  - [Home Page](#homepage)
+  - [Search Section](#search-section)
+  - [Header](#header)
+  - [Search Results](#search-results)
+  - [Cards](#cards)
+  - [Pinned Cards](#pinned-cards)
+  - [Popup Window (Modal)](#popup-window-modal)
+  - [Popup Buttons](#popup-buttons)
 + [Functionality Overview](#functionality-overview)
 + [Technologies Used](#technologies-used)
 + [Testing](#testing)
@@ -35,7 +45,7 @@ What I want as a user from a book finder site:
 - to get the results back with relevant information.
 - to be able to access more detailed information easily.
 - to be able to save books for later in a list.
-- to be able to save my results in a visual list of cards on the homepage.
+- to be able to save books in a visual list of cards on the homepage.
 - to see a recent search history.
 - to be able to choose between a dark or light theme.
 - to be able to clear my lists and history.
@@ -58,7 +68,7 @@ The primary color scheme will be black with white text, which tends to be less s
 
 ## Features
 [Comprehensive selection of feature images](documents/feature-images/)
-### Homepage
+### Search Section
 #### Search Bar 
 A search can be initiated by clicking the search button or by pressing enter when the search bar is active.  Any term can be searched, title, author etc.
 #### Update Button 
@@ -127,12 +137,12 @@ Local storage is relied upon for all main features of the site.
 -  Saving the response data which is then used to populate the cards.
 -  Saving the search history.
 -  Saving data related to books saved by the user in the booklist and pinned cards list.
--  There are two local storage arrays for each list, one for the complete book JSON file retrieved and then saved by the user and the other saves just the title information.  As they are saved at the same time the ordering of the arrays always matches.
+-  There are two local storage arrays for each list, one for the complete book JSON object retrieved and then saved by the user and the other saves just the title information.  As they are saved at the same time the ordering of the arrays always matches.
 -  Saving the user theme choice.
 
 ### Populating HTML from Local Storage
 -  HTML Templates are used to generate cards containing specific information from the response data.
--  The popup is not a template, but the same code re-populated each time it's opened.
+-  The popup is not a template, but the same code re-populated each time it's opened.  It can be populated from three different local storage arrays depending on where it's triggered by the user.
 -  The booklist and history dropdown menus are populated by generating new HTML list links when added.
 -  The specific book used to populate a given popup is chosen by a data variable ID which is set when the card is generated, using this it is able to find the specific book in the relevant local storage array.
 
