@@ -23,6 +23,39 @@ Why not just use Google Books? Although Google Books itself is an excellent plat
 
 ## Planning
 
+### Target Users
+- Students
+- Avid Readers
+- Researchers
+
+### User Stories
+What I want as a user from a book finder site:
+
+- to be able to search for books quickly.
+- to get the results back with relevant information.
+- to be able to access more detailed information easily.
+- to be able to save books for later in a list.
+- to be able to save my results in a visual list of cards on the homepage.
+- to see a recent search history.
+- to be able to choose between a dark or light theme.
+- to be able to clear my lists and history.
+
+### Site Goals
+The site aims to be:
+
+- Clean, simple and fast UI.
+- Visually attractive and intuitive.
+- Responsive to user input.
+- Consistent in delivering the features promised.
+
+
+### Font and Color Scheme
+The font will be Montserrat from Google Fonts.  
+
+The primary color scheme will be black with white text, which tends to be less straining on the eyes than a brighter theme.  There will however be a secondary light theme, which the user will be able to toggle to their preference.
+
+![Blue Color Palette](documents/feature-images/color-pallet-light.webp)
+
 ## Development
 
 ## Features
