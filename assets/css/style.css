@@ -180,7 +180,7 @@ i {
 
 .refresh.hidden {
     display: none;
-    height: 1;
+    height: 0;
     width: 0;
 }
 
@@ -192,7 +192,6 @@ i {
     padding: 1rem;
     border: none;
     border-radius: 10px;
-    scale: 1;
     transition: 300ms ease-in-out;
 }
 
@@ -277,12 +276,10 @@ i {
 .image {
     background-image: url('');
     background-color: var(--card-backup-bg);
-    background-size: no-repeat cover;
     height: 200px;
     margin: auto;
     align-items: center;
     cursor: pointer;
-    padding: auto;
 }
 
 .card>.book-title {
@@ -372,7 +369,6 @@ i {
 .popup-button {
     display: flex;
     flex-direction: column;
-    align-items: left;
     justify-content: center;
     font-size: 1rem;
     padding-right: 1rem;
@@ -479,7 +475,6 @@ i {
         flex-direction: column;
         margin: auto;
         padding: 0;
-        align-content: left;
     }
 
     .popup-button {
