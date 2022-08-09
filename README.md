@@ -24,6 +24,7 @@ Why not just use Google Books? Although Google Books itself is an excellent plat
   - [Pinned Cards](#pinned-cards)
   - [Popup Window (Modal)](#popup-window-modal)
   - [Popup Buttons](#popup-buttons)
+  - [Desirable Improvements](#desirable-improvements)
 + [Functionality Overview](#functionality-overview)
   - [Querying](#querying)
   - [Local Storage](#local-storage)
@@ -135,6 +136,18 @@ The popup contains two interactive buttons, which have varying functions dependi
 
 ### Footer
 A footer was deemed unnecessary to the minimalist design of the site.
+
+### Desirable Improvements
+  - a 'help' setting, when clicked the user can hover over a feature and get an explanation dialogue box.
+  - Customisable lists that a user can create and name themselves.
+  - Lists in a sidebar rather than a dropdown.
+  - The ability to add and remove list items directly from the cards.
+  - The ability to delete single items in the dropdown menus.
+
+### Abandoned Features
+  - More detailed searches for a specific author or genre.  Although this sounds and looks good, it's unnecessary as the general search is more than adequate no matter the term.  It was also very complicated to generate a URL taking certain terms, not worth the effort.
+
+
 
 ## Functionality Overview
 
