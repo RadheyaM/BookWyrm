@@ -311,7 +311,7 @@ function populatePopUp(volumeInfo, arrayId, volumeId) {
   if (thumbnail === undefined) {
     popUpImage.style.background = `no-repeat center center`;
   } else {
-    popUpImage.style.background = `url(${thumbnail}) no-repeat center center`;
+    popUpImage.style.background = `url(${thumbnail.thumbnail}) no-repeat center center`;
   }
   popUpAuth.innerHTML = `Author:  ${volumeInfo.authors}`;
   popUpPublished.innerHTML = `Published By:  ${volumeInfo.publishedDate}`;
